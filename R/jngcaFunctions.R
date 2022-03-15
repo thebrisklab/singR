@@ -908,12 +908,25 @@ computeRho <- function(JBvalX, JBvalY, Mxall, Myall, rjoint){
 
 
 #IGAY: adjust function so that the path is not hard-coded
+#' Title
+#'
+#' @param component component for the plot, px x rx
+#' @param title title for plot
+#' @param qmin default value = 0.005
+#' @param qmax default value = 0.995
+#' @param path path for the saved plot data
+#' @param make.diag default value = NA
+#'
+#' @return
+#' @export
+#' @import ggplot2
+#' @import grid
+#' @import scales
+#' @examples
 plotNetwork = function(component,title='',qmin=0.005, qmax=0.995, path = '~/Dropbox/JINGCA/Data/community_affiliation_mmpplus.csv',make.diag=NA) {
   # component:
   # vectorized network of lenght choose(n,2)
-  require(ggplot2)
-  require(grid)
-  require(scales)
+
 
   # load communities for plotting:
   mmp_modules = read.csv(path)

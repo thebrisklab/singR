@@ -23,4 +23,7 @@ Imports:
     irlba,
     snow,
     neuRosim,
-    steadyICA
+    steadyICA,
+    ggplot2,
+    grid,
+    scales
