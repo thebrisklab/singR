@@ -1,0 +1,23 @@
+---
+title: "Readme.RMD"
+author: "Liangkang Wang"
+date: "3/15/2022"
+output: 
+  md_document:
+    variant: markdown_github
+---
+
+## singR 
+
+singR package is built on SING method <https://github.com/thebrisklab/SING>.
+
+
+### Installation
+
+You can install singR from github with:
+```{r,eval=FALSE}
+library(devtools)
+install_github("thebrisklab/singR")
+
+```
+
