@@ -12,7 +12,7 @@ signchange(S, M = NULL)
 \item{M}{}
 }
 \value{
-newS
+newS the original S * signskew, which is mean(S.column^3)
 }
 \description{
 Sign change for S matrix to image
