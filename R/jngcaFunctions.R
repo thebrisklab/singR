@@ -908,7 +908,7 @@ computeRho <- function(JBvalX, JBvalY, Mxall, Myall, rjoint){
 
 
 #IGAY: adjust function so that the path is not hard-coded
-#' Title
+#' PlotNetwork for components
 #'
 #' @param component component for the plot, px x rx
 #' @param title title for plot
@@ -970,12 +970,16 @@ plotNetwork = function(component,title='',qmin=0.005, qmax=0.995, path = '~/Drop
 
 ############
 # Function for plotting networks with ggplot
-#' create graph with netmat and mmp_order
-#'
+#' create graph dataset with netmat and mmp_order
+#' a data.frame called with vectorization of reordered netmat by mmp_order.
 #' @param gmatrix netmat
 #' @param sort_indices mmp_order
 #'
-#' @return a data.frame called meltsub
+#' @return a data.frame with vectors:
+#'  ## X1: vector of numerics.
+#'  ## X2: vector of numerics.
+#'  ## value: vectorization of reordered netmat by mmp_order.
+#'
 #' @export
 #'
 #' @examples

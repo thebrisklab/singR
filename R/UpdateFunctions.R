@@ -42,8 +42,8 @@ calculateG <- function(U, DataW, invL, A, rho, alpha = 0.8, r0 = nrow(U)){
 }
 
 
-# Curvlinear algorithm with r0 joint components
-#' Curvlinear algorithm with r0 joint components
+# Curvilinear algorithm with r0 joint components
+#' Curvilinear algorithm with r0 joint components
 #'
 #' @param Ux Matrix with n.comp x n, initial value of Ux, comes from greedyMatch.
 #' @param Uy Matrix with n.comp x n, initial value of Uy, comes from greedyMatch.
@@ -154,7 +154,7 @@ curvilinear <- function(Ux, Uy, xData, yData, invLx, invLy, rho, tau = 0.01, alp
 
 
 ### curvilinear_c function with r0 joint components
-#' Curvlinear algorithm based on C code with r0 joint components
+#' Curvilinear algorithm based on C code with r0 joint components
 #'
 #' @param Ux Matrix with n.comp x n, initial value of Ux, comes from greedyMatch.
 #' @param Uy Matrix with n.comp x n, initial value of Uy, comes from greedyMatch.

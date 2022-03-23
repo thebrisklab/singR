@@ -2,7 +2,7 @@
 % Please edit documentation in R/jngcaFunctions.R
 \name{plotNetwork}
 \alias{plotNetwork}
-\title{Title}
+\title{PlotNetwork for components}
 \usage{
 plotNetwork(
   component,
@@ -30,5 +30,5 @@ plotNetwork(
 
 }
 \description{
-Title
+PlotNetwork for components
 }

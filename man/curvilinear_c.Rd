@@ -2,7 +2,7 @@
 % Please edit documentation in R/UpdateFunctions.R
 \name{curvilinear_c}
 \alias{curvilinear_c}
-\title{Curvlinear algorithm based on C code with r0 joint components}
+\title{Curvilinear algorithm based on C code with r0 joint components}
 \usage{
 curvilinear_c(
   Ux,
@@ -48,5 +48,5 @@ curvilinear_c(
 
 }
 \description{
-Curvlinear algorithm based on C code with r0 joint components
+Curvilinear algorithm based on C code with r0 joint components
 }

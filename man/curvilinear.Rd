@@ -2,7 +2,7 @@
 % Please edit documentation in R/UpdateFunctions.R
 \name{curvilinear}
 \alias{curvilinear}
-\title{Curvlinear algorithm with r0 joint components}
+\title{Curvilinear algorithm with r0 joint components}
 \usage{
 curvilinear(
   Ux,
@@ -54,5 +54,5 @@ a list of matrices:
  ## obj: Objective Function value
 }
 \description{
-Curvlinear algorithm with r0 joint components
+Curvilinear algorithm with r0 joint components
 }

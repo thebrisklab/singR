@@ -2,7 +2,8 @@
 % Please edit documentation in R/jngcaFunctions.R
 \name{create.graph.long}
 \alias{create.graph.long}
-\title{create graph with netmat and mmp_order}
+\title{create graph dataset with netmat and mmp_order
+a data.frame called with vectorization of reordered netmat by mmp_order.}
 \usage{
 create.graph.long(gmatrix, sort_indices = NULL)
 }
@@ -12,8 +13,12 @@ create.graph.long(gmatrix, sort_indices = NULL)
 \item{sort_indices}{mmp_order}
 }
 \value{
-a data.frame called meltsub
+a data.frame with vectors:
+ ## X1: vector of numerics.
+ ## X2: vector of numerics.
+ ## value: vectorization of reordered netmat by mmp_order.
 }
 \description{
-create graph with netmat and mmp_order
+create graph dataset with netmat and mmp_order
+a data.frame called with vectorization of reordered netmat by mmp_order.
 }
