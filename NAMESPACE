@@ -3,6 +3,7 @@
 export("%^%")
 export(angleMatchICA)
 export(calculateJB)
+export(create.graph.long)
 export(curvilinear)
 export(curvilinear_c)
 export(est.M.ols)

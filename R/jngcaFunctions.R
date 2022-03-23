@@ -970,6 +970,15 @@ plotNetwork = function(component,title='',qmin=0.005, qmax=0.995, path = '~/Drop
 
 ############
 # Function for plotting networks with ggplot
+#' create graph with netmat and mmp_order
+#'
+#' @param gmatrix netmat
+#' @param sort_indices mmp_order
+#'
+#' @return a data.frame called meltsub
+#' @export
+#'
+#' @examples
 create.graph.long = function(gmatrix,sort_indices=NULL) {
   nnode = nrow(gmatrix)
   X1 = c(1:nnode)%x%rep(1,nnode)
