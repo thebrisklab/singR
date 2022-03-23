@@ -149,7 +149,7 @@ lngca_multicore <- function(xData, n.comp = ncol(xData), ncores=20, W.list = NUL
 
 # IGAY: edited on June 5th, 2019 to correct ordering of Ws
 # BRisk: edited on 17 July 2019 to estimate M for xData, not for whitened data
-#' Decompite the original data through LNGCA method
+#' Decomposite the original data through LNGCA method
 #'
 #' @param xData the original dataset for decomposition, matrix of px x n
 #' @param n.comp the number of components need to be estimated.
@@ -969,7 +969,7 @@ plotNetwork = function(component,title='',qmin=0.005, qmax=0.995, path = '~/Drop
 }
 
 ############
-# Function for plotting networks with ggplot
+#‘ Function for plotting networks with ggplot
 #' create graph dataset with netmat and mmp_order
 #' a data.frame called with vectorization of reordered netmat by mmp_order.
 #' @param gmatrix netmat

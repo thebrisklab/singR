@@ -2,7 +2,7 @@
 % Please edit documentation in R/jngcaFunctions.R
 \name{lngca}
 \alias{lngca}
-\title{Decompite the original data through LNGCA method}
+\title{Decomposite the original data through LNGCA method}
 \usage{
 lngca(
   xData,
@@ -73,7 +73,7 @@ Function outputs a list including the following:
  ## nongaussianity: the nongaussianity score for each component saved in S matrix.
 }
 \description{
-Decompite the original data through LNGCA method
+Decomposite the original data through LNGCA method
 }
 \examples{
 
