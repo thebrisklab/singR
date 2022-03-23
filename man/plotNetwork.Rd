@@ -22,7 +22,7 @@ plotNetwork(
 
 \item{qmax}{default value = 0.995}
 
-\item{path}{path for the saved plot data}
+\item{path}{default path}
 
 \item{make.diag}{default value = NA}
 }

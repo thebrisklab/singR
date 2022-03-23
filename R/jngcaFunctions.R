@@ -914,7 +914,7 @@ computeRho <- function(JBvalX, JBvalY, Mxall, Myall, rjoint){
 #' @param title title for plot
 #' @param qmin default value = 0.005
 #' @param qmax default value = 0.995
-#' @param path path for the saved plot data
+#' @param path default path
 #' @param make.diag default value = NA
 #'
 #' @return
