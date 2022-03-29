@@ -46,12 +46,14 @@ curvilinear(
 }
 \value{
 a list of matrices:
- ## \code{Ux} Optimized Ux with matrix n.comp x n.
- ## Uy: Optimized Uy with matrix n.comp x n.
- ## tau: step size
- ## iter: number of iterations.
- ## error: PMSE(Ux,Uxnew)+PMSE(Uy,Uynew)
- ## obj: Objective Function value
+\describe{
+      \item{\code{Ux}}{Optimized Ux with matrix n.comp x n.}
+      \item{\code{Uy}}{Optimized Uy with matrix n.comp x n.}
+      \item{\code{tau}}{step size}
+      \item{\code{iter}}{number of iterations.}
+      \item{\code{error}}{PMSE(Ux,Uxnew)+PMSE(Uy,Uynew)}
+      \item{\code{obj}}{Objective Function value}
+}
 }
 \description{
 Curvilinear algorithm with r0 joint components

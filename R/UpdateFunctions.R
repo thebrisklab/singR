@@ -59,12 +59,16 @@ calculateG <- function(U, DataW, invL, A, rho, alpha = 0.8, r0 = nrow(U)){
 #' @param r0 the joint rank, comes from greedyMatch.
 #'
 #' @return a list of matrices:
-#'  ## \code{Ux} Optimized Ux with matrix n.comp x n.
-#'  ## Uy: Optimized Uy with matrix n.comp x n.
-#'  ## tau: step size
-#'  ## iter: number of iterations.
-#'  ## error: PMSE(Ux,Uxnew)+PMSE(Uy,Uynew)
-#'  ## obj: Objective Function value
+#' \describe{
+#'       \item{\code{Ux}}{Optimized Ux with matrix n.comp x n.}
+#'       \item{\code{Uy}}{Optimized Uy with matrix n.comp x n.}
+#'       \item{\code{tau}}{step size}
+#'       \item{\code{iter}}{number of iterations.}
+#'       \item{\code{error}}{PMSE(Ux,Uxnew)+PMSE(Uy,Uynew)}
+#'       \item{\code{obj}}{Objective Function value}
+#' }
+#'
+#'
 #' @export
 #'
 #' @examples
