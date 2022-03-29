@@ -11,9 +11,9 @@ greedymatch(Mx, My, Ux, Uy)
 
 \item{My}{Subject Score for Y with n x n.comp matrix}
 
-\item{Ux}{Matrix with n.comp x n, Mx = Lx^-1 %*% t(Ux), Lx is the whitener matrix of dX.}
+\item{Ux}{Matrix with n.comp x n, Mx = Lx^-1 \%*\% t Ux, Lx is the whitener matrix of dX.}
 
-\item{Uy}{Matrix with n.comp x n, My = Ly^-1 %*% t(Uy), Ly is the whitener matrix of dY.}
+\item{Uy}{Matrix with n.comp x n, My = Ly^-1 \%*\% t Uy, Ly is the whitener matrix of dY.}
 }
 \value{
 a list of matrices:
@@ -26,7 +26,6 @@ a list of matrices:
  ## mapY: the sequence of the columns in original My.
 }
 \description{
-\code{greedymatch}
 Greedy Match matches a column of Mx and My by minimizing chordal distance between vectors,
 removes the matched columns and then finds the next pair.
 This equivalent to maximizing absolute correlation for data in which each column has mean equal to zero.

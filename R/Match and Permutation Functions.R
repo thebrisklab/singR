@@ -91,7 +91,7 @@ jin_match = function(invLx,invLy,Ux,Uy,nperm,multicore=0,alpha=0.01){
 
 #' Greedy Match
 #'
-#'\code{greedymatch}
+#'
 #'Greedy Match matches a column of Mx and My by minimizing chordal distance between vectors,
 #'removes the matched columns and then finds the next pair.
 #'This equivalent to maximizing absolute correlation for data in which each column has mean equal to zero.
@@ -99,8 +99,8 @@ jin_match = function(invLx,invLy,Ux,Uy,nperm,multicore=0,alpha=0.01){
 #'For this matching to coincide with angle matching, the columns must have zero mean.
 #' @param Mx Subject Score for X with n x n.comp matrix
 #' @param My Subject Score for Y with n x n.comp matrix
-#' @param Ux Matrix with n.comp x n, Mx = Lx^-1 %*% t(Ux), Lx is the whitener matrix of dX.
-#' @param Uy Matrix with n.comp x n, My = Ly^-1 %*% t(Uy), Ly is the whitener matrix of dY.
+#' @param Ux Matrix with n.comp x n, Mx = Lx^-1 \%*\% t Ux, Lx is the whitener matrix of dX.
+#' @param Uy Matrix with n.comp x n, My = Ly^-1 \%*\% t Uy, Ly is the whitener matrix of dY.
 #'
 #' @return a list of matrices:
 #'  ## Mx: Columns of original Mx reordered from highest to lowest correlation with matched component in My
