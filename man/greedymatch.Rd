@@ -28,7 +28,7 @@ a list of matrices:
 }
 }
 \description{
-Greedy Match matches a column of Mx and My by minimizing chordal distance between vectors,
+\code{Greedy Match} matches a column of Mx and My by minimizing chordal distance between vectors,
 removes the matched columns and then finds the next pair.
 This equivalent to maximizing absolute correlation for data in which each column has mean equal to zero.
 Returns permuted columns of Mx and My. This function does not do any scaling or sign flipping.
