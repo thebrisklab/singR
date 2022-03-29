@@ -103,13 +103,16 @@ jin_match = function(invLx,invLy,Ux,Uy,nperm,multicore=0,alpha=0.01){
 #' @param Uy Matrix with n.comp x n, My = Ly^-1 \%*\% t Uy, Ly is the whitener matrix of dY.
 #'
 #' @return a list of matrices:
-#'  ## Mx: Columns of original Mx reordered from highest to lowest correlation with matched component in My
-#'  ## My: Columns of original My reordered from highest to lowest correlation with matched component in Mx
-#'  ## Ux: Permuted rows of original Ux corresponds to MapX
-#'  ## Uy: Permuted rows of original Uy corresponds to MapY
-#'  ## correlations: a vector of correlations for each pair of columns in permuted Mx and My
-#'  ## mapX: the sequence of the columns in original Mx.
-#'  ## mapY: the sequence of the columns in original My.
+#' \describe{
+#'        \item{\code{Mx}}{Columns of original Mx reordered from highest to lowest correlation with matched component in My}
+#'        \item{\code{My}}{Columns of original My reordered from highest to lowest correlation with matched component in Mx}
+#'        \item{\code{Ux}}{Permuted rows of original Ux corresponds to MapX}
+#'        \item{\code{Uy}}{Permuted rows of original Uy corresponds to MapY}
+#'        \item{\code{correlations}}{a vector of correlations for each pair of columns in permuted Mx and M}
+#'        \item{\code{mapX}}{the sequence of the columns in original Mx.}
+#'        \item{\code{mapY}}{the sequence of the columns in original MY.}
+#' }
+#'
 #' @export
 #'
 #' @examples

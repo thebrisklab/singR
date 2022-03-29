@@ -172,7 +172,7 @@ lngca_multicore <- function(xData, n.comp = ncol(xData), ncores=20, W.list = NUL
 #'
 #' @return Function outputs a list including the following:
 #' \describe{
-#'       \item{\code{Ws}}{ t(Ux) matrix n x n.comp, part of the expression that Ax = Ux x Lx and Ax x Xc = Sx, where Lx is the whitener matrix.}
+#'       \item{\code{Ws}}{t(Ux) matrix n x n.comp, part of the expression that Ax = Ux x Lx and Ax x Xc = Sx, where Lx is the whitener matrix.}
 #'       \item{\code{loglik}}{the value of log-likelihood in the lngca method.}
 #'       \item{\code{S}}{the variable loading matrix px x n.comp, each column is a component, which can be used to measure nongaussianity}
 #'       \item{\code{df}}{egree of freedom.}
