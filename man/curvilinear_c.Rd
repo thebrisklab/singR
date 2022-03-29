@@ -24,9 +24,9 @@ curvilinear_c(
 
 \item{Uy}{Matrix with n.comp x n, initial value of Uy, comes from greedyMatch.}
 
-\item{xData}{matrix with n x px, Xw = Lx %*% Xc.}
+\item{xData}{matrix with n x px, Xw = Lx \%*\% Xc.}
 
-\item{yData}{matrix with n x py, Yw = Ly %*% Yc.}
+\item{yData}{matrix with n x py, Yw = Ly \%*\% Yc.}
 
 \item{invLx}{Inverse matrix of Lx, matrix n x n.}
 

@@ -47,8 +47,8 @@ calculateG <- function(U, DataW, invL, A, rho, alpha = 0.8, r0 = nrow(U)){
 #'
 #' @param Ux Matrix with n.comp x n, initial value of Ux, comes from greedyMatch.
 #' @param Uy Matrix with n.comp x n, initial value of Uy, comes from greedyMatch.
-#' @param xData matrix with n x px, Xw = Lx %*% Xc.
-#' @param yData matrix with n x py, Yw = Ly %*% Yc.
+#' @param xData matrix with n x px, Xw = Lx \%*\% Xc.
+#' @param yData matrix with n x py, Yw = Ly \%*\% Yc.
 #' @param invLx Inverse matrix of Lx, matrix n x n.
 #' @param invLy Inverse matrix of Ly, matrix n x n.
 #' @param rho the weight parameter of matching relative to non-gaussianity.
@@ -59,7 +59,7 @@ calculateG <- function(U, DataW, invL, A, rho, alpha = 0.8, r0 = nrow(U)){
 #' @param r0 the joint rank, comes from greedyMatch.
 #'
 #' @return a list of matrices:
-#'  ## Ux: Optimized Ux with matrix n.comp x n.
+#'  ## \code{Ux} Optimized Ux with matrix n.comp x n.
 #'  ## Uy: Optimized Uy with matrix n.comp x n.
 #'  ## tau: step size
 #'  ## iter: number of iterations.
@@ -158,8 +158,8 @@ curvilinear <- function(Ux, Uy, xData, yData, invLx, invLy, rho, tau = 0.01, alp
 #'
 #' @param Ux Matrix with n.comp x n, initial value of Ux, comes from greedyMatch.
 #' @param Uy Matrix with n.comp x n, initial value of Uy, comes from greedyMatch.
-#' @param xData matrix with n x px, Xw = Lx %*% Xc.
-#' @param yData matrix with n x py, Yw = Ly %*% Yc.
+#' @param xData matrix with n x px, Xw = Lx \%*\% Xc.
+#' @param yData matrix with n x py, Yw = Ly \%*\% Yc.
 #' @param invLx Inverse matrix of Lx, matrix n x n.
 #' @param invLy Inverse matrix of Ly, matrix n x n.
 #' @param rho the weight parameter of matching relative to non-gaussianity.

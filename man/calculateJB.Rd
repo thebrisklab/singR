@@ -9,7 +9,7 @@ calculateJB(U, X, alpha = 0.8)
 \arguments{
 \item{U}{U matrix for matched columns rj x n}
 
-\item{X}{whitened data matrix n x px, data = whitenerXA %*% dXcentered}
+\item{X}{whitened data matrix n x px, data = whitenerXA \%*\% dXcentered}
 
 \item{alpha}{default = 0.8}
 }

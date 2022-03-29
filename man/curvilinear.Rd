@@ -24,9 +24,9 @@ curvilinear(
 
 \item{Uy}{Matrix with n.comp x n, initial value of Uy, comes from greedyMatch.}
 
-\item{xData}{matrix with n x px, Xw = Lx %*% Xc.}
+\item{xData}{matrix with n x px, Xw = Lx \%*\% Xc.}
 
-\item{yData}{matrix with n x py, Yw = Ly %*% Yc.}
+\item{yData}{matrix with n x py, Yw = Ly \%*\% Yc.}
 
 \item{invLx}{Inverse matrix of Lx, matrix n x n.}
 
@@ -46,7 +46,7 @@ curvilinear(
 }
 \value{
 a list of matrices:
- ## Ux: Optimized Ux with matrix n.comp x n.
+ ## \code{Ux} Optimized Ux with matrix n.comp x n.
  ## Uy: Optimized Uy with matrix n.comp x n.
  ## tau: step size
  ## iter: number of iterations.

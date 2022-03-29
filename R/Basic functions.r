@@ -136,7 +136,7 @@ whitener <- function(X,n.comp=ncol(X),center.row=FALSE,irlba=FALSE) {
 #' JB score calculate
 #'
 #' @param U U matrix for matched columns rj x n
-#' @param X whitened data matrix n x px, data = whitenerXA %*% dXcentered
+#' @param X whitened data matrix n x px, data = whitenerXA \%*\% dXcentered
 #' @param alpha default = 0.8
 #'
 #' @return the sum of JB score for each component, the row of Sj.
