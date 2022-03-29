@@ -916,7 +916,13 @@ computeRho <- function(JBvalX, JBvalY, Mxall, Myall, rjoint){
 #' @param path default path
 #' @param make.diag default value = NA
 #'
-#' @return
+#' @return a list as followed:
+#' \describe{
+#'       \item{\code{netmatfig}}{component loadings from rs correlation}
+#'       \item{\code{loadingsfig}}{the sum of the absolute values of the rows of netmatfig}
+#'       \item{\code{netmat}}{a matrix can be used with image() function}
+#'       \item{\code{loadingsummary}}{loadings summary for each row of netmatfig}
+#' }
 #' @export
 #' @import ggplot2
 #' @import grid

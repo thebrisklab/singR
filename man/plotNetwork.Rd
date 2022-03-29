@@ -27,7 +27,13 @@ plotNetwork(
 \item{make.diag}{default value = NA}
 }
 \value{
-
+a list as followed:
+\describe{
+      \item{\code{netmatfig}}{component loadings from rs correlation}
+      \item{\code{loadingsfig}}{the sum of the absolute values of the rows of netmatfig}
+      \item{\code{netmat}}{a matrix can be used with image() function}
+      \item{\code{loadingsummary}}{loadings summary for each row of netmatfig}
+}
 }
 \description{
 PlotNetwork for components
