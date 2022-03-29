@@ -169,20 +169,19 @@ lngca_multicore <- function(xData, n.comp = ncol(xData), ncores=20, W.list = NUL
 #' @param irlba whether require irlba package.
 #' @param ...
 #'
-#' @return Function outputs a list including the following:
-#'  \describe{
-#' \item{\code{Ws}}{ t(Ux) matrix n x n.comp, part of the expression that Ax = Ux x Lx and Ax x Xc = Sx, where Lx is the whitener matrix.}
-#'  }
-#'  ## Ws: t(Ux) matrix n x n.comp, part of the expression that Ax = Ux x Lx and Ax x Xc = Sx, where Lx is the whitener matrix.
-#'  ## loglik: the value of log-likelihood in the lngca method.
-#'  ## S: the variable loading matrix px x n.comp, each column is a component, which can be used to measure nongaussianity.
-#'  ## df: degree of freedom.
-#'  ## distribution: the method used for data decomposition.
-#'  ## whitener: A symmetric whitening matrix n x n from dX, the same with  whitenerXA = est.sigmaXA%^%(-0.5)
-#'  ## M: Mtrix with n.comp x n
-#'  ## nongaussianity: the nongaussianity score for each component saved in S matrix.
 #'
-#' @export
+#' @return Function outputs a list including the following:
+#' \describe{
+#'       \item{\code{Ws}}{ t(Ux) matrix n x n.comp, part of the expression that Ax = Ux x Lx and Ax x Xc = Sx, where Lx is the whitener matrix.}
+#'       \item{\code{loglik}}{the value of log-likelihood in the lngca method.}
+#'       \item{\code{S}}{the variable loading matrix px x n.comp, each column is a component, which can be used to measure nongaussianity}
+#'       \item{\code{df}}{egree of freedom.}
+#'       \item{\code{distribution}}{the method used for data decomposition.}
+#'       \item{\code{whitener}}{A symmetric whitening matrix n x n from dX, the same with  whitenerXA = est.sigmaXA%^%(-0.5)}
+#'       \item{\code{M}}{Mtrix with n.comp x n.}
+#'       \item{\code{nongaussianity}}{the nongaussianity score for each component saved in S matrix.}
+#'}
+#'
 #'
 #' @import irlba
 #' @import ProDenICA

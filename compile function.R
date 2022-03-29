@@ -1,6 +1,6 @@
 library(devtools)
 document()
-library(Rcpp)
+?library(Rcpp)
 library(RcppArmadillo)
 use_rcpp_armadillo()
 use_package("scales")
