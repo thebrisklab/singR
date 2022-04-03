@@ -153,7 +153,7 @@ lngca_multicore <- function(xData, n.comp = ncol(xData), ncores=20, W.list = NUL
 #'
 #' @param xData the original dataset for decomposition, matrix of px x n
 #' @param n.comp the number of components need to be estimated.
-#' @param W.list
+#' @param W.list list
 #' @param whiten whiten method with default
 #' @param maxit defalut = 1000
 #' @param eps default = 1e-06
@@ -188,7 +188,6 @@ lngca_multicore <- function(xData, n.comp = ncol(xData), ncores=20, W.list = NUL
 #'
 #'
 #' @examples
-#'
 lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenvec','sqrtprec','none'), maxit = 1000, eps = 1e-06, verbose = FALSE, restarts.pbyd = 0, restarts.dbyd = 0, distribution=c('tiltedgaussian','logistic','JB'), density=FALSE, out.all=FALSE, orth.method=c('svd','givens'), reinit.max.comp = FALSE, max.comp = FALSE, df=0, irlba=FALSE,...) {
 
     #note: small changes from mlcaFP from the JASA paper:

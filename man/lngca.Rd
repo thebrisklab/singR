@@ -30,6 +30,8 @@ lngca(
 
 \item{n.comp}{the number of components need to be estimated.}
 
+\item{W.list}{list}
+
 \item{whiten}{whiten method with default}
 
 \item{maxit}{defalut = 1000}
@@ -73,7 +75,4 @@ Function outputs a list including the following:
 }
 \description{
 Decomposite the original data through LNGCA method
-}
-\examples{
-
 }
