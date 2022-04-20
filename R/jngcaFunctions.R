@@ -182,6 +182,7 @@ lngca_multicore <- function(xData, n.comp = ncol(xData), ncores=20, W.list = NUL
 #'       \item{\code{nongaussianity}}{the nongaussianity score for each component saved in S matrix.}
 #' }
 #'
+#' @export
 #'
 #' @import irlba
 #' @import ProDenICA
