@@ -155,7 +155,7 @@ lngca_multicore <- function(xData, n.comp = ncol(xData), ncores=20, W.list = NUL
 #' @param n.comp the number of components need to be estimated.
 #' @param W.list list
 #' @param whiten whiten method with default
-#' @param maxit defalut = 1000
+#' @param maxit max iteration, defalut = 1000
 #' @param eps default = 1e-06
 #' @param verbose default = FALSE
 #' @param restarts.pbyd default = 0
@@ -164,11 +164,11 @@ lngca_multicore <- function(xData, n.comp = ncol(xData), ncores=20, W.list = NUL
 #' @param density default = FALSE
 #' @param out.all default = FALSE
 #' @param orth.method default = 'svd'
+#' @param reinit.max.comp default = FALSE
 #' @param max.comp logical variable that estiamtes the max number of non-gaussian components.
 #' @param df default = 0
 #' @param irlba whether require irlba package.
 #' @param ...
-#'
 #'
 #' @return Function outputs a list including the following:
 #' \describe{
@@ -339,7 +339,6 @@ lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenv
 }
 }
 #---------------------------------
-
 
 #-------------
 orthonormalize <- function(xk,X,k) {

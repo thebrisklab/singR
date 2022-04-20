@@ -34,7 +34,7 @@ lngca(
 
 \item{whiten}{whiten method with default}
 
-\item{maxit}{defalut = 1000}
+\item{maxit}{max iteration, defalut = 1000}
 
 \item{eps}{default = 1e-06}
 
@@ -51,6 +51,8 @@ lngca(
 \item{out.all}{default = FALSE}
 
 \item{orth.method}{default = 'svd'}
+
+\item{reinit.max.comp}{default = FALSE}
 
 \item{max.comp}{logical variable that estiamtes the max number of non-gaussian components.}
 
