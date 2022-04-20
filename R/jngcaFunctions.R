@@ -33,7 +33,7 @@
 #' ## M:
 #' ## nongaussianity: the value of nan-gaussianity for each component
 #'
-#' @export
+#'
 #'
 #' @import snow
 #' @import JADE
