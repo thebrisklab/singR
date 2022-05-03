@@ -7,7 +7,7 @@
 lngca_multicore(
   xData,
   n.comp = ncol(xData),
-  ncores = 20,
+  ncores = NULL,
   W.list = NULL,
   whiten = c("eigenvec", "none"),
   restarts = NULL,

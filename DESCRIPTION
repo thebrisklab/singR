@@ -26,4 +26,5 @@ Imports:
     steadyICA,
     ggplot2,
     grid,
-    scales
+    scales,
+    parallel

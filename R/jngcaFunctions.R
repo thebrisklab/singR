@@ -37,16 +37,20 @@
 #'
 #' @import snow
 #' @import JADE
+#' @import parallel
+#'
+#' @export
 #'
 #' @examples
-lngca_multicore <- function(xData, n.comp = ncol(xData), ncores=20, W.list = NULL, whiten = c('eigenvec','none'), restarts=NULL, distribution=c('tiltedgaussian','logistic','JB'), df=0, initFOBI = FALSE, scratch="~/temp",keepall = FALSE,sourcefile='~/Dropbox/JINGCA/Programs/Functions/jngcaFunctions.R',...) {
+lngca_multicore <- function(xData, n.comp = ncol(xData), ncores=NULL, W.list = NULL, whiten = c('eigenvec','none'), restarts=NULL, distribution=c('tiltedgaussian','logistic','JB'), df=0, initFOBI = FALSE, scratch="~/temp",keepall = FALSE,sourcefile='~/Dropbox/JINGCA/Programs/Functions/jngcaFunctions.R',...) {
   warning("If running mlcaFP_parallelized, you need to manually change the path that contains jngca_functions in order to load the functions onto the workers. Sorry for the inconvenience. See comments in the program.")
 
 
 # require(parallel)
-#  if (is.null(ncores)) {
-#    ncores = detectCores()
-#  }
+  if (is.null(ncores)) {
+    ncores = detectCores()
+  }
+
   system(paste('mkdir',scratch))  # create a temporary directory in the scratch adress#
 
   cl = makeSOCKcluster(rep("localhost",ncores)) # what is the make SOCKcluster function #
@@ -59,7 +63,7 @@ lngca_multicore <- function(xData, n.comp = ncol(xData), ncores=20, W.list = NUL
 
   # can't get this to work with path name variable!!!
   # Need to edit this manually to get it to work:
-  invisible(clusterEvalQ(cl,source('~/Dropbox/JINGCA/Programs/Functions/jngcaFunctions.R')))  # change the print mode #
+  invisible(clusterEvalQ(cl,library(singR)))  # change the print mode #
 
   invisible(clusterEvalQ(cl,.libPaths('~/Rlibs')))   # what is the clusterEvalQ function #
   .libPaths('~/Rlibs')
