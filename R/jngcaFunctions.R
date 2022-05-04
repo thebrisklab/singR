@@ -933,7 +933,7 @@ computeRho <- function(JBvalX, JBvalY, Mxall, Myall, rjoint){
 #' @examples
 plotNetwork = function(component,title='',qmin=0.005, qmax=0.995, path = '~/Dropbox/JINGCA/Data/community_affiliation_mmpplus.csv',make.diag=NA) {
   # component:
-  # vectorized network of lenght choose(n,2)
+  # vectorized network of length choose(n,2)
 
 
   # load communities for plotting:
@@ -993,8 +993,8 @@ plotNetwork = function(component,title='',qmin=0.005, qmax=0.995, path = '~/Drop
 #' @examples
 create.graph.long = function(gmatrix,sort_indices=NULL) {
   nnode = nrow(gmatrix)
-  X1 = c(1:nnode)%x%rep(1,nnode)
-  X2 =  rep(1,nnode)%x%c(1:nnode)
+  X1 = c(1:nnode)%x%rep(1,nnode) # row number comes from Kronecker product
+  X2 =  rep(1,nnode)%x%c(1:nnode) # column number
   if (!is.null(sort_indices)) {
     gmatrix = gmatrix[sort_indices,sort_indices]
   }
