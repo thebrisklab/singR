@@ -1031,7 +1031,7 @@ plotNetwork_change = function(component,title='',qmin=0.005, qmax=0.995, path = 
     geom_tile()+
     scale_fill_gradient2(low = "blue",  high = "red",limits=c(zmin,zmax),oob=squish)+
     labs(title = title, x = "Node 1", y = "Node 2")+
-    coord_cartesian(clip='off',xlim=c(-0,390))
+    coord_cartesian(clip='off',xlim=c(-0,100))
 
   #for (i in 1:7) {
   #  if (i!=3) {
