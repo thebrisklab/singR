@@ -36,9 +36,30 @@ Sytrue = t(new_sjy)
 
 Sxtrue = signchange(Sxtrue) #sign degree amplification
 Sytrue = signchange(Sytrue)
+```
+
+#### Plot for true X component
+
+##### This step needs ciftiTools package and workbench, which can be found in <https://github.com/mandymejia/ciftiTools>
+
+``` r
+library(ciftiTools)
+ciftiTools.setOption("wb_path", "C:/Software/workbench")
+
+xii_template <- read_cifti("c:/Software/Data/tfMRI_MOTOR_LR_Atlas.dtseries.nii", brainstructures=c("left", "right"),resamp_res = 2000) # resample the template to 2k resolution
+xii_new <- newdata_xifti(xii_template, cbind(Sxtrue,Sx_rhoSmall))
 
 
-# plot for the true component
+view_xifti_surface(select_xifti(xii_new,1),zlim = c(-2.43,2.82)) # component1 true
+view_xifti_surface(select_xifti(xii_new,2),zlim = c(-2.43,2.82)) # component2 true
+```
+
+![](fig/Truth_Comp1X.png)![](fig/Truth_Comp2X.png)
+
+#### Plot for true Y component
+
+``` r
+# plot for the true component of Y
 out_true1 = plotNetwork_change(Sytrue[,1], title='Truth',qmin=0.005, qmax=0.995, path = 'new_mmp.csv') 
 out_true2 = plotNetwork_change(Sytrue[,2], title='Truth',qmin=0.005, qmax=0.995, path = 'new_mmp.csv') 
 
