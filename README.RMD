@@ -59,8 +59,8 @@ view_xifti_surface(select_xifti(xii_new,2),zlim = c(-2.43,2.82)) # component2 tr
 ```
 
 ```{r echo=FALSE}
-knitr::include_graphics("fig/Truth_Comp1X.png")
-knitr::include_graphics("fig/Truth_Comp2X.png")
+knitr::include_graphics("fig/Truth_CompX.png")
+
 ```
 
 

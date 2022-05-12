@@ -54,7 +54,7 @@ view_xifti_surface(select_xifti(xii_new,1),zlim = c(-2.43,2.82)) # component1 tr
 view_xifti_surface(select_xifti(xii_new,2),zlim = c(-2.43,2.82)) # component2 true
 ```
 
-![](fig/Truth_Comp1X.png)![](fig/Truth_Comp2X.png)
+![](fig/Truth_CompX.png)
 
 #### Plot for true Y component
 
