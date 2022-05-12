@@ -39,7 +39,7 @@
 #' @import JADE
 #' @import parallel
 #'
-#' @export
+#'
 #'
 #' @examples
 lngca_multicore <- function(xData, n.comp = ncol(xData), ncores=NULL, W.list = NULL, whiten = c('eigenvec','none'), restarts=NULL, distribution=c('tiltedgaussian','logistic','JB'), df=0, initFOBI = FALSE, scratch="~/temp",keepall = FALSE,sourcefile='~/Dropbox/JINGCA/Programs/Functions/jngcaFunctions.R',...) {
