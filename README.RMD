@@ -58,10 +58,7 @@ p4=out_true2$loadingsfig
 
 
 ```{r echo=FALSE}
-knitr::include_graphics("fig/Truth_Comp1_matrix.png")
-knitr::include_graphics("fig/Truth_Comp1_Hist.png")
-knitr::include_graphics("fig/Truth_Comp2_matrix.png")
-knitr::include_graphics("fig/Truth_Comp2_Hist.png")
+knitr::include_graphics("fig/Truth_plot.png")
 
 ```
 

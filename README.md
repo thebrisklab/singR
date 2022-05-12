@@ -50,4 +50,4 @@ p3=out_true2$netmatfig
 p4=out_true2$loadingsfig
 ```
 
-![](fig/Truth_Comp1_matrix.png)![](fig/Truth_Comp1_Hist.png)![](fig/Truth_Comp2_matrix.png)![](fig/Truth_Comp2_Hist.png)
+![](fig/Truth_plot.png)
