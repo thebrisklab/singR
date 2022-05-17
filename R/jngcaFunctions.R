@@ -184,11 +184,7 @@ lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenv
     if(reinit.max.comp && max.comp==FALSE) stop('Can not reinitialize from max.comp solution if max.comp==FALSE')
     if(reinit.max.comp && alg.typ=='deflation') stop('reinit.max.comp not yet written for deflation algorithm')
 
-    #require(multidcov)
-    if(distribution=='tiltedgaussian') {
-      Gfunc = tiltedgaussian
-      require(ProDenICA)
-    }
+
     if(distribution=='tiltedgaussian' && df==0) stop('df must be greater than 0 for tiltedgaussian')
     if(distribution=='logistic'  && df>0) stop('df should be set to zero when using logistic')
     if(distribution=='logistic') Gfunc = logistic
@@ -481,13 +477,24 @@ marginal.likelihoods <- function(S,distribution=c('logistic','tiltedgaussian','l
 #-------------------------------------
 # Match mixing matrices:
 # This function does not require M to be square:
+#' Match mixing matrices
+#'
+#' @param M1 Subject score 1
+#' @param M2 Subject score 2
+#' @param S1 Loading 1
+#' @param S2 Loading 2
+#' @param standardize whether to standardize
+#'
+#' @return
+#' @export
+#' @import clue
 frobICA<-function(M1=NULL,M2=NULL,S1=NULL,S2=NULL,standardize=FALSE) {
   #MODEL: X = S M + E, so M is d x p
   #standardize: if standardize==TRUE, then standardizes rows of M1 and M2
   #to have unit norm; if using S1 and S2, standardizes columns to have unit variance.
   #standardize=TRUE makes the measure scale invariant.
 
-  require(clue)
+
   tfun = function(x) all(x==0)
   if(is.null(M1) && is.null(M2) && is.null(S1) && is.null(S2)) stop("need to supply either M1 and M2 or S1 and S2")
   if(!is.null(M1) && !is.null(M2) && !is.null(S1) && !is.null(S2)) {
@@ -590,11 +597,26 @@ rightskew=function(S,M=NULL,order.skew=TRUE) {
 }
 #---------------------------------------------
 
+#' multiple ProdenICA
+#'
+#' @param X Original data
+#' @param n.comp the max components
+#' @param restarts the number of restart
+#' @param tol tol amount
+#' @param maxit the max iteration number
+#' @param G G method
+#' @param verbose default = false
+#' @param whiten whether to whiten
+#' @param ... ellipsis
+#'
+#' @return
+#' @export
+#' @import ProDenICA
 mProDenICA <- function(X, n.comp = ncol(X), restarts=0, tol=1e-07,maxit=100,G = c('GPois','G0','G1'),verbose=FALSE,whiten=FALSE,...) {
   ##NOTE: the restarts in ProDenICA evaluate the likelihood at a sample of orthogonal matrices, identifies the random matrix associated with highest likelihood, and then estimates ICs for this single initialization. Here, I initiate from the entire set of random matrices.
   ##NOTE: Restarts defined differently here than in ProDenICA. ProDenICA is initiatialized from restarts+1 initial values.
   ##NOTE: G defined differently from ProDenICA's Gfunc; here it is a string
-  require(ProDenICA)
+
   G = match.arg(G)
   if(G=='G0') Gfunc=G0
   if(G=='G1') Gfunc=G1
@@ -642,8 +664,17 @@ givens.rotation <- function(theta=0, d=2, which=c(1,2))
 
 
 # Returns square root of the precision matrix for whitening:
+#' Returns square root of the precision matrix for whitening
+#'
+#' @param X Matrix
+#' @param n.comp the number of components
+#' @param center.row whether to center
+#'
+#' @return
+#' @export
+#' @import MASS
 covwhitener <- function(X,n.comp=ncol(X),center.row=FALSE) {
-  require(MASS)
+
   #X must be n x d
   if(ncol(X)>nrow(X)) warning('X is whitened with respect to columns')
   #Creates model of the form X.center = S A, where S are orthogonal with covariance = identity.
