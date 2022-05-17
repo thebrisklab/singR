@@ -35,6 +35,3 @@ newSimFMRI(
 \description{
 \code{newSimFMRI} Create a dataset containing 4 components correspond to 2D images, roughly similar to a brain activation map.
 }
-\examples{
-newSimFMRI(var.inactive = vars[1])
-}

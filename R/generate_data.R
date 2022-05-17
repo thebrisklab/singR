@@ -17,7 +17,6 @@
 #' @export
 #' @import neuRosim
 #' @import steadyICA
-#' @examples newSimFMRI(var.inactive = vars[1])
 newSimFMRI = function(snr = 1, noisyICA=FALSE, nTR=50, nImages=1, phi=0.5, dim.data=c(33,33), var.inactive=0.0001) {
   ##ASSUME 1,000 samples
 

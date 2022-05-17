@@ -41,7 +41,6 @@
 #'
 #'
 #'
-#' @examples
 lngca_multicore <- function(xData, n.comp = ncol(xData), ncores=NULL, W.list = NULL, whiten = c('eigenvec','none'), restarts=NULL, distribution=c('tiltedgaussian','logistic','JB'), df=0, initFOBI = FALSE, scratch="~/temp",keepall = FALSE,sourcefile='~/Dropbox/JINGCA/Programs/Functions/jngcaFunctions.R',...) {
   warning("If running mlcaFP_parallelized, you need to manually change the path that contains jngca_functions in order to load the functions onto the workers. Sorry for the inconvenience. See comments in the program.")
 
@@ -192,7 +191,6 @@ lngca_multicore <- function(xData, n.comp = ncol(xData), ncores=NULL, W.list = N
 #' @import ProDenICA
 #'
 #'
-#' @examples
 lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenvec','sqrtprec','none'), maxit = 1000, eps = 1e-06, verbose = FALSE, restarts.pbyd = 0, restarts.dbyd = 0, distribution=c('tiltedgaussian','logistic','JB'), density=FALSE, out.all=FALSE, orth.method=c('svd','givens'), reinit.max.comp = FALSE, max.comp = FALSE, df=0, irlba=FALSE,...) {
 
     #note: small changes from mlcaFP from the JASA paper:
@@ -464,7 +462,6 @@ standardizeM <- function(M) {
 #' @return a matrix t(Mx) n.comp x n
 #' @export
 #'
-#' @examples
 est.M.ols <- function(sData,xData,intercept=TRUE) {
   if(intercept) coef(lm(xData~sData))[-1,] else coef(lm(xData~sData-1))
 }
@@ -820,7 +817,7 @@ SimLCA <- function(n.samples, distribution = c('logistic','t','gumbel'), nu.vect
 #' @return
 #' @export
 #'
-#' @examples
+#' @examples net = vec2net(1:10)
 vec2net = function(invector,make.diag=1) {
   #invector: choose(p,2) x 1, where p is the number of nodes
   nNode = (1 + sqrt(1+8*length(invector)))/2
@@ -930,7 +927,6 @@ computeRho <- function(JBvalX, JBvalY, Mxall, Myall, rjoint){
 #' @import ggplot2
 #' @import grid
 #' @import scales
-#' @examples
 plotNetwork = function(component,title='',qmin=0.005, qmax=0.995, path = '~/Dropbox/JINGCA/Data/community_affiliation_mmpplus.csv',make.diag=NA) {
   # component:
   # vectorized network of length choose(n,2)
@@ -1001,7 +997,6 @@ plotNetwork = function(component,title='',qmin=0.005, qmax=0.995, path = '~/Drop
 #' @import grid
 #' @import scales
 #'
-#' @examples
 plotNetwork_change = function(component,title='',qmin=0.005, qmax=0.995, path = '~/Dropbox/JINGCA/Data/community_affiliation_mmpplus.csv',make.diag=NA) {
   # component:
   # vectorized network of length choose(n,2)
@@ -1066,7 +1061,6 @@ plotNetwork_change = function(component,title='',qmin=0.005, qmax=0.995, path = 
 #'
 #' @export
 #'
-#' @examples
 create.graph.long = function(gmatrix,sort_indices=NULL) {
   nnode = nrow(gmatrix)
   X1 = c(1:nnode)%x%rep(1,nnode) # row number comes from Kronecker product
