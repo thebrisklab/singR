@@ -7,3 +7,8 @@ use_package("parallel")
 
 install_github("thebrisklab/singR")
 
+install.packages("testthat")
+library(testthat)
+testthat::skip_on_cran()
+
+check()

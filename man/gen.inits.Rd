@@ -22,5 +22,5 @@ w.list data.frame with runs p*d orthodox matrix
 Generate initialization from specific space
 }
 \examples{
-gen.inits(2,3,3,'svd') which gets 3 2*3 orthodox matrix
+gen.inits(2,3,3,'svd')
 }

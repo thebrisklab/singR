@@ -11,7 +11,7 @@
 #' @return w.list data.frame with runs p*d orthodox matrix
 #' @export
 #'
-#' @examples gen.inits(2,3,3,'svd') which gets 3 2*3 orthodox matrix
+#' @examples gen.inits(2,3,3,'svd')
 gen.inits <- function(p,d,runs,orth.method=c('svd','givens')) {
   orth.method=match.arg(orth.method) # the first value in orth.metod #
   W.list = list()
