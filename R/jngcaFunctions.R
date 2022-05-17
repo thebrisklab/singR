@@ -7,40 +7,7 @@
 
 # This function for easy parallelization needs to be revised to work better on other systems. Right now it involves my user-specific directory structure;
 # some issues with passing variables to cluster
-#' lngca with multicore
-#'
-#' @param xData input data
-#' @param n.comp number of data columns
-#' @param ncores number of cores, default = 20
-#' @param W.list list
-#' @param whiten whiten method 'eigenvec' or 'none'
-#' @param restarts default = ncores
-#' @param distribution type of distribution
-#' @param df dataframe
-#' @param initFOBI default = False
-#' @param scratch temporary directory name
-#' @param keepall
-#' @param sourcefile the filepath contains jngca_functions
-#' @param ... ellipsis
-#'
-#' @return a list with matrices
-#' ## Ws:
-#' ## lgolik:
-#' ## S: Variable loadings
-#' ## df:
-#' ## distribution: the distribution method used in mlcaFP
-#' ## whitener:
-#' ## M:
-#' ## nongaussianity: the value of nan-gaussianity for each component
-#'
-#'
-#'
-#' @import snow
-#' @import JADE
-#' @import parallel
-#'
-#'
-#'
+
 lngca_multicore <- function(xData, n.comp = ncol(xData), ncores=NULL, W.list = NULL, whiten = c('eigenvec','none'), restarts=NULL, distribution=c('tiltedgaussian','logistic','JB'), df=0, initFOBI = FALSE, scratch="~/temp",keepall = FALSE,sourcefile='~/Dropbox/JINGCA/Programs/Functions/jngcaFunctions.R',...) {
   warning("If running mlcaFP_parallelized, you need to manually change the path that contains jngca_functions in order to load the functions onto the workers. Sorry for the inconvenience. See comments in the program.")
 
