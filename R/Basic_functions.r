@@ -28,7 +28,7 @@ gen.inits <- function(p,d,runs,orth.method=c('svd','givens')) {
 #'
 #' @param theta vector of angles theta
 #'
-#' @return
+#' @return an orthodox matrix
 #' @export
 #'
 #'

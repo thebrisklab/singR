@@ -10,7 +10,7 @@ theta2W(theta)
 \item{theta}{vector of angles theta}
 }
 \value{
-
+an orthodox matrix
 }
 \description{
 Convert angle vector into  orthodox matrix
