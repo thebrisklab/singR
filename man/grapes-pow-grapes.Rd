@@ -15,7 +15,7 @@ S \%^\% power
 a matrix after power calculation that eigenvector x diag(eigenvalue ^ power) x eigenvector'
 }
 \description{
-
+returns a matrix composed of eigenvector x diag(eigenvalue ^ power) x eigenvector'
 }
 \examples{
 a <- matrix(1:9,3,3)

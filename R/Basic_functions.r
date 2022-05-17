@@ -108,7 +108,7 @@ whitener <- function(X,n.comp=ncol(X),center.row=FALSE,irlba=FALSE) {
 # Original function by Yunfeng Zhang - calculate the power of a matrix
 #' Calculate the power of a square matrix
 #'
-#'\code{%^%} returns a matrix composed of eigenvector x diag(eigenvalue ^ power) x eigenvector'
+#' returns a matrix composed of eigenvector x diag(eigenvalue ^ power) x eigenvector'
 #' @param S a square matrix
 #' @param power the times of power
 #'

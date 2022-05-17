@@ -53,7 +53,7 @@ jointICA <- function(dX, dY, r0 = 2){
   Vscaled <- svdXY$v
 
   # JB on V, PCA loadings from above
-  estXY_JB = mlcaFP(xData = Vscaled, n.comp = 2, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB')
+  estXY_JB = lngca(xData = Vscaled, n.comp = 2, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB')
   # Get the corresponding M by Least Squares on original data
   Mjoint = est.M.ols(sData = estXY_JB$S, xData = t(dXY))
 

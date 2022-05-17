@@ -35,9 +35,6 @@ mProDenICA(
 
 \item{...}{ellipsis}
 }
-\value{
-
-}
 \description{
 multiple ProdenICA
 }

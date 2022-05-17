@@ -608,7 +608,6 @@ rightskew=function(S,M=NULL,order.skew=TRUE) {
 #' @param whiten whether to whiten
 #' @param ... ellipsis
 #'
-#' @return
 #' @export
 #' @import ProDenICA
 mProDenICA <- function(X, n.comp = ncol(X), restarts=0, tol=1e-07,maxit=100,G = c('GPois','G0','G1'),verbose=FALSE,whiten=FALSE,...) {
