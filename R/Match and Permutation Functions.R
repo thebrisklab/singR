@@ -115,7 +115,6 @@ jin_match = function(invLx,invLy,Ux,Uy,nperm,multicore=0,alpha=0.01){
 #'
 #' @export
 #'
-#' @examples
 greedymatch = function(Mx,My,Ux,Uy) {
   # input:
   # Mx: n x n.comp
@@ -176,7 +175,6 @@ greedymatch = function(Mx,My,Ux,Uy) {
 #'  ## fwer_alpha: quantile of corr permutation with 1- alpha
 #' @export
 #'
-#' @examples
 permTestJointRank = function(MatchedMx,MatchedMy,nperm=1000,alpha=0.01,multicore=0) {
   # Mx: nSubject x n.comp
   # multicore: if = 0 or 1, uses a single processor; multicore > 1 requires packages doParallel and doRNG
@@ -273,7 +271,6 @@ matchICA=function(S,template,M=NULL) {
 #'  ## omangles:
 #' @export
 #' @import clue
-#' @examples
 angleMatchICA=function(Mx,My,Sx=NULL,Sy=NULL) {
   # match the colums of Mx and My, using the
   # n x p parameterization of the JIN decomposition
@@ -408,7 +405,6 @@ permmatRank_sequential_JB = function(xdata,maxcompdata=ncol(xdata),ncomplist,npe
 #'  ## corrmatched: the correlation for each pair of matched columns.
 #' @export
 #'
-#' @examples
 permmatRank_joint = function(matchedResults, nperms = 100){
 
   # Calcualte correlations based on original Ms via angle-matching

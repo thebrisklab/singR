@@ -16,11 +16,11 @@ gen.inits(p, d, runs, orth.method = c("svd", "givens"))
 \item{orth.method}{orthodox method}
 }
 \value{
-w.list data.frame with runs p*d orthodox matrix
+w.list
 }
 \description{
 Generate initialization from specific space
 }
 \examples{
-gen.inits(2,3,3,'svd')
+gen.inits(2,3,3,method="svd")
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/jngcaFunctions.R
 \name{est.M.ols}
 \alias{est.M.ols}
-\title{Title}
+\title{Estimate mixing matrix from estimates of components}
 \usage{
 est.M.ols(sData, xData, intercept = TRUE)
 }
@@ -17,5 +17,5 @@ est.M.ols(sData, xData, intercept = TRUE)
 a matrix t(Mx) n.comp x n
 }
 \description{
-Title
+Estimate mixing matrix from estimates of components
 }

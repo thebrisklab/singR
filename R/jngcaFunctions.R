@@ -419,8 +419,8 @@ standardizeM <- function(M) {
 
 
 #----------------------------
-# estimate mixing matrix from estimates of components:
-#' Title
+#
+#' Estimate mixing matrix from estimates of components
 #'
 #' @param sData t(S) px x n.comp
 #' @param xData t(dX) px x n

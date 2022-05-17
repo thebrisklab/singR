@@ -71,7 +71,6 @@ calculateG <- function(U, DataW, invL, A, rho, alpha = 0.8, r0 = nrow(U)){
 #'
 #' @export
 #'
-#' @examples
 curvilinear <- function(Ux, Uy, xData, yData, invLx, invLy, rho, tau = 0.01, alpha = 0.8, maxiter = 1000, tol = 1e-6, r0){
 
   tau1 = tau
@@ -177,7 +176,6 @@ curvilinear <- function(Ux, Uy, xData, yData, invLx, invLy, rho, tau = 0.01, alp
 #' @export
 #' @import Rcpp
 #' @useDynLib singR
-#' @examples
 curvilinear_c <- function(Ux, Uy, xData, yData, invLx, invLy, rho, tau = 0.01, alpha = 0.8, maxiter = 1000, tol = 1e-6, r0) {
 
    return(updateUboth_c(Ux=Ux, Uy=Uy, xData=xData, yData=yData, invLx=invLx, invLy=invLy, rho=rho, r0=r0, alpha = alpha, tau = tau, maxiter = maxiter, tol = tol))

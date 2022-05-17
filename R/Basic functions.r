@@ -1,6 +1,4 @@
 ### Functions for data process
-
-
 #' Generate initialization from specific space
 #'
 #' @param p p*p orthodox matrix
@@ -8,10 +6,10 @@
 #' @param runs the number of orthodox matrix
 #' @param orth.method orthodox method
 #'
-#' @return w.list data.frame with runs p*d orthodox matrix
+#' @return w.list
 #' @export
 #'
-#' @examples gen.inits(2,3,3,'svd')
+#' @examples gen.inits(2,3,3,method="svd")
 gen.inits <- function(p,d,runs,orth.method=c('svd','givens')) {
   orth.method=match.arg(orth.method) # the first value in orth.metod #
   W.list = list()
@@ -26,14 +24,13 @@ gen.inits <- function(p,d,runs,orth.method=c('svd','givens')) {
   W.list
 }
 
-#' Convert angle vector into  orthodox matrix #
+#' Convert angle vector into  orthodox matrix
 #'
 #' @param theta vector of angles theta
 #'
 #' @return
 #' @export
 #'
-#' @examples
 #'
 theta2W = function(theta)
 {
@@ -64,7 +61,6 @@ theta2W = function(theta)
 #' @return orthogonalized matrix
 #' @export
 #'
-#' @examples
 orthogonalize = function (W) {
   ##For arbitrary W, this is equivalent to (WW^T)^{-1/2} W
   temp <- svd(W)
@@ -73,7 +69,7 @@ orthogonalize = function (W) {
 
 
 
-# Whitening Function:
+
 #' Whitening Function
 #'
 #' @param X dataset
@@ -141,7 +137,6 @@ whitener <- function(X,n.comp=ncol(X),center.row=FALSE,irlba=FALSE) {
 #' @return the sum of JB score for each component, the row of Sj.
 #' @export
 #'
-#' @examples
 calculateJB <- function(U, X, alpha = 0.8){
   # Calculate u^{top}X for each u_l and Xj, this is UX
   UX = U %*% X # Sx matrix with rx x p, Sx = Ux * Lx * Xc, in which X = Lx * Xc.

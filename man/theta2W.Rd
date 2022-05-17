@@ -2,7 +2,7 @@
 % Please edit documentation in R/Basic functions.r
 \name{theta2W}
 \alias{theta2W}
-\title{Convert angle vector into  orthodox matrix #}
+\title{Convert angle vector into  orthodox matrix}
 \usage{
 theta2W(theta)
 }
@@ -13,8 +13,5 @@ theta2W(theta)
 
 }
 \description{
-Convert angle vector into  orthodox matrix #
-}
-\examples{
-
+Convert angle vector into  orthodox matrix
 }
