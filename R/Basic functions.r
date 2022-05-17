@@ -9,7 +9,7 @@
 #' @return w.list
 #' @export
 #'
-#' @examples gen.inits(2,3,3,method="svd")
+#' @examples gen.inits(2,3,3,'svd')
 gen.inits <- function(p,d,runs,orth.method=c('svd','givens')) {
   orth.method=match.arg(orth.method) # the first value in orth.metod #
   W.list = list()

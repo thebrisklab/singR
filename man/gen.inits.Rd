@@ -22,5 +22,5 @@ w.list
 Generate initialization from specific space
 }
 \examples{
-gen.inits(2,3,3,method="svd")
+gen.inits(2,3,3,'svd')
 }
