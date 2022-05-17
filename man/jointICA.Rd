@@ -21,6 +21,3 @@ a list with matrices
 \description{
 Find the joint component through joint_ICA method.
 }
-\examples{
-out_jointICA <- jointICA(dXcentered, dYcentered, r0 = 2).
-}

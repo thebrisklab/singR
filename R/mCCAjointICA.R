@@ -38,8 +38,6 @@ est.S.backproject <- function(Sold, Mold, Mave, eps = 1e-1){
 #'
 #'
 #' @export
-#'
-#' @examples out_jointICA <- jointICA(dXcentered, dYcentered, r0 = 2).
 jointICA <- function(dX, dY, r0 = 2){
   # Normalization step, divide by \|X\|_F^2 each part
   dXsA <- dX/sqrt(mean(dX^2))
