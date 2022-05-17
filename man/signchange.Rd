@@ -9,7 +9,7 @@ signchange(S, M = NULL)
 \arguments{
 \item{S}{t(S) px x r.}
 
-\item{M}{}
+\item{M}{another matrix.}
 }
 \value{
 newS the original S * signskew, which is mean(S.column^3)

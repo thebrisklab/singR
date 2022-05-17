@@ -7,7 +7,7 @@
 
 # This function for easy parallelization needs to be revised to work better on other systems. Right now it involves my user-specific directory structure;
 # some issues with passing variables to cluster
-#' Title
+#' lngca with multicore
 #'
 #' @param xData input data
 #' @param n.comp number of data columns

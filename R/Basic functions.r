@@ -77,16 +77,15 @@ orthogonalize = function (W) {
 #' Whitening Function
 #'
 #' @param X dataset
-#' @param n.comp
-#' @param center.row
-#' @param irlba
+#' @param n.comp the number of components
+#' @param center.row whether center the row of data
+#' @param irlba whether use irlba
 #'
 #' @return
 #' @export
 #'
 #' @import MASS
 #' @import irlba
-#' @examples
 whitener <- function(X,n.comp=ncol(X),center.row=FALSE,irlba=FALSE) {
 
   #X must be n x d
@@ -181,12 +180,11 @@ calculateJBofS <- function(S, alpha = 0.8){
 #' Sign change for S matrix to image
 #'
 #' @param S t(S) px x r.
-#' @param M
+#' @param M another matrix.
 #'
 #' @return newS the original S * signskew, which is mean(S.column^3)
 #' @export
 #'
-#' @examples
 signchange = function(S,M=NULL) {
   # S: 59,412 x r_J
   signskew = sign(apply(S,2,function(x) mean(x^3)))
@@ -203,16 +201,7 @@ signchange = function(S,M=NULL) {
 #   list(Gs = -xData/scale - log(scale) - 2*log(1+exp(-xData/scale)), gs = -1/scale + 2*exp(-xData/scale)/(scale*(1+exp(-xData/scale))), gps = (2*exp(-2*xData/scale) - 2*exp(-xData/scale)*(1+exp(-xData/scale))) / (scale^2*(1+exp(-xData/scale))^2))
 # }
 
-#' Title
-#'
-#' @param xData
-#' @param scale
-#' @param df
-#'
-#' @return
-#' @export
-#'
-#' @examples
+
 logistic <- function(xData, scale=sqrt(3)/pi, df=0) {
   #maximizes likelihood given s then calculates gradient w.r.t. w.hat
   #df is not used
@@ -220,15 +209,7 @@ logistic <- function(xData, scale=sqrt(3)/pi, df=0) {
   list(Gs = -xData/scale - log(scale) - 2*log(1+exp(-xData/scale)), gs = -1/scale + 2*exp(-xData/scale)/(scale*(1+exp(-xData/scale))), gps = - 2*exp(-xData/scale) / (scale^2*(1+exp(-xData/scale))^2))
 }
 
-#' Title
-#'
-#' @param x
-#' @param df
-#'
-#' @return
-#' @export
-#'
-#' @examples
+
 jb.stat <- function(x, df=0) {
   n <- length(x)
   s <- sum(x^3)
@@ -240,18 +221,7 @@ jb.stat <- function(x, df=0) {
 }
 
 
-#--------------------
-#' Title
-#'
-#' @param xData
-#' @param df
-#' @param B
-#' @param ...
-#'
-#' @return
-#' @export
-#' @import gam
-#' @examples
+
 tiltedgaussian = function (xData, df = 8, B = 100, ...) {
   #This function is based on ProDenICA::GPois by Trevor Hastie
   #NOTE: Assumes data are zero mean.

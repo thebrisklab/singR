@@ -2,7 +2,7 @@
 % Please edit documentation in R/jngcaFunctions.R
 \name{lngca_multicore}
 \alias{lngca_multicore}
-\title{Title}
+\title{lngca with multicore}
 \usage{
 lngca_multicore(
   xData,
@@ -57,5 +57,5 @@ a list with matrices
 ## nongaussianity: the value of nan-gaussianity for each component
 }
 \description{
-Title
+lngca with multicore
 }

@@ -9,7 +9,11 @@ whitener(X, n.comp = ncol(X), center.row = FALSE, irlba = FALSE)
 \arguments{
 \item{X}{dataset}
 
-\item{irlba}{}
+\item{n.comp}{the number of components}
+
+\item{center.row}{whether center the row of data}
+
+\item{irlba}{whether use irlba}
 }
 \value{
 
