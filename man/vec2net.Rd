@@ -13,7 +13,7 @@ vec2net(invector, make.diag = 1)
 \item{make.diag}{default value = 1.}
 }
 \value{
-
+a net matrx
 }
 \description{
 Create network matrices from vectorized lower diagonals

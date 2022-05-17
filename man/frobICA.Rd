@@ -17,9 +17,6 @@ frobICA(M1 = NULL, M2 = NULL, S1 = NULL, S2 = NULL, standardize = FALSE)
 
 \item{standardize}{whether to standardize}
 }
-\value{
-
-}
 \description{
 Match mixing matrices
 }

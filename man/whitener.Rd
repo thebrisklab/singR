@@ -16,7 +16,7 @@ whitener(X, n.comp = ncol(X), center.row = FALSE, irlba = FALSE)
 \item{irlba}{whether use irlba}
 }
 \value{
-
+a whitener matrix
 }
 \description{
 Whitening Function

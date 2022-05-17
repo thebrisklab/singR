@@ -77,7 +77,7 @@ orthogonalize = function (W) {
 #' @param center.row whether center the row of data
 #' @param irlba whether use irlba
 #'
-#' @return
+#' @return a whitener matrix
 #' @export
 #'
 #' @import MASS

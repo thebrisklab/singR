@@ -171,8 +171,15 @@ curvilinear <- function(Ux, Uy, xData, yData, invLx, invLy, rho, tau = 0.01, alp
 #' @param maxiter default value is 1000
 #' @param tol the threshold of change in Ux and Uy to stop the curvlinear function
 #' @param r0 the joint rank, comes from greedyMatch.
-#'
-#' @return
+#' @return a list of matrices:
+#' \describe{
+#'       \item{\code{Ux}}{Optimized Ux with matrix n.comp x n.}
+#'       \item{\code{Uy}}{Optimized Uy with matrix n.comp x n.}
+#'       \item{\code{tau}}{step size}
+#'       \item{\code{iter}}{number of iterations.}
+#'       \item{\code{error}}{PMSE(Ux,Uxnew)+PMSE(Uy,Uynew)}
+#'       \item{\code{obj}}{Objective Function value}
+#' }
 #' @export
 #' @import Rcpp
 #' @useDynLib singR

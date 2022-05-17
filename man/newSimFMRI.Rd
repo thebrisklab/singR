@@ -29,9 +29,6 @@ newSimFMRI(
 
 \item{var.inactive}{the background variance of non-active voxels or edges within a non-Gaussian component. Setting this equal to zero results in true sparsity in a non-Gaussian components.}
 }
-\value{
-
-}
 \description{
 \code{newSimFMRI} Create a dataset containing 4 components correspond to 2D images, roughly similar to a brain activation map.
 }

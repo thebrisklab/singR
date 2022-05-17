@@ -13,7 +13,6 @@
 #' @param dim.data vector of length 2, the dimension of the simulation data.
 #' @param var.inactive the background variance of non-active voxels or edges within a non-Gaussian component. Setting this equal to zero results in true sparsity in a non-Gaussian components.
 #'
-#' @return
 #' @export
 #' @import neuRosim
 #' @import steadyICA

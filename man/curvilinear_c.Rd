@@ -45,7 +45,15 @@ curvilinear_c(
 \item{r0}{the joint rank, comes from greedyMatch.}
 }
 \value{
-
+a list of matrices:
+\describe{
+      \item{\code{Ux}}{Optimized Ux with matrix n.comp x n.}
+      \item{\code{Uy}}{Optimized Uy with matrix n.comp x n.}
+      \item{\code{tau}}{step size}
+      \item{\code{iter}}{number of iterations.}
+      \item{\code{error}}{PMSE(Ux,Uxnew)+PMSE(Uy,Uynew)}
+      \item{\code{obj}}{Objective Function value}
+}
 }
 \description{
 Curvilinear algorithm based on C code with r0 joint components

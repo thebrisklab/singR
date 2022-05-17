@@ -485,7 +485,6 @@ marginal.likelihoods <- function(S,distribution=c('logistic','tiltedgaussian','l
 #' @param S2 Loading 2
 #' @param standardize whether to standardize
 #'
-#' @return
 #' @export
 #' @import clue
 frobICA<-function(M1=NULL,M2=NULL,S1=NULL,S2=NULL,standardize=FALSE) {
@@ -669,8 +668,6 @@ givens.rotation <- function(theta=0, d=2, which=c(1,2))
 #' @param X Matrix
 #' @param n.comp the number of components
 #' @param center.row whether to center
-#'
-#' @return
 #' @export
 #' @import MASS
 covwhitener <- function(X,n.comp=ncol(X),center.row=FALSE) {
@@ -812,7 +809,7 @@ SimLCA <- function(n.samples, distribution = c('logistic','t','gumbel'), nu.vect
 #' @param invector vectorized lower diagonals.
 #' @param make.diag default value = 1.
 #'
-#' @return
+#' @return a net matrx
 #' @export
 #'
 #' @examples net = vec2net(1:10)
