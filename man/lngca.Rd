@@ -60,7 +60,7 @@ lngca(
 
 \item{irlba}{whether require irlba package.}
 
-\item{...}{}
+\item{...}{ellipsis}
 }
 \value{
 Function outputs a list including the following:

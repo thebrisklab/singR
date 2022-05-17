@@ -43,7 +43,7 @@ lngca_multicore(
 
 \item{sourcefile}{the filepath contains jngca_functions}
 
-\item{...}{}
+\item{...}{ellipsis}
 }
 \value{
 a list with matrices

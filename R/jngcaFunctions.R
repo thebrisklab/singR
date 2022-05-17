@@ -21,7 +21,7 @@
 #' @param scratch temporary directory name
 #' @param keepall
 #' @param sourcefile the filepath contains jngca_functions
-#' @param ...
+#' @param ... ellipsis
 #'
 #' @return a list with matrices
 #' ## Ws:
@@ -171,7 +171,7 @@ lngca_multicore <- function(xData, n.comp = ncol(xData), ncores=NULL, W.list = N
 #' @param max.comp logical variable that estiamtes the max number of non-gaussian components.
 #' @param df default = 0
 #' @param irlba whether require irlba package.
-#' @param ...
+#' @param ... ellipsis
 #'
 #' @return Function outputs a list including the following:
 #' \describe{
