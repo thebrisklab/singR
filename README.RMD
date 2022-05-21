@@ -3,7 +3,7 @@ title: "Readme.RMD"
 author: "Liangkang Wang"
 date: "3/15/2022"
 output: 
-  md_document:
+  html_document:
     variant: markdown_github
 ---
 
