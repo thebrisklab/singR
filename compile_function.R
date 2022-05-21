@@ -11,4 +11,19 @@ install.packages("testthat")
 library(testthat)
 testthat::skip_on_cran()
 
-check()
+
+
+
+
+
+
+
+
+
+usethis::use_test("name")
+
+devtools::test()
+usethis::use_testthat()
+
+devtools::check()
+devtools::test()
