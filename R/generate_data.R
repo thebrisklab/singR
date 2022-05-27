@@ -254,10 +254,23 @@ generateData_v3 <- function(nsubject = 48, snr = c(0.2, 0.2), vars = c(0.01,0.01
 
 
 ################################################
+#' Sim data generation for 123 graph
+#'
+#' @param snr the signal to noise ratio
+#' @param noisyICA whether use noisyICA
+#' @param nTR default value is 50
+#' @param nImages the number of images, default value is 1
+#' @param phi default value = 0.5
+#' @param dim.data dimension of data matrix
+#' @param var.inactive default value is 0.0001
+#'
+#' @return
+#' @export
+#' @import neuRosim
+#' @import steadyICA
 SimFMRI123 = function(snr = 1, noisyICA=FALSE, nTR=50, nImages=1, phi=0.5, dim.data=c(33,33), var.inactive=0.0001) {
   ##ASSUME 1,000 samples
-  require(neuRosim)
-  require(steadyICA)
+
   m = nImages
   #Latent components are fixed for each simulation:
   x1 = rep(3,5)

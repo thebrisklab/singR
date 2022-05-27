@@ -1,92 +1,6 @@
 ### Functions for Match and permutation
 
 
-# BRisk: 30 March 2020: Note: uses Hungarian. This is now deprecated.
-jin_match = function(invLx,invLy,Ux,Uy,nperm,multicore=0,alpha=0.01){
-  warning('This function is now deprecated')
-  # takes arguments as in updateUboth
-  # invLx: inverse of whitener for X n x n
-  # Ux: px x n
-  # Conducts permutation test for joint rank
-
-  #multicore: an integer; if =0 or FALSE, then uses a single-core
-  # else uses doParallel
-  Mx = invLx%*%t(Ux)
-  My = invLy%*%t(Uy)
-  nSubject = ncol(Ux)
-  px = nrow(Ux)
-  py = nrow(Uy)
-  if(px>py) stop('px must be less than or equal to py -- switch order of X and Y')
-
-  #  if (corr) {
-  # scaling is not necessary, done in angleMatchICA
-  # however, centering is
-  # to ensure Mx has zero row means, one needs to make sure the
-  # data input to the ngca function is double centered
-
-  #    Mx = t(scale(Mx))
-  #    My = t(scale(My))
-  #  }
-
-  a = all(apply(Mx,2,mean)<1e-10) & all(apply(My,2,mean)<1e-10)
-  if (!a) {
-    stop('Columns of Mx are not mean 0 -- correlations and angles are not equivalent! re-fit ngca with double centering')
-  }
-
-  matchedResults = angleMatchICA(Mx,My,Ux,Uy)
-  # trick to use for Ux and Uy: treat like Sx and Sy
-
-
-  # equivalent to correlations:
-  corrmatched = cos(matchedResults$matchedangles)
-
-  # fisher z-transform: (eliminate variance dependence on size of correlation)
-  #zcorrmatched = tanh(corrmatched) # does not impact results, monotonic transformation
-
-
-  #if(!is.null(seed)) set.seed(seed)
-  # get sample of max z-corr from random permutations:
-  if (multicore>0) {
-    require(doParallel)
-    require(doRNG)
-    registerDoParallel(multicore)
-    corrperm = foreach (b = 1:nperm, .combine=rbind) %dorng% {
-      new.My = My[sample(1:nSubject),]
-      max(abs(cor(Mx,new.My)))
-    }
-  }
-
-  pperm = NULL
-  maxrj = min(px,py)
-  for (j in 1:maxrj) pperm[j] = mean(corrmatched[j]<corrperm)
-
-
-  rj = sum(pperm<alpha)
-
-  Ujx = matchedResults$Sx[1:rj,]
-  Ujy = matchedResults$Sy[1:rj,]
-  # should be equivalent to matchedResults, but is a little off
-  #cMjx = invLx%*%t(Ujx)
-  #cMjy = invLy%*%t(Ujy)
-  #diag(cor(cMjx,cMjy))
-
-  #matchedResults$Mx[1:5,1:5]
-  #cMjx[1:5,1:5]
-  #a = matchedResults$Mx[,1:rj]
-  #sum((cMjx-a)^2)
-
-  #a = cor(matchedResults$Mx,matchedResults$My)
-  #diag(a[1:10,1:10])
-  # # correlations are the same
-
-
-  Mjx = matchedResults$Mx[,1:rj]
-  Mjy = matchedResults$My[,1:rj]
-
-
-  return(list(Ujx=Ujx,Ujy=Ujy,invLx=invLx,invLy=invLy,Mjx=Mjx,Mjy=Mjy,fwer_alpha = quantile(corrperm,1-alpha)))
-}
-
 # Use greedy algorithm:
 
 #' Greedy Match
@@ -186,14 +100,14 @@ permTestJointRank = function(MatchedMx,MatchedMy,nperm=1000,alpha=0.01,multicore
     stop('Mx and My have different numbers of rows. The number of subjects must be equal in X and Y.')
   }
   if (multicore>1) {
-    require(doParallel)
-    require(doRNG)
-    registerDoParallel(multicore)
+    #require(doParallel)
+    #require(doRNG)
+    #registerDoParallel(multicore)
 
-    corrperm = foreach (b = 1:nperm, .combine=rbind) %dorng% {
-      new.My = MatchedMy[sample(1:nSubject),]
-      max(abs(cor(MatchedMx,new.My)))
-    }
+    #corrperm = foreach (b = 1:nperm, .combine=rbind) %dorng% {
+      #new.My = MatchedMy[sample(1:nSubject),]
+      #max(abs(cor(MatchedMx,new.My)))
+    stop('This package does not support multicore')
   } else {
     corrperm = numeric(nperm)
     for (k in 1:nperm) {
@@ -217,8 +131,17 @@ permTestJointRank = function(MatchedMx,MatchedMy,nperm=1000,alpha=0.01,multicore
 
 #-------------------------
 #Match based on L2 distances and Hungarian
+#' match ICA
+#'
+#' @param S loading variable matrix
+#' @param template template for match
+#' @param M subject score matrix
+#'
+#' @return
+#'
+#' @import clue
 matchICA=function(S,template,M=NULL) {
-  require(clue)
+
   n.comp=ncol(S)
   n.obs=nrow(S)
   if(n.comp>n.obs) warning('Input should be n x d')
