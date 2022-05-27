@@ -137,7 +137,7 @@ permTestJointRank = function(MatchedMx,MatchedMy,nperm=1000,alpha=0.01,multicore
 #' @param template template for match
 #' @param M subject score matrix
 #'
-#' @return
+#' @return the match result
 #'
 #' @import clue
 matchICA=function(S,template,M=NULL) {

@@ -30,7 +30,7 @@ SimFMRI123(
 \item{var.inactive}{default value is 0.0001}
 }
 \value{
-
+a list of simulation data
 }
 \description{
 Sim data generation for 123 graph

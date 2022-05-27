@@ -264,7 +264,7 @@ generateData_v3 <- function(nsubject = 48, snr = c(0.2, 0.2), vars = c(0.01,0.01
 #' @param dim.data dimension of data matrix
 #' @param var.inactive default value is 0.0001
 #'
-#' @return
+#' @return a list of simulation data
 #' @export
 #' @import neuRosim
 #' @import steadyICA

@@ -14,7 +14,7 @@ matchICA(S, template, M = NULL)
 \item{M}{subject score matrix}
 }
 \value{
-
+the match result
 }
 \description{
 match ICA
