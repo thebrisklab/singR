@@ -258,6 +258,27 @@ angleMatchICA=function(Mx,My,Sx=NULL,Sy=NULL) {
 
 # Wrapper functions for rank estimation using permutation approach
 #######################################################################
+# subfunctions used in this function:
+permmatRank = function(xdata, ncomp, nperms,
+                       ninitialization_perm) {
+  nsubjects = ncol(xdata)
+  px = nrow(xdata)
+  ngauss = nsubjects - ncomp + 1
+  permmatJB = rep(0, nperms)
+  for(k in 1:nperms){
+    # sample n - r subjects
+    tempX = xdata[ , sample(1:nsubjects, ngauss)]
+    newX = matrix(0, px, ngauss)
+    for (j in 1:ngauss) {
+      # permute jth column
+      pmat = sample(1:px)
+      newX[,j] = tempX[pmat, j]
+    }
+    # estimate non-gaussianity of the component
+    permmatJB[k] = mlcaFP(newX, n.comp = 1, restarts.pbyd=ninitialization_perm,distribution='JB')$nongaussianity
+  }
+  permmatJB
+}
 
 permmatRank_sequential_JB = function(xdata,maxcompdata=ncol(xdata),ncomplist,nperms,ninitialization_data=10,ninitialization_perm=5) {
   #xdata: p x n subjects
@@ -269,31 +290,11 @@ permmatRank_sequential_JB = function(xdata,maxcompdata=ncol(xdata),ncomplist,npe
   #nperms: number of samples for each permutation test
   #ncores: number of cores to use via registerDoParallel
 
-  # subfunctions used in this function:
-  permmatRank = function(xdata, ncomp, nperms,
-                         ninitialization_perm) {
-    nsubjects = ncol(xdata)
-    px = nrow(xdata)
-    ngauss = nsubjects - ncomp + 1
-    permmatJB = rep(0, nperms)
-    for(k in 1:nperms){
-      # sample n - r subjects
-      tempX = xdata[ , sample(1:nsubjects, ngauss)]
-      newX = matrix(0, px, ngauss)
-      for (j in 1:ngauss) {
-        # permute jth column
-        pmat = sample(1:px)
-        newX[,j] = tempX[pmat, j]
-      }
-      # estimate non-gaussianity of the component
-      permmatJB[k] = mlcaFP(newX, n.comp = 1, restarts.pbyd=ninitialization_perm,distribution='JB')$nongaussianity
-    }
-    permmatJB
-  }
+
 
 
   # Estimate model with components=maxcompdata :
-  estX = mlcaFP(xdata,restarts.pbyd=round(ninitialization_data/2),restarts.dbyd=round(ninitialization_data/2),distribution='JB', n.comp=maxcompdata)
+  estX = lngca(xdata,restarts.pbyd=round(ninitialization_data/2),restarts.dbyd=round(ninitialization_data/2),distribution='JB', n.comp=maxcompdata)
 
   # Construct p-values for reach component
   nc = length(ncomplist)
