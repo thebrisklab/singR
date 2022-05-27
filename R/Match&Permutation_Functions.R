@@ -75,7 +75,7 @@ greedymatch = function(Mx,My,Ux,Uy) {
 }
 
 # BRisk: 30 March 2020
-#' Title
+#' Permutation test with Greedymatch
 #'
 #' @param MatchedMx matrix with nsubject x n.comp, comes from greedymatch
 #' @param MatchedMy matrix with nsubject2 x n.comp, comes from greedymatch

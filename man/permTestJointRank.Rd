@@ -2,7 +2,7 @@
 % Please edit documentation in R/Match&Permutation_Functions.R
 \name{permTestJointRank}
 \alias{permTestJointRank}
-\title{Title}
+\title{Permutation test with Greedymatch}
 \usage{
 permTestJointRank(
   MatchedMx,
@@ -30,5 +30,5 @@ a list of matrixes
  ## fwer_alpha: quantile of corr permutation with 1- alpha
 }
 \description{
-Title
+Permutation test with Greedymatch
 }
