@@ -3,6 +3,7 @@
 export("%^%")
 export(SimFMRI123)
 export(angleMatchICA)
+export(aveM)
 export(calculateJB)
 export(covwhitener)
 export(create.graph.long)

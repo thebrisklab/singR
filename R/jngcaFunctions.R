@@ -608,6 +608,14 @@ whitener.evd = function(xData) {
 }
 
 # here subjects are by rows, columns correspond to components
+#' Average Mj for Mx and My
+#'
+#' @param mjX n x rj
+#' @param mjY n x rj
+#'
+#' @return a new Mj
+#' @export
+#'
 aveM = function(mjX,mjY) {
 
   mjX = t(t(mjX) / sqrt(apply(mjX^2,2,sum))) # each column has eucledean norm 1
