@@ -17,6 +17,8 @@ usethis::use_data(simdata, overwrite = TRUE)
 load("c:/Software/Data/Small_Simulated_data.Rdata")
 data("Small_Simulated_data.Rdata")
 data(simdata)
+usethis::use_data_raw()
+
 
 class(mj)
 
@@ -29,3 +31,4 @@ devtools::check()
 devtools::test()
 
 simdata <- list(dX=dX,dY=dY,mj=mj,sIx=new_sIx,sIy=new_sIy,sjx=new_sjx,sjy=new_sjy)
+a=system.file("extdata","template.dtseries.nii",package = "singR")

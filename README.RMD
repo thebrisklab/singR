@@ -50,7 +50,7 @@ Sytrue = signchange(Sytrue)
 library(ciftiTools)
 ciftiTools.setOption("wb_path", "C:/Software/workbench")
 
-xii_template <- read_cifti("c:/Software/Data/template.dtseries.nii", brainstructures=c("left", "right"),resamp_res = 2000) 
+xii_template <- read_cifti(system.file("extdata","template.dtseries.nii",package = "singR"), brainstructures=c("left", "right"),resamp_res = 2000) #the template cifti file is built in the package
 # resample the template to 2k resolution
 xii_new <- newdata_xifti(xii_template, Sxtrue)
 
