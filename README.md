@@ -46,7 +46,7 @@ Sytrue = signchange(Sytrue)
 library(ciftiTools)
 ciftiTools.setOption("wb_path", "C:/Software/workbench")
 
-xii_template <- read_cifti("c:/Software/Data/tfMRI_MOTOR_LR_Atlas.dtseries.nii", brainstructures=c("left", "right"),resamp_res = 2000) 
+xii_template <- read_cifti("c:/Software/Data/template.dtseries.nii", brainstructures=c("left", "right"),resamp_res = 2000) 
 # resample the template to 2k resolution
 xii_new <- newdata_xifti(xii_template, Sxtrue)
 
