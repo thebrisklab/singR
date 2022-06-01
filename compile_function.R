@@ -13,12 +13,12 @@ testthat::skip_on_cran()
 
 
 
+usethis::use_data(simdata, overwrite = TRUE)
+load("c:/Software/Data/Small_Simulated_data.Rdata")
+data("Small_Simulated_data.Rdata")
+data(dX)
 
-
-
-
-
-
+class(mj)
 
 usethis::use_test("name")
 
@@ -27,3 +27,5 @@ usethis::use_testthat()
 
 devtools::check()
 devtools::test()
+
+simdata <- list(dX=dX,dY=dY,mj=mj,sIx=new_sIx,sIy=new_sIy,sjx=new_sjx,sjy=new_sjy)
