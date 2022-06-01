@@ -27,12 +27,13 @@ install_github("thebrisklab/singR")
 library(singR)
 
 # Read and visualize data
-load(file = "Small_Simulated_data.Rdata")
-# It contains dX, dY, mj, new_sIx,new_sIy,new_sjx,new_sjy
+data(simdata) # built-in dataset for real data simulation
+
+# It contains dX, dY, mj, sIx,sIy,sjx,sjy
 
 ## True Data and signchange
-Sxtrue = t(new_sjx) #dim(Sxtrue) px x n
-Sytrue = t(new_sjy)
+Sxtrue = t(simdata$sjx) #dim(Sxtrue) px x n
+Sytrue = t(simdata$sjy)
 
 Sxtrue = signchange(Sxtrue) #sign degree amplification
 Sytrue = signchange(Sytrue)
@@ -81,6 +82,8 @@ plot_grid(p1,p2,p3,p4,nrow = 2)
 
 ``` r
 # Center X and Y
+dX=simdata$dX
+dY=simdata$dY
 n = nrow(dX)
 pX = ncol(dX)
 pY = ncol(dY)

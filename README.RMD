@@ -31,12 +31,13 @@ install_github("thebrisklab/singR")
 library(singR)
 
 # Read and visualize data
-load(file = "Small_Simulated_data.Rdata")
-# It contains dX, dY, mj, new_sIx,new_sIy,new_sjx,new_sjy
+data(simdata) # built-in dataset for real data simulation
+
+# It contains dX, dY, mj, sIx,sIy,sjx,sjy
 
 ## True Data and signchange
-Sxtrue = t(new_sjx) #dim(Sxtrue) px x n
-Sytrue = t(new_sjy)
+Sxtrue = t(simdata$sjx) #dim(Sxtrue) px x n
+Sytrue = t(simdata$sjy)
 
 Sxtrue = signchange(Sxtrue) #sign degree amplification
 Sytrue = signchange(Sytrue)
@@ -92,6 +93,8 @@ knitr::include_graphics("fig/Truth_plot.png")
 ### Pipeline of SING method
 ```{r eval=FALSE}
 # Center X and Y
+dX=simdata$dX
+dY=simdata$dY
 n = nrow(dX)
 pX = ncol(dX)
 pY = ncol(dY)

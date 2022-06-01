@@ -16,7 +16,7 @@ testthat::skip_on_cran()
 usethis::use_data(simdata, overwrite = TRUE)
 load("c:/Software/Data/Small_Simulated_data.Rdata")
 data("Small_Simulated_data.Rdata")
-data(dX)
+data(simdata)
 
 class(mj)
 
