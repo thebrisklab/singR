@@ -26,6 +26,8 @@ usethis::use_test("name")
 
 devtools::test()
 usethis::use_testthat()
+use_test("NameOfTest")
+
 
 devtools::check()
 devtools::test()
