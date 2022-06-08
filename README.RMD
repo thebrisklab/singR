@@ -8,6 +8,7 @@ output:
 ---
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/thebrisklab/singR/workflows/R-CMD-check/badge.svg)](https://github.com/thebrisklab/singR/actions)
+[![Codecov test coverage](https://codecov.io/gh/thebrisklab/singR/branch/main/graph/badge.svg)](https://app.codecov.io/gh/thebrisklab/singR?branch=main)
 <!-- badges: end -->
 
 # singR 
