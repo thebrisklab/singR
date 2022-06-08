@@ -62,11 +62,7 @@ invLy = est.sigmaYA%^%(0.5)
 
 JBall = calculateJB(matchMxMy$Ux[1:2, ], X = xDataA) + calculateJB(matchMxMy$Uy[1:2, ], X = yDataA)
 
-test_that("JB statistic", {
 
-  expect_equal(JBall,488.505)
-
-})
 
 # JB and tolerance parameters
 alpha = 0.8
