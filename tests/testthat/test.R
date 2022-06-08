@@ -31,8 +31,6 @@ test_that("linear non-Gaussian component analysis", {
 })
 
 
-
-
 matchMxMy = greedymatch(t(Mx_JB), t(My_JB), Ux = t(Uxfull), Uy = t(Uyfull))
 permJoint <- permTestJointRank(matchMxMy$Mx,matchMxMy$My) # alpha = 0.01, nperm=1000
 pval_joint = permJoint$pvalues
@@ -47,3 +45,40 @@ test_that("greedy match and permTest", {
   expect_equal(permJoint$rj,2)
 
 })
+
+# For X
+# Scale rowwise
+est.sigmaXA = tcrossprod(dXcentered)/(pX-1)  ## dXcentered %*% t(dXcentered), which is the covariance matrix with n x n.
+whitenerXA = est.sigmaXA%^%(-0.5)   ## ZCA Whitening, Lx.
+xDataA = whitenerXA %*% dXcentered   ## Xw = Lx %*% Xc.matrix with n x px.
+invLx = est.sigmaXA%^%(0.5) ## Inverse matrix of Lx, which is the whitenerXA aforemetioned.
+
+# For Y
+# Scale rowwise
+est.sigmaYA = tcrossprod(dYcentered)/(pY-1)  ## since already centered, can just take tcrossprod
+whitenerYA = est.sigmaYA%^%(-0.5)   ## ZCA Whitening
+yDataA = whitenerYA %*% dYcentered
+invLy = est.sigmaYA%^%(0.5)
+
+JBall = calculateJB(matchMxMy$Ux[1:2, ], X = xDataA) + calculateJB(matchMxMy$Uy[1:2, ], X = yDataA)
+
+test_that("JB statistic", {
+
+  expect_equal(JBall,488.505)
+
+})
+
+# JB and tolerance parameters
+alpha = 0.8
+tol = 1e-10
+
+# curvilinear with small rho
+rho = JBall/10
+out_indiv_small <- curvilinear_c(invLx = invLx, invLy = invLy, xData = xDataA, yData = yDataA, Ux = matchMxMy$Ux, Uy = matchMxMy$Uy, rho = rho, tol = tol, alpha = alpha, maxiter = 1500, r0 = joint_rank)
+
+test_that("Curvilinear search", {
+
+  expect_equal(dim(out_indiv_small$Ux),c(12,48))
+  expect_equal(dim(out_indiv_small$Uy),c(12,48))
+})
+
