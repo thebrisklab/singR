@@ -102,7 +102,7 @@ mCCA_jointICA <- function(dX, dY, Mx, My, M = min(Mx, My)){
   Cy = crossprod(Dy, dYcentered) # M by pY; Y approx DyCy
 
   # JB on CxS, CyS from above
-  estCxy_JB = mlcaFP(xData = t(cbind(Cx, Cy)), n.comp = 2, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB')
+  estCxy_JB = lngca(xData = t(cbind(Cx, Cy)), n.comp = 2, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB')
 
   # Get the corresponding M by Least Squares on Cx, Cy (this is W^{-1} in the paper's notation)
   MjointC = est.M.ols(sData = estCxy_JB$S, xData = t(cbind(Cx, Cy)))

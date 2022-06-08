@@ -275,7 +275,7 @@ permmatRank = function(xdata, ncomp, nperms,
       newX[,j] = tempX[pmat, j]
     }
     # estimate non-gaussianity of the component
-    permmatJB[k] = mlcaFP(newX, n.comp = 1, restarts.pbyd=ninitialization_perm,distribution='JB')$nongaussianity
+    permmatJB[k] = lngca(newX, n.comp = 1, restarts.pbyd=ninitialization_perm,distribution='JB')$nongaussianity
   }
   permmatJB
 }
