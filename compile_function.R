@@ -26,7 +26,7 @@ devtools::test()
 usethis::use_testthat()
 use_test("NameOfTest")
 
-
+env_vars = c(NOT_CRAN = "false")
 devtools::check()
 devtools::test()
 

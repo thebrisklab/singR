@@ -1,16 +1,15 @@
-citHeader("To cite singR in publications use:")
+citHeader("To cite {singR} in publications use:")
 
-citEntry(
-  entry    = "singR: A package of Simultaneous non-Gaussian Component Analysis for data integration in neuroimaginge",
-  title    = singR,
-  author   = Liangkang Wang, Irina Gaynanova, Benjamin Risk ,
-  journal  = ,
-  year     = 2022,
-  volume   = ,
-  number   = ,
-  pages    = ,
-  url      = https://github.com/thebrisklab/singR,
-  textVersion = paste(
-
-  )
+singR_citations <- c(
+	bibentry(
+		bibtype      = "Article",
+		title        = "singR: A package of Simultaneous non-Gaussian Component Analysis for data integration in neuroimaging",
+		author       = personList(
+			as.person("Liangkang Wang"),
+			as.person("Irina Gaynanova"),
+			as.person("Benjamin Risk")
+		),
+		journal      = "Journal",
+		year         = "2022"
+	)
 )
