@@ -26,9 +26,9 @@ devtools::test()
 usethis::use_testthat()
 use_test("NameOfTest")
 
-env_vars = c(NOT_CRAN = "false")
-devtools::check()
-devtools::test()
+
+devtools::check(env_vars = c(NOT_CRAN = "FALSE")) # cran check
+devtools::test() # test that
 
 use_citation()
 library(spelling)
@@ -42,3 +42,5 @@ usethis::use_coverage()
 usethis::use_github_action("test-coverage")
 
 usethis::use_vignette("my-vignette","singR")
+
+library(testthat)
