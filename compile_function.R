@@ -31,4 +31,14 @@ devtools::check()
 devtools::test()
 
 use_citation()
-spell_check()
+library(spelling)
+devtools::spell_check()
+spelling::updatae_wordlist()
+
+usethis::use_github_action_check_standard()
+usethis::use_github_actions_badge(name = "R-CMD-check",
+                                  repo_spec = NULL)
+usethis::use_coverage()
+usethis::use_github_action("test-coverage")
+
+usethis::use_vignette("my-vignette","singR")
