@@ -14,19 +14,15 @@ LinkingTo:
     RcppArmadillo
 Imports: 
     MASS,
-    JADE,
     Rcpp,
     ProDenICA,
     clue,
-    gam,
     irlba,
-    snow,
     neuRosim,
     steadyICA,
     ggplot2,
     grid,
-    scales,
-    parallel
+    scales
 Suggests: 
     knitr,
     covr,
