@@ -48,10 +48,10 @@ test_that("greedy match and permTest", {
 
 # For X
 # Scale rowwise
-est.sigmaXA = tcrossprod(dXcentered)/(pX-1)  ## dXcentered %*% t(dXcentered), which is the covariance matrix with n x n.
-whitenerXA = est.sigmaXA%^%(-0.5)   ## ZCA Whitening, Lx.
-xDataA = whitenerXA %*% dXcentered   ## Xw = Lx %*% Xc.matrix with n x px.
-invLx = est.sigmaXA%^%(0.5) ## Inverse matrix of Lx, which is the whitenerXA aforemetioned.
+est.sigmaXA = tcrossprod(dXcentered)/(pX-1)
+whitenerXA = est.sigmaXA%^%(-0.5)
+xDataA = whitenerXA %*% dXcentered
+invLx = est.sigmaXA%^%(0.5)
 
 # For Y
 # Scale rowwise
