@@ -1,6 +1,9 @@
 <!-- badges: start -->
+
 [![R-CMD-check](https://github.com/thebrisklab/singR/workflows/R-CMD-check/badge.svg)](https://github.com/thebrisklab/singR/actions)
-<!-- badges: end --> \# singR
+<!-- badges: end -->
+
+# singR
 
 singR package is built on SING method
 <https://github.com/thebrisklab/SING>. SING is used to extract joint and
