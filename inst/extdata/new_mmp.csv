@@ -1,0 +1,101 @@
+"ï..MMP_Index","MMP_Label","Community_Vector","Community_Label","mmp_order"
+29,"R_7Pm",6,"Central Executive",152
+30,"R_7m",5,"Default Mode",153
+31,"R_POS1",5,"Default Mode",154
+32,"R_23d",6,"Central Executive",156
+33,"R_v23ab",5,"Default Mode",157
+34,"R_d23ab",5,"Default Mode",158
+35,"R_31pv",5,"Default Mode",159
+36,"R_5m",2,"Somatomotor",160
+37,"R_5mv",4,"Ventral Salience",163
+38,"R_23c",4,"Ventral Salience",181
+39,"R_5L",2,"Somatomotor",182
+40,"R_24dd",2,"Somatomotor",183
+41,"R_24dv",2,"Somatomotor",184
+42,"R_7AL",4,"Ventral Salience",185
+43,"R_SCEF",4,"Ventral Salience",186
+44,"R_6ma",4,"Ventral Salience",187
+45,"R_7Am",3,"Dorsal Salience",193
+46,"R_7PL",3,"Dorsal Salience",196
+47,"R_7PC",2,"Somatomotor",197
+48,"R_LIPv",1,"Visual",198
+49,"R_VIP",1,"Visual",199
+50,"R_MIP",1,"Visual",200
+57,"R_p24pr",4,"Ventral Salience",318
+58,"R_33pr",6,"Central Executive",321
+59,"R_a24pr",4,"Ventral Salience",322
+60,"R_p32pr",4,"Ventral Salience",323
+61,"R_a24",5,"Default Mode",326
+62,"R_d32",6,"Central Executive",332
+63,"R_8BM",6,"Central Executive",333
+64,"R_p32",6,"Central Executive",334
+65,"R_10r",5,"Default Mode",336
+66,"R_47m",5,"Default Mode",337
+67,"R_8Av",6,"Central Executive",338
+68,"R_8Ad",5,"Default Mode",339
+69,"R_9m",5,"Default Mode",340
+70,"R_8BL",5,"Default Mode",343
+94,"R_47s",5,"Default Mode",168
+95,"R_LIPd",1,"Visual",173
+96,"R_6a",3,"Dorsal Salience",174
+97,"R_i6-8",6,"Central Executive",175
+98,"R_s6-8",6,"Central Executive",188
+99,"R_43",4,"Ventral Salience",189
+120,"R_H",5,"Default Mode",304
+121,"R_ProS",1,"Visual",348
+137,"R_PHT",3,"Dorsal Salience",191
+146,"R_IP0",1,"Visual",316
+147,"R_PFop",4,"Ventral Salience",317
+148,"R_PF",3,"Dorsal Salience",328
+171,"R_p47r",6,"Central Executive",167
+172,"R_TGv",5,"Default Mode",169
+173,"R_MBelt",2,"Somatomotor",178
+174,"R_LBelt",2,"Somatomotor",179
+175,"R_A4",2,"Somatomotor",190
+194,"L_RSC",6,"Central Executive",320
+195,"L_POS2",6,"Central Executive",327
+196,"L_V7",1,"Visual",347
+197,"L_IPS1",1,"Visual",349
+235,"L_6mp",2,"Somatomotor",155
+236,"L_6v",2,"Somatomotor",161
+237,"L_p24pr",4,"Ventral Salience",164
+238,"L_33pr",6,"Central Executive",165
+239,"L_a24pr",4,"Ventral Salience",172
+240,"L_p32pr",4,"Ventral Salience",176
+241,"L_a24",5,"Default Mode",192
+273,"L_OFC",6,"Central Executive",301
+274,"L_47s",5,"Default Mode",302
+275,"L_LIPd",3,"Dorsal Salience",303
+276,"L_6a",3,"Dorsal Salience",305
+277,"L_i6-8",6,"Central Executive",306
+278,"L_s6-8",6,"Central Executive",307
+279,"L_43",4,"Ventral Salience",308
+280,"L_OP4",2,"Somatomotor",309
+281,"L_OP1",2,"Somatomotor",310
+282,"L_OP2-3",2,"Somatomotor",311
+283,"L_52",2,"Somatomotor",312
+284,"L_RI",2,"Somatomotor",315
+285,"L_PFcm",4,"Ventral Salience",319
+286,"L_PoI2",4,"Ventral Salience",330
+287,"L_TA2",2,"Somatomotor",331
+288,"L_FOP4",4,"Ventral Salience",335
+289,"L_MI",4,"Ventral Salience",341
+290,"L_Pir",2,"Somatomotor",344
+291,"L_AVI",6,"Central Executive",345
+323,"L_PGp",1,"Visual",151
+324,"L_IP2",6,"Central Executive",162
+325,"L_IP1",6,"Central Executive",166
+326,"L_IP0",1,"Visual",170
+327,"L_PFop",4,"Ventral Salience",171
+328,"L_PF",3,"Dorsal Salience",177
+329,"L_PFm",6,"Central Executive",180
+330,"L_PGi",5,"Default Mode",194
+331,"L_PGs",5,"Default Mode",195
+349,"L_FOP5",4,"Ventral Salience",313
+350,"L_p10p",6,"Central Executive",314
+351,"L_p47r",6,"Central Executive",324
+352,"L_TGv",5,"Default Mode",325
+353,"L_MBelt",2,"Somatomotor",329
+354,"L_LBelt",2,"Somatomotor",342
+355,"L_A4",2,"Somatomotor",346
+356,"L_STSva",5,"Default Mode",350
