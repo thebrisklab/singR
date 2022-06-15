@@ -75,14 +75,12 @@ orthogonalize = function (W) {
 #' @param X dataset
 #' @param n.comp the number of components
 #' @param center.row whether center the row of data
-#' @param irlba whether use irlba
 #'
 #' @return a whitener matrix
 #' @export
 #'
 #' @import MASS
-#' @import irlba
-whitener <- function(X,n.comp=ncol(X),center.row=FALSE,irlba=FALSE) {
+whitener <- function(X,n.comp=ncol(X),center.row=FALSE) {
 
   #X must be n x d
   if(ncol(X)>nrow(X)) warning('X is whitened with respect to columns')
@@ -90,11 +88,8 @@ whitener <- function(X,n.comp=ncol(X),center.row=FALSE,irlba=FALSE) {
   x.center=scale(X,center=TRUE,scale=FALSE)
   if(center.row==TRUE) x.center = x.center - rowMeans(x.center)
   n.rep=dim(x.center)[1]
-  if(irlba==FALSE) svd.x=svd(x.center,nu=n.comp,nv=n.comp)
-  if(irlba==TRUE) {
+  svd.x=svd(x.center,nu=n.comp,nv=n.comp)
 
-    svd.x=irlba(x.center,nu=n.comp,nv=n.comp)
-  }
   #RETURNS PARAMETERIZATION AS IN fastICA (i.e., X is n x d)
   #NOTE: For whitened X, re-whitening leads to different X
   #The output for square A is equivalent to solve(K)

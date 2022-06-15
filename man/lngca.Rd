@@ -21,7 +21,6 @@ lngca(
   reinit.max.comp = FALSE,
   max.comp = FALSE,
   df = 0,
-  irlba = FALSE,
   ...
 )
 }
@@ -57,8 +56,6 @@ lngca(
 \item{max.comp}{logical variable that estiamtes the max number of non-gaussian components.}
 
 \item{df}{default = 0}
-
-\item{irlba}{whether require irlba package.}
 
 \item{...}{ellipsis}
 }

@@ -4,7 +4,7 @@
 \alias{whitener}
 \title{Whitening Function}
 \usage{
-whitener(X, n.comp = ncol(X), center.row = FALSE, irlba = FALSE)
+whitener(X, n.comp = ncol(X), center.row = FALSE)
 }
 \arguments{
 \item{X}{dataset}
@@ -12,8 +12,6 @@ whitener(X, n.comp = ncol(X), center.row = FALSE, irlba = FALSE)
 \item{n.comp}{the number of components}
 
 \item{center.row}{whether center the row of data}
-
-\item{irlba}{whether use irlba}
 }
 \value{
 a whitener matrix

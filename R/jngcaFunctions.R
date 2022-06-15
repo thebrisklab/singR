@@ -24,7 +24,6 @@
 #' @param reinit.max.comp default = FALSE
 #' @param max.comp logical variable that estiamtes the max number of non-gaussian components.
 #' @param df default = 0
-#' @param irlba whether require irlba package.
 #' @param ... ellipsis
 #'
 #' @return Function outputs a list including the following:
@@ -41,11 +40,10 @@
 #'
 #' @export
 #'
-#' @import irlba
 #' @import ProDenICA
 #'
 #'
-lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenvec','sqrtprec','none'), maxit = 1000, eps = 1e-06, verbose = FALSE, restarts.pbyd = 0, restarts.dbyd = 0, distribution=c('tiltedgaussian','logistic','JB'), density=FALSE, out.all=FALSE, orth.method=c('svd','givens'), reinit.max.comp = FALSE, max.comp = FALSE, df=0, irlba=FALSE,...) {
+lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenvec','sqrtprec','none'), maxit = 1000, eps = 1e-06, verbose = FALSE, restarts.pbyd = 0, restarts.dbyd = 0, distribution=c('tiltedgaussian','logistic','JB'), density=FALSE, out.all=FALSE, orth.method=c('svd','givens'), reinit.max.comp = FALSE, max.comp = FALSE, df=0,...) {
 
     #note: small changes from mlcaFP from the JASA paper:
       # 1) output Mhat.
@@ -91,7 +89,7 @@ lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenv
     if (whiten=='eigenvec') {
       # Use whitener=='eigenvec' so that restarts.dbyd initiates from the
       # span of the first d eigenvectors.
-      temp = whitener(X = xData,n.comp = p,irlba=irlba)
+      temp = whitener(X = xData,n.comp = p)
       zData = temp$Z
       whitener = temp$whitener
       rm(temp)
