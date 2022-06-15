@@ -1,17 +1,6 @@
 library(singR)
 
-data <- generateData_v3(nsubject = 48, snr = c(1, 1), vars = c(0.005, 0.005))
-n = nrow(data$dX)
-pX = ncol(data$dX)
-pY = ncol(data$dY)
-dXcentered <- data$dX - matrix(rowMeans(data$dX), n, pX, byrow = F)
-dYcentered <- data$dY - matrix(rowMeans(data$dY), n, pY, byrow = F)
-
-test_that("generateData_v3", {
-  expect_equal(dim(data$dX), c(48,1089))
-  expect_equal(dim(data$dY), c(48,4950))
-})
-
+data = data("exampledata")
 # JB on X
 estX_JB = lngca(xData = t(data$dX), n.comp = 12, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB')
 Uxfull <- estX_JB$Ws  ## Ax = Ux %*% Lx, where Lx is the whitened matrix from covariance matrix of dX.
