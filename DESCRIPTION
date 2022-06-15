@@ -18,8 +18,6 @@ Imports:
     ProDenICA,
     clue,
     irlba,
-    neuRosim,
-    steadyICA,
     ggplot2,
     grid,
     scales

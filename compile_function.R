@@ -13,9 +13,11 @@ testthat::skip_on_cran()
 
 
 usethis::use_data(simdata, overwrite = TRUE)
+usethis::use_data(exampledata, overwrite = TRUE)
 
 data(simdata)
 usethis::use_data_raw()
+exampledata = data
 
 
 class(mj)
