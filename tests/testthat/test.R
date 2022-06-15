@@ -1,6 +1,7 @@
 library(singR)
 
-data = data("exampledata")
+data("exampledata")
+data=exampledata
 # JB on X
 estX_JB = lngca(xData = t(data$dX), n.comp = 12, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB')
 Uxfull <- estX_JB$Ws  ## Ax = Ux %*% Lx, where Lx is the whitened matrix from covariance matrix of dX.
