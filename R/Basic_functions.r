@@ -246,3 +246,107 @@ tiltedgaussian = function (xData, df = 8, B = 100, ...) {
   list(Gs = Gs, gs = gs, gps = gps, fGs = fGs, fgs=fgs, fgps=fgps)
 }
 #---------------------------------------------
+#---------------------------------------
+standardizeM <- function(M) {
+  #M is d x p
+  diag(diag(M%*%t(M))^(-1/2))%*%M
+}
+
+
+
+rtwonorm <- function(n, mean=c(0,5), sd=c(2/3,1), prob=0.5) {
+  k <- rbinom(n,1,prob=prob)
+  k*rnorm(n,mean[1],sd[1])+(1-k)*rnorm(n,mean[2],sd[2])
+}
+
+rmixnorm <- function(n, pars = list(mean=c(0,5), sd = c(2/3,1), prob=c(0.25,0.75))) {
+  probs = pars[['prob']]
+  means = pars[['mean']]
+  sigmas = pars[['sd']]
+  if(sum(probs)!=1) stop('Probabilities must sum to one')
+  z = rmultinom(n=n, size=1, prob = probs)
+  k = length(probs)
+  #use rnorm recycling:
+  x = rnorm(k*n,means,sigmas)
+  dim(x) = c(k,n)
+  apply(x*z,2,sum)
+}
+
+SimTwoNorms <- function(n.samples, distribution=c('mix-sub','mix-super'),snr,noisyICA=FALSE) {
+  distribution = match.arg(distribution)
+  if(distribution=='mix-sub') {
+    mean=c(-1.7,1.7); sd=c(1,1); prob=0.75
+  }
+  if(distribution=='mix-super') {
+    mean=c(0,5); sd=c(2/3,1); prob=0.95
+  }
+  sim.S <- rtwonorm(n=2*n.samples, mean=mean, sd=sd, prob=prob)
+  dim(sim.S) <- c(n.samples,2)
+  sim.M = myMixmat(5)
+  sim.W = solve(sim.M)
+  if(noisyICA) {
+    sim.N <- matrix(rnorm(n=5*n.samples,mean=0,sd=1),nrow=n.samples,ncol=5)
+  } else {
+    sim.N <- matrix(rnorm(n=3*n.samples,mean=0,sd=1),nrow=n.samples,ncol=3)
+  }
+
+  sim.Ms = sim.M[1:2,]
+  sim.Xs = sim.S%*%sim.Ms
+  if(noisyICA) {
+    sim.Mn = NULL
+    sim.Xn <- sim.N
+  } else {
+    sim.Mn <- sim.M[3:5,]
+    sim.Xn <- sim.N%*%sim.Mn
+  }
+  #alpha = 1/sqrt(mean(sim.Xs^2))
+  alpha = 1/sd(as.vector(sim.Xs))
+  sim.Xs = sim.Xs*alpha
+  mean.S = apply(sim.S,2,mean)
+  temp.S = scale(sim.S,center=TRUE,scale=FALSE)
+  scalingMat = diag(apply(temp.S,2,sd))
+  scaled.sim.S = temp.S%*%solve(scalingMat)
+  scaled.sim.Ms = sqrt(snr)*alpha*scalingMat%*%sim.Ms
+  #sim.Xn = sim.Xn/sqrt(mean(sim.Xn^2))
+  sim.Xn = sim.Xn/sd(as.vector(sim.Xn))
+  sim.Xs = sqrt(snr)*sim.Xs #equivalent to scaled.sim.S%*%(alpha*sqrt(snr)*scalingMat%*%sim.Ms)+alpha*sqrt(snr)*matrix(mean.S,nrow=n.samples,ncol=2,byrow=TRUE)%*%sim.Ms
+  #since we only recover scaled.sim.S, "true Ms" for, e.g., IFA, is defined as in scaled.sim.Ms
+  sim.X = sim.Xs + sim.Xn
+  sim.X.whitened = whitener(X=sim.X)
+  return(list(sim.S = sim.S, sim.N = sim.N, sim.Ms = sim.Ms, sim.Mn = sim.Mn, sim.X=sim.X, scaled.sim.S = scale(sim.S),scaled.sim.Ms = scaled.sim.Ms,scaled.sim.X = scale(sim.X), whitened.sim.X = sim.X.whitened$Z, whitener = sim.X.whitened$whitener))
+}
+
+
+#' Standardization with double centered and column scaling
+#'
+#' @param data input matrix with n x px.
+#' @param dif.tol the value for the threshold of scaling
+#' @param max.iter default value = 10
+#'
+#' @return standardized matrix with n x px.
+#' @export
+#'
+#' @examples
+#' spmwm = 3*matrix(rnorm(100000),nrow=100)+1
+#' dim(spmwm)
+#' apply(spmwm,1,mean) # we want these to be 0
+#' apply(spmwm,2,mean) # we want these to be 0
+#' apply(spmwm,2,sd) # we want each of these variances to be 1
+#'
+#' spmwm_cp=standard(spmwm)
+#' max(abs(apply(spmwm_cp,1,mean)))
+#' max(abs(apply(spmwm_cp,2,mean)))
+#' max(abs(apply(spmwm_cp,2,sd)-1))
+standard <- function(data,dif.tol=1e-03,max.iter=10){
+  row_mean_max = max(abs(apply(data,1,mean)))
+  col_mean_max = max(abs(apply(data,2,mean)))
+  col_sd_max= max(abs(apply(data,2,sd)-1))
+  n=0
+  while(n<=max.iter & max(row_mean_max,col_mean_max,col_mean_max)>= dif.tol) {
+    data=scale(data) # centering and scaling for each column
+    data=t(scale(t(data),center = T,scale = F))
+    n=n+1
+  }
+  return(data)
+}
+
