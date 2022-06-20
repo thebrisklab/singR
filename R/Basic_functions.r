@@ -215,6 +215,14 @@ jb.stat <- function(x, df=0) {
 
 
 
+#' tiltedgaussian
+#'
+#' @param xData input data
+#' @param df degree freedom
+#' @param B default value=100
+#' @param ...
+#'
+#' @import gam
 tiltedgaussian = function (xData, df = 8, B = 100, ...) {
   #This function is based on ProDenICA::GPois by Trevor Hastie
   #NOTE: Assumes data are zero mean.
