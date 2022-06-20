@@ -4,12 +4,14 @@
 \alias{calculateJB}
 \title{JB score calculate}
 \usage{
-calculateJB(U, X, alpha = 0.8)
+calculateJB(U = NULL, X = NULL, S = NULL, alpha = 0.8)
 }
 \arguments{
 \item{U}{U matrix for matched columns rj x n}
 
 \item{X}{whitened data matrix n x px, data = whitenerXA \%*\% dXcentered}
+
+\item{S}{the variable loadings r x px.}
 
 \item{alpha}{default = 0.8}
 }

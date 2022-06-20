@@ -12,10 +12,11 @@ testthat::skip_on_cran()
 
 
 
-usethis::use_data(simdata, overwrite = TRUE)
-usethis::use_data(exampledata, overwrite = TRUE)
+usethis::use_data(simdata, overwrite = TRUE,compress = TRUE)
+usethis::use_data(exampledata, overwrite = TRUE,compress = TRUE)
 
 data(simdata)
+data(exampledata)
 usethis::use_data_raw()
 exampledata = data
 
@@ -46,3 +47,5 @@ usethis::use_github_action("test-coverage")
 usethis::use_vignette("my-vignette","singR")
 
 library(testthat)
+
+tools::checkRdaFiles()
