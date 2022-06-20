@@ -3,18 +3,18 @@ library(singR)
 data("exampledata")
 data=exampledata
 # JB on X
-estX_JB = lngca(xData = t(data$dX), n.comp = 12, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB')
+estX_JB = lngca(xData = t(data$dX), n.comp = 12, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F)
 Uxfull <- estX_JB$U  ## Ax = Ux %*% Lx, where Lx is the whitened matrix from covariance matrix of dX.
 Mx_JB = est.M.ols(sData = t(estX_JB$S), xData = t(data$dX)) ## NOTE: for centered X, equivalent to xData %*% sData/(px-1)
 
 # JB on Y
-estY_JB = lngca(xData = t(data$dY), n.comp = 12, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB')
+estY_JB = lngca(xData = t(data$dY), n.comp = 12, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F)
 Uyfull <- estY_JB$U
 My_JB = est.M.ols(sData = t(estY_JB$S), xData = t(data$dY))
 
 test_that("linear non-Gaussian component analysis", {
 
-  expect_equal(dim(estX_JB$Ws),c(48,12))
+  expect_equal(dim(estX_JB$U),c(12,48))
 
   expect_equal(dim(Mx_JB),c(12,48))
 
@@ -35,6 +35,16 @@ test_that("greedy match and permTest", {
   expect_equal(permJoint$rj,2)
 
 })
+
+# Center X and Y
+dX=data$dX
+dY=data$dY
+n = nrow(dX)
+pX = ncol(dX)
+pY = ncol(dY)
+dXcentered <- dX - matrix(rowMeans(dX), n, pX, byrow = F)
+dYcentered <- dY - matrix(rowMeans(dY), n, pY, byrow = F)
+
 
 # For X
 # Scale rowwise
