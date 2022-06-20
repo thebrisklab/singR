@@ -24,17 +24,18 @@
 #' @param reinit.max.comp default = FALSE
 #' @param max.comp logical variable that estiamtes the max number of non-gaussian components.
 #' @param df default = 0
+#' @param stand whether to standard the data
 #' @param ... ellipsis
 #'
 #' @return Function outputs a list including the following:
 #' \describe{
-#'       \item{\code{Ws}}{t(Ux) matrix n x n.comp, part of the expression that Ax = Ux x Lx and Ax x Xc = Sx, where Lx is the whitener matrix.}
+#'       \item{\code{U}}{ matrix rx x n, part of the expression that Ax = Ux x Lx and Ax x Xc = Sx, where Lx is the whitener matrix.}
 #'       \item{\code{loglik}}{the value of log-likelihood in the lngca method.}
-#'       \item{\code{S}}{the variable loading matrix px x n.comp, each column is a component, which can be used to measure nongaussianity}
+#'       \item{\code{S}}{the variable loading matrix r x px, each row is a component, which can be used to measure nongaussianity}
 #'       \item{\code{df}}{egree of freedom.}
 #'       \item{\code{distribution}}{the method used for data decomposition.}
 #'       \item{\code{whitener}}{A symmetric whitening matrix n x n from dX, the same with  whitenerXA = est.sigmaXA \%^\% -0.5}
-#'       \item{\code{M}}{Mtrix with n.comp x n.}
+#'       \item{\code{M}}{Mx Mtrix with n x rx.}
 #'       \item{\code{nongaussianity}}{the nongaussianity score for each component saved in S matrix.}
 #' }
 #'
@@ -43,7 +44,7 @@
 #' @import ProDenICA
 #'
 #'
-lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenvec','sqrtprec','none'), maxit = 1000, eps = 1e-06, verbose = FALSE, restarts.pbyd = 0, restarts.dbyd = 0, distribution=c('tiltedgaussian','logistic','JB'), density=FALSE, out.all=FALSE, orth.method=c('svd','givens'), reinit.max.comp = FALSE, max.comp = FALSE, df=0,...) {
+lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenvec','sqrtprec','none'), maxit = 1000, eps = 1e-06, verbose = FALSE, restarts.pbyd = 0, restarts.dbyd = 0, distribution=c('tiltedgaussian','logistic','JB'), density=FALSE, out.all=FALSE, orth.method=c('svd','givens'), reinit.max.comp = FALSE, max.comp = FALSE, df=0,stand=TRUE,...) {
 
     #note: small changes from mlcaFP from the JASA paper:
       # 1) output Mhat.
@@ -84,7 +85,15 @@ lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenv
     d = n.comp
 
     # center xData such that ones%*%xData = 0
-    xData <- scale(xData, center=TRUE, scale=FALSE)  # minus the mean to center the xData #
+    # Liangkang fix: use the standard function to double center the data.
+    if(stand==T){
+      xData = standard(xData)
+    } else {
+      xData = scale(xData, center=TRUE, scale=FALSE)# minus the mean to center the xData
+    }
+
+
+
     if (d > p) stop('d must be less than or equal to p')
     if (whiten=='eigenvec') {
       # Use whitener=='eigenvec' so that restarts.dbyd initiates from the
@@ -179,6 +188,13 @@ lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenv
   out$M = Mhat
   # IGAY: fix the ordering of Ws based on loglik as well, fix on June 5th, 2019
   out$Ws = out$Ws[, order(loglik.maxS,decreasing=TRUE)]
+  # Liangkang: change the out subset name from Ws to U, and transpose to r x n dimension
+  out$U=t(out$Ws)
+  out=within(out,rm(Ws))
+  # Liangkang: transpose the M to n x r dimension.
+  out$M=t(out$M)
+  # Liangkang: transpose the S to r x px dimension.
+  out$S=t(out$S)
 
   out$nongaussianity = sort(loglik.maxS,decreasing = TRUE)
 
