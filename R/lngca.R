@@ -206,3 +206,20 @@ lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenv
   }
 }
 #---------------------------------
+#----------------------------
+#
+#' Estimate mixing matrix from estimates of components
+#'
+#' @param sData t(S) px x rx
+#' @param xData t(dX) px x n
+#' @param intercept default = TRUE
+#'
+#' @return a matrix t(Mx) n.comp x n
+#' @export
+#'
+est.M.ols <- function(sData,xData,intercept=TRUE) {
+  if(intercept) coef(lm(xData~sData))[-1,] else coef(lm(xData~sData-1))
+}
+# NOTE: for centered X, equivalent to xData %*% sData/(px-1)
+# Correced by Liankang
+# NOTE: for centered X, equivalent to t(sData)%*%xData/(V-1)

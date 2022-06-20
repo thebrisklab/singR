@@ -4,13 +4,13 @@ data("exampledata")
 data=exampledata
 # JB on X
 estX_JB = lngca(xData = t(data$dX), n.comp = 12, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB')
-Uxfull <- estX_JB$Ws  ## Ax = Ux %*% Lx, where Lx is the whitened matrix from covariance matrix of dX.
-Mx_JB = est.M.ols(sData = estX_JB$S, xData = t(data$dX)) ## NOTE: for centered X, equivalent to xData %*% sData/(px-1)
+Uxfull <- estX_JB$U  ## Ax = Ux %*% Lx, where Lx is the whitened matrix from covariance matrix of dX.
+Mx_JB = est.M.ols(sData = t(estX_JB$S), xData = t(data$dX)) ## NOTE: for centered X, equivalent to xData %*% sData/(px-1)
 
 # JB on Y
 estY_JB = lngca(xData = t(data$dY), n.comp = 12, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB')
-Uyfull <- estY_JB$Ws
-My_JB = est.M.ols(sData = estY_JB$S, xData = t(data$dY))
+Uyfull <- estY_JB$U
+My_JB = est.M.ols(sData = t(estY_JB$S), xData = t(data$dY))
 
 test_that("linear non-Gaussian component analysis", {
 
@@ -21,7 +21,7 @@ test_that("linear non-Gaussian component analysis", {
 })
 
 
-matchMxMy = greedymatch(t(Mx_JB), t(My_JB), Ux = t(Uxfull), Uy = t(Uyfull))
+matchMxMy = greedymatch(t(Mx_JB), t(My_JB), Ux = Uxfull, Uy = Uyfull)
 permJoint <- permTestJointRank(matchMxMy$Mx,matchMxMy$My) # alpha = 0.01, nperm=1000
 pval_joint = permJoint$pvalues
 joint_rank = permJoint$rj
