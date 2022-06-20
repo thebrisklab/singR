@@ -3,7 +3,7 @@ library(singR)
 data("exampledata")
 data=exampledata
 # JB on X
-estX_JB = lngca(xData = t(data$dX), n.comp = 12, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='tiltedgaussian',stand = F,df=8)
+estX_JB = lngca(xData = t(data$dX), n.comp = 12, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F,df=0) # what is the df at here.
 Uxfull <- estX_JB$U  ## Ax = Ux %*% Lx, where Lx is the whitened matrix from covariance matrix of dX.
 Mx_JB = est.M.ols(sData = t(estX_JB$S), xData = t(data$dX)) ## NOTE: for centered X, equivalent to xData %*% sData/(px-1)
 
@@ -65,16 +65,19 @@ JBall = calculateJB(matchMxMy$Ux[1:2, ], X = xDataA) + calculateJB(matchMxMy$Uy[
 
 
 # JB and tolerance parameters
-alpha = 0.8
+#alpha = 0.8
 tol = 1e-10
 
 # curvilinear with small rho
 rho = JBall/10
-out_indiv_small <- curvilinear_c(invLx = invLx, invLy = invLy, xData = xDataA, yData = yDataA, Ux = matchMxMy$Ux, Uy = matchMxMy$Uy, rho = rho, tol = tol, alpha = alpha, maxiter = 1500, r0 = joint_rank)
+out_indiv_small <- curvilinear_c(invLx = invLx, invLy = invLy, xData = xDataA, yData = yDataA, Ux = matchMxMy$Ux, Uy = matchMxMy$Uy, rho = rho, tol = tol, maxiter = 1500, r0 = joint_rank)
 
 test_that("Curvilinear search", {
 
   expect_equal(dim(out_indiv_small$Ux),c(12,48))
   expect_equal(dim(out_indiv_small$Uy),c(12,48))
 })
+
+
+
 
