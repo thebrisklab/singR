@@ -87,7 +87,7 @@ lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenv
   # center xData such that ones%*%xData = 0
   # Liangkang fix: use the standard function to double center the data.
   if(stand==T){
-    xData = standard(xData)
+    xData = t(standard(t(xData))) #standard input N x px matrix.
   } else {
     xData = scale(xData, center=TRUE, scale=FALSE)# minus the mean to center the xData
   }
