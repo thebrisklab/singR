@@ -15,7 +15,8 @@ LinkingTo:
 Imports: 
     MASS,
     Rcpp,
-    clue
+    clue,
+    gam
 Suggests: 
     knitr,
     covr,

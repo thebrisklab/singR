@@ -3,7 +3,7 @@ library(singR)
 data("exampledata")
 data=exampledata
 # JB on X
-estX_JB = lngca(xData = t(data$dX), n.comp = 12, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F)
+estX_JB = lngca(xData = t(data$dX), n.comp = 12, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='tiltedgaussian',stand = F,df=8)
 Uxfull <- estX_JB$U  ## Ax = Ux %*% Lx, where Lx is the whitened matrix from covariance matrix of dX.
 Mx_JB = est.M.ols(sData = t(estX_JB$S), xData = t(data$dX)) ## NOTE: for centered X, equivalent to xData %*% sData/(px-1)
 
