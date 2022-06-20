@@ -127,23 +127,26 @@ whitener <- function(X,n.comp=ncol(X),center.row=FALSE) {
 #'
 #' @param U U matrix for matched columns rj x n
 #' @param X whitened data matrix n x px, data = whitenerXA \%*\% dXcentered
+#' @param S the variable loadings r x px.
 #' @param alpha default = 0.8
 #'
 #' @return the sum of JB score for each component, the row of Sj.
 #' @export
 #'
-calculateJB <- function(U, X, alpha = 0.8){
-  # Calculate u^{top}X for each u_l and Xj, this is UX
-  UX = U %*% X # Sx matrix with rx x p, Sx = Ux * Lx * Xc, in which X = Lx * Xc.
-  p = ncol(X)
+calculateJB <- function(U=NULL, X=NULL, S=NULL, alpha = 0.8){
+  if((is.null(U)|is.null(X))&is.null(S)){stop("At least input S matrix or both U and X matrices.")}
+  if(is.null(S)) {# Calculate u^{top}X for each u_l and Xj, this is UX
+  S = U %*% X # Sx matrix with rx x p, Sx = Ux * Lx * Xc, in which X = Lx * Xc.
+  #p = ncol(X)
   # Calculate all individual components
-  gamma = rowMeans(UX^3) # length r
-  kappa = rowMeans(UX^4 - 3) # length r
+  }
+  gamma = rowMeans(S^3) # length r
+  kappa = rowMeans(S^4 - 3) # length r
 
   # TU must be r by n
   JB = sum(alpha*gamma^2 + (1-alpha)*kappa^2)
-
   return(JB)
+
 }
 
 
