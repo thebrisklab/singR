@@ -15,12 +15,7 @@ LinkingTo:
 Imports: 
     MASS,
     Rcpp,
-    ProDenICA,
-    clue,
-    irlba,
-    ggplot2,
-    grid,
-    scales
+    clue
 Suggests: 
     knitr,
     covr,

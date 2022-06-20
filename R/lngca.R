@@ -41,7 +41,6 @@
 #'
 #' @export
 #'
-#' @import ProDenICA
 #'
 #'
 lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenvec','sqrtprec','none'), maxit = 1000, eps = 1e-06, verbose = FALSE, restarts.pbyd = 0, restarts.dbyd = 0, distribution=c('tiltedgaussian','logistic','JB'), density=FALSE, out.all=FALSE, orth.method=c('svd','givens'), reinit.max.comp = FALSE, max.comp = FALSE, df=0,stand=TRUE,...) {
@@ -70,6 +69,12 @@ lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenv
   if(reinit.max.comp && max.comp==FALSE) stop('Can not reinitialize from max.comp solution if max.comp==FALSE')
   if(reinit.max.comp && alg.typ=='deflation') stop('reinit.max.comp not yet written for deflation algorithm')
 
+  #require(multidcov)
+  if(distribution=='tiltedgaussian') {
+    Gfunc = tiltedgaussian
+    #require(ProDenICA)
+  }
+
 
   if(distribution=='tiltedgaussian' && df==0) stop('df must be greater than 0 for tiltedgaussian')
   if(distribution=='logistic'  && df>0) stop('df should be set to zero when using logistic')
@@ -86,7 +91,7 @@ lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenv
 
   # center xData such that ones%*%xData = 0
   # Liangkang fix: use the standard function to double center the data.
-  if(stand==T){
+  if(stand){
     xData = t(standard(t(xData))) #standard input N x px matrix.
   } else {
     xData = scale(xData, center=TRUE, scale=FALSE)# minus the mean to center the xData
