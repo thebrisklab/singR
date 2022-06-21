@@ -22,15 +22,21 @@
 #' @export
 #'
 singR <- function(dX,dY,n.comp=12,df=0,rho_extent=c('small','medium','large'),Cplus=T,tol = 1e-10) {
-  # JB on X
-  estX_JB = lngca(xData = t(dX), n.comp = n.comp, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F,df=df) # what is the df at here.
+   # Center X and Y
+  n = nrow(dX)
+  pX = ncol(dX)
+  pY = ncol(dY)
+  dXcentered <- standard(dX)
+  dYcentered <- standard(dY)
+# JB on X
+  estX_JB = lngca(xData = t(dXcentered), n.comp = n.comp, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F,df=df) # what is the df at here.
   Uxfull <- estX_JB$U  ## Ax = Ux %*% Lx, where Lx is the whitened matrix from covariance matrix of dX.
-  Mx_JB = est.M.ols(sData = t(estX_JB$S), xData = t(dX)) ## NOTE: for centered X, equivalent to xData %*% sData/(px-1)
+  Mx_JB = est.M.ols(sData = t(estX_JB$S), xData = t(dXcentered)) ## NOTE: for centered X, equivalent to xData %*% sData/(px-1)
 
   # JB on Y
-  estY_JB = lngca(xData = t(dY), n.comp = n.comp, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F,df=df)
+  estY_JB = lngca(xData = t(dYcentered), n.comp = n.comp, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F,df=df)
   Uyfull <- estY_JB$U
-  My_JB = est.M.ols(sData = t(estY_JB$S), xData = t(dY))
+  My_JB = est.M.ols(sData = t(estY_JB$S), xData = t(dYcentered))
 
   matchMxMy = greedymatch(t(Mx_JB), t(My_JB), Ux = Uxfull, Uy = Uyfull)
   permJoint <- permTestJointRank(matchMxMy$Mx,matchMxMy$My) # alpha = 0.01, nperm=1000
@@ -38,12 +44,6 @@ singR <- function(dX,dY,n.comp=12,df=0,rho_extent=c('small','medium','large'),Cp
   joint_rank = permJoint$rj
 
 
-  # Center X and Y
-  n = nrow(dX)
-  pX = ncol(dX)
-  pY = ncol(dY)
-  dXcentered <- standard(dX)
-  dYcentered <- standard(dY)
 
   # For X
   # Scale rowwise

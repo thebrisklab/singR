@@ -357,6 +357,9 @@ standard <- function(data,dif.tol=1e-03,max.iter=10){
     data=scale(data) # centering and scaling for each column
     data=t(scale(t(data),center = T,scale = F))
     n=n+1
+    row_mean_max = max(abs(apply(data,1,mean)))
+    col_mean_max = max(abs(apply(data,2,mean)))
+    col_sd_max= max(abs(apply(data,2,sd)-1))
   }
   return(data)
 }
