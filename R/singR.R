@@ -8,6 +8,7 @@
 #' @param Cplus whether to use C code in curvilinear search.
 #' @param tol difference tolerance in curvilinear search.
 #' @param stand whether to use standardization
+#' @param distribution "JB" or "tiltedgaussian"
 #' @return Function outputs a list including the following:
 #' \describe{
 #'       \item{\code{Sx}}{variable loadings for dataset X with matrix r x px.}
@@ -20,8 +21,20 @@
 #'       \item{\code{df}}{degree of freedom, = 0 when use JB,>0 when use tiltedgaussian}
 #' }
 #' @export
+#' @examples
+#' #get simulation data
+#' data(exampledata)
+#' data=exampledata
+#' # use JB stat to compute with singR
+#' output_JB=singR(dX=data$dX,dY=data$dY,n.comp=12,df=0,rho_extent="small",distribution="JB")
+#' output_tilted=singR(dX=data$dX,dY=data$dY,n.comp=12,df=0,rho_extent="small",distribution="tiltedgaussian")
 #'
-singR <- function(dX,dY,n.comp=12,df=0,rho_extent=c('small','medium','large'),Cplus=T,tol = 1e-10,stand=F) {
+#'
+#'
+#'
+#'
+#'
+singR <- function(dX,dY,n.comp=12,df=0,rho_extent=c('small','medium','large'),Cplus=T,tol = 1e-10,stand=F,distribution="JB") {
   # Center X and Y
   if (stand) {
     dXcentered <- standard(dX)
@@ -36,12 +49,12 @@ singR <- function(dX,dY,n.comp=12,df=0,rho_extent=c('small','medium','large'),Cp
 
 
 # JB on X
-  estX_JB = lngca(xData = t(dXcentered), n.comp = n.comp, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F,df=df) # what is the df at here.
+  estX_JB = lngca(xData = t(dXcentered), n.comp = n.comp, whiten = 'sqrtprec', restarts.pbyd = 20, distribution=distribution,stand = F,df=df) # what is the df at here.
   Uxfull <- estX_JB$U  ## Ax = Ux %*% Lx, where Lx is the whitened matrix from covariance matrix of dX.
   Mx_JB = est.M.ols(sData = t(estX_JB$S), xData = t(dXcentered)) ## NOTE: for centered X, equivalent to xData %*% sData/(px-1)
 
   # JB on Y
-  estY_JB = lngca(xData = t(dYcentered), n.comp = n.comp, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F,df=df)
+  estY_JB = lngca(xData = t(dYcentered), n.comp = n.comp, whiten = 'sqrtprec', restarts.pbyd = 20, distribution=distribution,stand = F,df=df)
   Uyfull <- estY_JB$U
   My_JB = est.M.ols(sData = t(estY_JB$S), xData = t(dYcentered))
 

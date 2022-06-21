@@ -12,7 +12,8 @@ singR(
   rho_extent = c("small", "medium", "large"),
   Cplus = T,
   tol = 1e-10,
-  stand = F
+  stand = F,
+  distribution = "JB"
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ singR(
 \item{tol}{difference tolerance in curvilinear search.}
 
 \item{stand}{whether to use standardization}
+
+\item{distribution}{"JB" or "tiltedgaussian"}
 }
 \value{
 Function outputs a list including the following:
@@ -47,4 +50,18 @@ Function outputs a list including the following:
 }
 \description{
 sing method for data integration
+}
+\examples{
+#get simulation data
+data(exampledata)
+data=exampledata
+# use JB stat to compute with singR
+output_JB=singR(dX=data$dX,dY=data$dY,n.comp=12,df=0,rho_extent="small",distribution="JB")
+output_tilted=singR(dX=data$dX,dY=data$dY,n.comp=12,df=0,rho_extent="small",distribution="tiltedgaussian")
+
+
+
+
+
+
 }

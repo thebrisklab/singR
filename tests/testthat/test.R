@@ -4,6 +4,10 @@ data("exampledata")
 data=exampledata
 
 
+ # use JB stat to compute with singR
+#output_JB=singR(dX=data$dX,dY=data$dY,n.comp=12,df=0,rho_extent="small",distribution="JB")
+#output_tilted=singR(dX=data$dX,dY=data$dY,n.comp=12,df=0,rho_extent="small",distribution="tiltedgaussian")
+
 test_that("standardization",{
   dXcentered <- standard(data$dX)
   expect_equal(dim(dXcentered),c(48,1089))
