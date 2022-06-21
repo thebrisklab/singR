@@ -4,9 +4,6 @@ data("exampledata")
 data=exampledata
 
 
- # use JB stat to compute with singR
-#output_JB=singR(dX=data$dX,dY=data$dY,n.comp=12,df=0,rho_extent="small",distribution="JB")
-#output_tilted=singR(dX=data$dX,dY=data$dY,n.comp=12,df=0,rho_extent="small",distribution="tiltedgaussian")
 
 test_that("standardization",{
   dXcentered <- standard(data$dX)
@@ -14,17 +11,12 @@ test_that("standardization",{
 })
 
 
-n = nrow(data$dX)
-pX = ncol(data$dX)
-pY = ncol(data$dY)
-dXcentered <- data$dX - matrix(rowMeans(data$dX), n, pX, byrow = F)
-dYcentered <- data$dY - matrix(rowMeans(data$dY), n, pY, byrow = F)
-
-
 #test singR
-output <- singR(dX = data$dX,dY = data$dY,n.comp = 12,df = 0,rho_extent = "small",Cplus = TRUE,stand=FALSE)
-
-
+test_that("test for singR",{
+  output <- singR(dX = data$dX,dY = data$dY,n.comp = 12,df = 0,rho_extent = "small",Cplus = TRUE,stand=FALSE)
+  expect_equal(dim(Sx),c(1089,2))
+  expect_equal(dim(Sy),c(4950,2))
+})
 
 
 
@@ -61,6 +53,13 @@ test_that("greedy match and permTest", {
   expect_equal(permJoint$rj,2)
 
 })
+
+
+n = nrow(data$dX)
+pX = ncol(data$dX)
+pY = ncol(data$dY)
+dXcentered <- data$dX - matrix(rowMeans(data$dX), n, pX, byrow = F)
+dYcentered <- data$dY - matrix(rowMeans(data$dY), n, pY, byrow = F)
 
 
 
