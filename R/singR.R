@@ -58,7 +58,7 @@ singR <- function(dX,dY,n.comp=12,df=0,rho_extent=c('small','medium','large'),Cp
   whitenerXA = est.sigmaXA%^%(-0.5)
   xDataA = whitenerXA %*% dXcentered
   invLx = est.sigmaXA%^%(0.5)
-  Sx=matchMxMy$Ux[1:joint_rank] %*% xDataA
+  Sx=matchMxMy$Ux[1:joint_rank,] %*% xDataA
 
   # For Y
   # Scale rowwise
@@ -66,7 +66,7 @@ singR <- function(dX,dY,n.comp=12,df=0,rho_extent=c('small','medium','large'),Cp
   whitenerYA = est.sigmaYA%^%(-0.5)
   yDataA = whitenerYA %*% dYcentered
   invLy = est.sigmaYA%^%(0.5)
-  Sy=matchMxMy$Uy[1:joint_rank] %*% yDataA
+  Sy=matchMxMy$Uy[1:joint_rank,] %*% yDataA
 
   JBall = calculateJB(Sx) + calculateJB(Sy)
   rho_extent=match.arg(rho_extent)
