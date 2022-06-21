@@ -133,7 +133,7 @@ whitener <- function(X,n.comp=ncol(X),center.row=FALSE) {
 #' @return the sum of JB score for each component, the row of Sj.
 #' @export
 #'
-calculateJB <- function(U=NULL, X=NULL, S=NULL, alpha = 0.8){
+calculateJB <- function(S=NULL,U=NULL, X=NULL,  alpha = 0.8){
   if((is.null(U)|is.null(X))&is.null(S)){stop("At least input S matrix or both U and X matrices.")}
   if(is.null(S)) {# Calculate u^{top}X for each u_l and Xj, this is UX
   S = U %*% X # Sx matrix with rx x p, Sx = Ux * Lx * Xc, in which X = Lx * Xc.
