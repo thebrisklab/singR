@@ -43,7 +43,7 @@ test_that("linear non-Gaussian component analysis", {
 })
 
 
-matchMxMy = greedymatch(t(Mx_JB), t(My_JB), Ux = Uxfull, Uy = Uyfull)
+matchMxMy = suppressWarnings(greedymatch(t(Mx_JB), t(My_JB), Ux = Uxfull, Uy = Uyfull))
 permJoint <- permTestJointRank(matchMxMy$Mx,matchMxMy$My) # alpha = 0.01, nperm=1000
 pval_joint = permJoint$pvalues
 joint_rank = permJoint$rj
