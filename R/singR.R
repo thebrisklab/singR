@@ -92,6 +92,6 @@ singR <- function(dX,dY,n.comp=12,df=0,rho_extent=c('small','medium','large'),Cp
 
   est.Mj = aveM(Mxjoint,Myjoint)
 
-  return(list(Sx=Sx,Sy=Sy,Mxjoint=Mxjoint,Myjoint=Myjoiny,est.Mj=est.Mj,Cplus=Cplus,rho_extent=rho_extent,df=df))
+  return(list(Sx=Sx,Sy=Sy,Mxjoint=Mxjoint,Myjoint=Myjoint,est.Mj=est.Mj,Cplus=Cplus,rho_extent=rho_extent,df=df))
 
 }
