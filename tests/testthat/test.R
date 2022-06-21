@@ -4,10 +4,21 @@ data("exampledata")
 data=exampledata
 
 
+test_that("standardization",{
+  dXcentered <- standard(data$dX)
+  expect_equal(dim(dXcentered),c(48,1089))
+})
+
+
+n = nrow(data$dX)
+pX = ncol(data$dX)
+pY = ncol(data$dY)
+dXcentered <- data$dX - matrix(rowMeans(data$dX), n, pX, byrow = F)
+dYcentered <- data$dY - matrix(rowMeans(data$dY), n, pY, byrow = F)
 
 
 #test singR
-#output <- singR(dX = data$dX,dY = data$dY,n.comp = 12,df = 0,rho_extent = "small",Cplus = TRUE)
+output <- singR(dX = data$dX,dY = data$dY,n.comp = 12,df = 0,rho_extent = "small",Cplus = TRUE,stand=FALSE)
 
 
 
@@ -47,14 +58,6 @@ test_that("greedy match and permTest", {
 
 })
 
-# Center X and Y
-dX=data$dX
-dY=data$dY
-n = nrow(dX)
-pX = ncol(dX)
-pY = ncol(dY)
-dXcentered <- dX - matrix(rowMeans(dX), n, pX, byrow = F)
-dYcentered <- dY - matrix(rowMeans(dY), n, pY, byrow = F)
 
 
 # For X

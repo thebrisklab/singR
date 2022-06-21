@@ -11,7 +11,8 @@ singR(
   df = 0,
   rho_extent = c("small", "medium", "large"),
   Cplus = T,
-  tol = 1e-10
+  tol = 1e-10,
+  stand = F
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ singR(
 \item{Cplus}{whether to use C code in curvilinear search.}
 
 \item{tol}{difference tolerance in curvilinear search.}
+
+\item{stand}{whether to use standardization}
 }
 \value{
 Function outputs a list including the following:

@@ -7,7 +7,7 @@
 #' @param rho_extent small,medium or large.
 #' @param Cplus whether to use C code in curvilinear search.
 #' @param tol difference tolerance in curvilinear search.
-#'
+#' @param stand whether to use standardization
 #' @return Function outputs a list including the following:
 #' \describe{
 #'       \item{\code{Sx}}{variable loadings for dataset X with matrix r x px.}
@@ -21,13 +21,20 @@
 #' }
 #' @export
 #'
-singR <- function(dX,dY,n.comp=12,df=0,rho_extent=c('small','medium','large'),Cplus=T,tol = 1e-10) {
-   # Center X and Y
-  n = nrow(dX)
-  pX = ncol(dX)
-  pY = ncol(dY)
-  dXcentered <- standard(dX)
-  dYcentered <- standard(dY)
+singR <- function(dX,dY,n.comp=12,df=0,rho_extent=c('small','medium','large'),Cplus=T,tol = 1e-10,stand=F) {
+  # Center X and Y
+  if (stand) {
+    dXcentered <- standard(dX)
+    dYcentered <- standard(dY)
+  }else{
+    n = nrow(dX)
+    pX = ncol(dX)
+    pY = ncol(dY)
+    dXcentered <- dX - matrix(rowMeans(dX), n, pX, byrow = F)
+    dYcentered <- dY - matrix(rowMeans(dY), n, pY, byrow = F)
+  }
+
+
 # JB on X
   estX_JB = lngca(xData = t(dXcentered), n.comp = n.comp, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F,df=df) # what is the df at here.
   Uxfull <- estX_JB$U  ## Ax = Ux %*% Lx, where Lx is the whitened matrix from covariance matrix of dX.
