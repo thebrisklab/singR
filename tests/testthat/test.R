@@ -110,9 +110,12 @@ test_that("Curvilinear search", {
 #' max(abs(apply(spmwm_cp,1,mean)))
 #' max(abs(apply(spmwm_cp,2,mean)))
 #' max(abs(apply(spmwm_cp,2,sd)-1))
-stand=standard(data$dX)
-max(abs(apply(stand,2,sd)-1))
+stand=standard(data$dX,max.iter = 100)
+mean(abs(apply(stand,2,sd)-1))
 
+max(abs(apply(stand,2,mean)))
 
-
+true_Sx=rbind(data$sjX,data$siX)
+est_Sx=estX_JB$S
+frobICA(S1 = t(true_Sx),S2 = t(est_Sx),standardize = T)
 

@@ -7,7 +7,7 @@
 #' @param rho_extent small,medium or large.
 #' @param Cplus whether to use C code in curvilinear search.
 #' @param tol difference tolerance in curvilinear search.
-#' @param stand whether to use standardization
+#' @param stand whether to use standardization, if it was true, it will make the column and row means to 0 and columns sd to 1. If false, it will only make the row means to 0.
 #' @param distribution "JB" or "tiltedgaussian"
 #' @return Function outputs a list including the following:
 #' \describe{
@@ -33,8 +33,6 @@
 #' # use frobICA to show the difference of JB and tiltedgaussian
 #' frobICA_JB=frobICA(M1 = t(output_JB$est.Mj),M2 = t(data$mj),standardize = T) #0.0071682
 #' frobICA_tilted=frobICA(M1 = t(output_tilted$est.Mj),M2 = t(data$mj),standardize = T) #0.0071295
-#'
-#'
 #'
 singR <- function(dX,dY,n.comp=12,df=0,rho_extent=c('small','medium','large'),Cplus=T,tol = 1e-10,stand=F,distribution="JB") {
   # Center X and Y

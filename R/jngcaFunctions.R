@@ -147,8 +147,8 @@ marginal.likelihoods <- function(S,distribution=c('logistic','tiltedgaussian','l
 #'
 #' @param M1 Subject score 1
 #' @param M2 Subject score 2
-#' @param S1 Loading 1
-#' @param S2 Loading 2
+#' @param S1 Loading 1 with matrix p x r.
+#' @param S2 Loading 2 with matrix p x r.
 #' @param standardize whether to standardize
 #'
 #' @export
