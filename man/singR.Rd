@@ -31,7 +31,7 @@ singR(
 
 \item{tol}{difference tolerance in curvilinear search.}
 
-\item{stand}{whether to use standardization}
+\item{stand}{whether to use standardization, if it was true, it will make the column and row means to 0 and columns sd to 1. If false, it will only make the row means to 0.}
 
 \item{distribution}{"JB" or "tiltedgaussian"}
 }
@@ -55,13 +55,13 @@ sing method for data integration
 #get simulation data
 data(exampledata)
 data=exampledata
+
 # use JB stat to compute with singR
 output_JB=singR(dX=data$dX,dY=data$dY,n.comp=12,df=0,rho_extent="small",distribution="JB")
 output_tilted=singR(dX=data$dX,dY=data$dY,n.comp=12,df=0,rho_extent="small",distribution="tiltedgaussian")
 
-
-
-
-
+# use frobICA to show the difference of JB and tiltedgaussian
+frobICA_JB=frobICA(M1 = t(output_JB$est.Mj),M2 = t(data$mj),standardize = T) #0.0071682
+frobICA_tilted=frobICA(M1 = t(output_tilted$est.Mj),M2 = t(data$mj),standardize = T) #0.0071295
 
 }

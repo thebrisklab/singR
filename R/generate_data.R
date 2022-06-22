@@ -1,10 +1,10 @@
 
 
 ################################################
-#' New dataset for simulation of FMRI
-#'
+# New dataset for simulation of FMRI
+#
 # \code{newSimFMRI} Create a dataset containing 4 components correspond to 2D images, roughly similar to a brain activation map.
-#'
+#
 # @param snr numeric, which shows the ratio of non-Gaussian (both joint and individual) to Gaussian components in dataset.
 # @param noisyICA whether to use noisyICA method to simulate gaussian noise.
 # @param nTR the number of time points, which is not changeable at here.

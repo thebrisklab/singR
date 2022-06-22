@@ -11,9 +11,9 @@ frobICA(M1 = NULL, M2 = NULL, S1 = NULL, S2 = NULL, standardize = FALSE)
 
 \item{M2}{Subject score 2}
 
-\item{S1}{Loading 1}
+\item{S1}{Loading 1 with matrix p x r.}
 
-\item{S2}{Loading 2}
+\item{S2}{Loading 2 with matrix p x r.}
 
 \item{standardize}{whether to standardize}
 }

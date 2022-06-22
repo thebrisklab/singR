@@ -2,7 +2,8 @@
 % Please edit documentation in R/Basic_functions.r
 \name{calculateJB}
 \alias{calculateJB}
-\title{JB score calculate}
+\title{JB score calculate
+the data has to be standardized and mean 0 and sd to 1.}
 \usage{
 calculateJB(S = NULL, U = NULL, X = NULL, alpha = 0.8)
 }
@@ -20,4 +21,5 @@ the sum of JB score for each component, the row of Sj.
 }
 \description{
 JB score calculate
+the data has to be standardized and mean 0 and sd to 1.
 }
