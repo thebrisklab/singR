@@ -98,3 +98,21 @@ test_that("Curvilinear search", {
 
 
 
+
+
+#' spmwm = 3*matrix(rnorm(100000),nrow=100)+1
+#' dim(spmwm)
+#' apply(spmwm,1,mean) # we want these to be 0
+#' apply(spmwm,2,mean) # we want these to be 0
+#' apply(spmwm,2,sd) # we want each of these variances to be 1
+#'
+#' spmwm_cp=standard(spmwm)
+#' max(abs(apply(spmwm_cp,1,mean)))
+#' max(abs(apply(spmwm_cp,2,mean)))
+#' max(abs(apply(spmwm_cp,2,sd)-1))
+stand=standard(data$dX)
+max(abs(apply(stand,2,sd)-1))
+
+
+
+
