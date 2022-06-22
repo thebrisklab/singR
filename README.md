@@ -6,7 +6,7 @@
 # singR
 
 singR package is built on SING method
-<https://github.com/thebrisklab/SING>. SING is used to extract joint and
+<https://github.com/thebrisklab/SING>. This package was created by Liangkang Wang (liangkang.wang@emory.edu). SING is used to extract joint and
 individual non-gaussian components from different datasets. This is a
 tutorial example supporting the paper [Simultaneous Non-Gaussian
 Component Analysis (SING) for Data Integration in Neuroimaging](https://projecteuclid.org/journalArticle/Download?urlId=10.1214%2F21-AOAS1466) by Benjamin Risk and Irina Gaynanova in the Annals of Applied Statistics, September, 2021 
