@@ -18,8 +18,8 @@
 # @import steadyICA
 newSimFMRI = function(snr = 1, noisyICA=FALSE, nTR=50, nImages=1, phi=0.5, dim.data=c(33,33), var.inactive=0.0001) {
   ##ASSUME 1,000 samples
-  require(neuRosim)
-  require(steadyICA)
+  #require(neuRosim)
+  #require(steadyICA)
   m = nImages
   #Latent components are fixed for each simulation:
   x1 = c(rep(3,5),4:7)
@@ -257,8 +257,8 @@ generateData_v3 <- function(nsubject = 48, snr = c(0.2, 0.2), vars = c(0.01,0.01
 ################################################
 SimFMRI123 = function(snr = 1, noisyICA=FALSE, nTR=50, nImages=1, phi=0.5, dim.data=c(33,33), var.inactive=0.0001) {
   ##ASSUME 1,000 samples
-  require(neuRosim)
-  require(steadyICA)
+  #require(neuRosim)
+  #require(steadyICA)
   m = nImages
   #Latent components are fixed for each simulation:
   x1 = rep(3,5)
