@@ -124,7 +124,7 @@ whitener <- function(X,n.comp=ncol(X),center.row=FALSE) {
 ####################################################
 # Function that calculates JB
 #' JB score calculate
-#'
+#' the data has to be standardized and mean 0 and sd to 1.
 #' @param U U matrix for matched columns rj x n
 #' @param X whitened data matrix n x px, data = whitenerXA \%*\% dXcentered
 #' @param S the variable loadings r x px.
