@@ -98,46 +98,6 @@ myMixmat <-  function (p = 2) {
 }
 
 
-#-----------------------------------
-# order by likelihood
-# option for positive skewness
-order.likelihood <- function(S,positive.skew=TRUE,distribution=c('logistic','tiltedgaussian','logcosh','JB'),out.loglik=FALSE,...) {
-  distribution = match.arg(distribution)
-  nObs = nrow(S)
-  d = ncol(S)
-  if(distribution=='tiltedgaussian') Gfunc = tiltedgaussian
-  if(distribution=='logistic') Gfunc = logistic
-  #if(distribution=='logcosh') Gfunc = ProDenICA::G1
-  if(distribution=='JB') Gfunc = jb.stat
-  if(positive.skew) {
-    skewness <- function(x, n = nObs) (sum((x - mean(x))^3)/n)/(sum((x - mean(x))^2)/n)^(3/2)
-    skew = apply(S, 2, skewness)
-    sign = -1 * (skew < 0) + 1 * (skew > 0)
-    S = S %*% diag(sign)
-  }
-  flist0 = list()
-  for (j in 1:d) flist0[[j]] <- Gfunc(S[, j], ...)
-  loglik.S <- apply(sapply(flist0, "[[", "Gs"),2,sum)
-  orderedLL = order(loglik.S,decreasing=TRUE)
-  S = S[,orderedLL]
-  if(out.loglik) return(list(S=S,loglik=sort(loglik.S,decreasing=TRUE))) else S
-}
-
-marginal.likelihoods <- function(S,distribution=c('logistic','tiltedgaussian','logcosh','GPois','JB'),...)
-{
-  distribution = match.arg(distribution)
-  if(distribution=='tiltedgaussian') Gfunc = tiltedgaussian
-  if(distribution=='logistic') Gfunc = logistic
-  if(distribution=='logcosh') Gfunc = ProDenICA::G1
-  if(distribution=='GPois') Gfunc = ProDenICA::GPois
-  if(distribution=='JB') Gfunc = jb.stat
-  d = ncol(S)
-  flist0 = list()
-  for (j in 1:d) flist0[[j]] <- Gfunc(S[, j], ...)
-  apply(sapply(flist0, "[[", "Gs"),2,sum)
-}
-
-
 
 
 #-------------------------------------

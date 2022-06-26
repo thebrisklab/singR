@@ -55,8 +55,8 @@
 #' trueSx = rbind(data$sjX,data$siX)
 #'
 #' # use frobICA to compare the difference of the two methods
-#' frobICA(S1 = t(trueSx),S2=t(estX_JB$S),standardize = T) #0.2341096
-#' frobICA(S1 = t(trueSx),S2=t(estX_tilt$S),standardize = T) #0.1824922
+#' frobICA(S1 = t(trueSx),S2=t(estX_JB$S),standardize = TRUE) #0.2341096
+#' frobICA(S1 = t(trueSx),S2=t(estX_tilt$S),standardize = TRUE) #0.1824922
 #'
 #' # the lngca using tiltedgaussian is more accurate with smaller frobICA value. But it will cost more time.
 #'

@@ -13,12 +13,12 @@
 #' \describe{
 #'       \item{\code{Sjx}}{variable loadings for dataset X with matrix rj x px.}
 #'       \item{\code{Sjy}}{variable loadings for dataset Y with matrix rj x py.}
-#'       \item{\code{Mxjoint}}{Mj of X data.}
-#'       \item{\code{Myjoint}}{Mj of Y data.}
+#'       \item{\code{Mxjoint}}{Mj of X data with matrix n x rj.}
+#'       \item{\code{Myjoint}}{Mj of Y data with matrix n x rj.}
 #'       \item{\code{est.Mj}}{estimated Mj for both datasets.}
-#'       \item{\code{C_plus}}{whether to use C version of curvilinear search}
+#'       \item{\code{C_plus}}{whether to use C version of curvilinear search.}
 #'       \item{\code{rho_extent}}{the weight of rho in search}
-#'       \item{\code{df}}{degree of freedom, = 0 when use JB,>0 when use tiltedgaussian}
+#'       \item{\code{df}}{degree of freedom, = 0 when use JB,>0 when use tiltedgaussian.}
 #' }
 #' @export
 #' @examples
@@ -100,8 +100,8 @@ singR <- function(dX,dY,n.comp=12,df=0,rho_extent=c('small','medium','large'),Cp
     out_indiv <- curvilinear(invLx = invLx, invLy = invLy, xData = xDataA, yData = yDataA, Ux = matchMxMy$Ux, Uy = matchMxMy$Uy, rho = rho, tol = tol, maxiter = 1500, r0 = joint_rank)
   }
 
-  Sjx = t(out_indiv$Ux[1:joint_rank, ] %*% xDataA)
-  Sjy = t(out_indiv$Uy[1:joint_rank, ] %*% yDataA)
+  Sjx = out_indiv$Ux[1:joint_rank, ] %*% xDataA
+  Sjy = out_indiv$Uy[1:joint_rank, ] %*% yDataA
 
   Mxjoint = tcrossprod(invLx, out_indiv$Ux[1:joint_rank, ])
   Myjoint = tcrossprod(invLy, out_indiv$Uy[1:joint_rank, ])
