@@ -43,10 +43,10 @@ greedymatch = function(Mx,My,Ux,Uy) {
   if(!checkX) warning('Columns of Mx do not appear to be centered -- correlations and angle match give different results')
   if(!checkY) warning('Columns of My do not appear to be centered -- correlations and angle match give different results')
 
-  allCorr = abs(cor(Mx,My))
+  allCorr = abs(stats::cor(Mx,My))
   px = ncol(Mx)
   py = ncol(My)
-  allCorr = abs(cor(Mx,My))
+  allCorr = abs(stats::cor(Mx,My))
   minpxpy = min(px,py)
   mapX = numeric(minpxpy)
   mapY = numeric(minpxpy)
@@ -112,7 +112,7 @@ permTestJointRank = function(MatchedMx,MatchedMy,nperm=1000,alpha=0.01,multicore
     corrperm = numeric(nperm)
     for (k in 1:nperm) {
       new.My = MatchedMy[sample(1:nSubject),]
-      corrperm[k] = max(abs(cor(MatchedMx,new.My)))
+      corrperm[k] = max(abs(stats::cor(MatchedMx,new.My)))
     }
   }
 
@@ -120,12 +120,12 @@ permTestJointRank = function(MatchedMx,MatchedMy,nperm=1000,alpha=0.01,multicore
   maxrj = min(px,py)
   corrmatched = numeric(maxrj)
   for (i in 1:maxrj) {
-    corrmatched[i] = abs(cor(MatchedMx[,i],MatchedMy[,i]))
+    corrmatched[i] = abs(stats::cor(MatchedMx[,i],MatchedMy[,i]))
   }
   for (j in 1:maxrj) pperm[j] = mean(corrmatched[j]<corrperm)
   rj = sum(pperm<alpha)
 
-  return(list(rj=rj,pvalues = pperm,fwer_alpha = quantile(corrperm,1-alpha)))
+  return(list(rj=rj,pvalues = pperm,fwer_alpha = stats::quantile(corrperm,1-alpha)))
 }
 
 

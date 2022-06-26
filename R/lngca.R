@@ -159,10 +159,10 @@ lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenv
       out.list[[k]] = lca.par(xData=zData,W0=W0,Gfunc=Gfunc,maxit=maxit,verbose=verbose,density=density,eps=eps,n.comp=n.comp,df=df, ...)
       out.list[[k]]$df = df
     }
-    if(alg.typ == 'deflation') {
-      out.list[[k]] = lca.def(xData=zData,W0=W0,Gfunc=Gfunc,maxit=maxit,verbose=verbose,density=density,eps=eps,n.comp=n.comp,df=df,...)
-      out.list[[k]]$df = df
-    }
+    #if(alg.typ == 'deflation') {
+     # out.list[[k]] = lca.def(xData=zData,W0=W0,Gfunc=Gfunc,maxit=maxit,verbose=verbose,density=density,eps=eps,n.comp=n.comp,df=df,...)
+     #out.list[[k]]$df = df
+    #}
     if(max.comp) {
       flist0 = list()
       for (j in 1:d) flist0[[j]] <- Gfunc(out.list[[k]]$S[, j], ...)
@@ -242,8 +242,53 @@ lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenv
 #' @export
 #'
 est.M.ols <- function(sData,xData,intercept=TRUE) {
-  if(intercept) coef(lm(xData~sData))[-1,] else coef(lm(xData~sData-1))
+  if(intercept) stats::coef(stats::lm(xData~sData))[-1,] else stats::coef(stats::lm(xData~sData-1))
 }
 # NOTE: for centered X, equivalent to xData %*% sData/(px-1)
 # Correced by Liankang
 # NOTE: for centered X, equivalent to t(sData)%*%xData/(V-1)
+
+
+
+#' tiltedgaussian
+#'
+#' @param xData input data
+#' @param df degree freedom
+#' @param B default value=100
+#' @param ... ellipsis
+#'
+#' @import gam
+tiltedgaussian = function (xData, df = 8, B = 100, ...) {
+  #This function is based on ProDenICA::GPois by Trevor Hastie
+  #NOTE: Assumes data are zero mean.
+
+  n <- length(xData)
+  sd.x = stats::sd(xData)
+  rx <- c(min(xData)-0.1*sd.x, max(xData)+0.1*sd.x)
+  xg <- seq(from = rx[1], to = rx[2], length = B)
+  gaps <- diff(rx)/(B - 1)
+  xcuts <- c(rx[1] - gaps/2, xg[-B] + gaps/2, rx[2] + gaps/2)
+  #NOTE: I use the response variable that corresponds to the LCA paper.
+  #This differs from the GPois algorithm in ProDenICA
+  ys <- as.vector(table(cut(xData, xcuts)))/(gaps*n)
+  pois.fit <- suppressWarnings(gam(ys ~ s(xg, df)+offset(dnorm(xg,log=TRUE)), family = poisson, ...))
+  Gs <- stats::predict(pois.fit) #log tilt function predicted at grid locations (note: predict on gam object can not be used to obtain derivatives)
+  # the gam object with the predict function can not be used directly to obtain the derivatives
+  # of the smoothing spline.
+  # Here, we refit another iteration of the IRWLS algorithm used in gam:
+  # Note: working residuals = (y - mu0)/mu0
+  # weights = mu0
+  # fitted(pois.fit) = mu0
+  # predict(pois.fit) = eta0 = log(mu0)
+  sGs = Gs #+ log(sum(dnorm(xg))/sum(fitted(pois.fit)))
+  z0 <- sGs + stats::residuals(pois.fit, type='working')
+  pois.refit <- stats::smooth.spline(x=xg, y=z0, w=stats::fitted(pois.fit),df=df) #obtain the log tilt function in an object that can be used to obtain derivatives
+  Gs <- stats::predict(pois.refit, xData, deriv = 0)$y
+  gs <- stats::predict(pois.refit, xData, deriv = 1)$y
+  gps <- stats::predict(pois.refit, xData, deriv = 2)$y
+  fGs <- function(x) stats::predict(pois.refit,x,deriv=0)$y
+  fgs <- function(x) stats::predict(pois.refit,x,deriv=1)$y
+  fgps <- function(x) stats::predict(pois.refit,x,deriv=2)$y
+  list(Gs = Gs, gs = gs, gps = gps, fGs = fGs, fgs=fgs, fgps=fgps)
+}
+#---------------------------------------------

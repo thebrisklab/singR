@@ -15,9 +15,9 @@ gen.inits <- function(p,d,runs,orth.method=c('svd','givens')) {
   W.list = list()
   for(i in 1:runs) {
     if(orth.method=='givens') {
-      W.list[[i]] <- as.matrix(theta2W(runif(n=choose(p,2),min=0,max=2*pi)))[,1:d]  # convert vector into orthodox matirx and get p*d #
+      W.list[[i]] <- as.matrix(theta2W(stats::runif(n=choose(p,2),min=0,max=2*pi)))[,1:d]  # convert vector into orthodox matirx and get p*d #
     } else {
-      temp = matrix(rnorm(p*d),p,d)
+      temp = matrix(stats::rnorm(p*d),p,d)
       W.list[[i]] <- svd(temp)$u     # svd left matrix p*d #
     }
   }
@@ -214,49 +214,6 @@ jb.stat <- function(x, df=0) {
 }
 
 
-
-#' tiltedgaussian
-#'
-#' @param xData input data
-#' @param df degree freedom
-#' @param B default value=100
-#' @param ... ellipsis
-#'
-#' @import gam
-tiltedgaussian = function (xData, df = 8, B = 100, ...) {
-  #This function is based on ProDenICA::GPois by Trevor Hastie
-  #NOTE: Assumes data are zero mean.
-
-  n <- length(xData)
-  sd.x = sd(xData)
-  rx <- c(min(xData)-0.1*sd.x, max(xData)+0.1*sd.x)
-  xg <- seq(from = rx[1], to = rx[2], length = B)
-  gaps <- diff(rx)/(B - 1)
-  xcuts <- c(rx[1] - gaps/2, xg[-B] + gaps/2, rx[2] + gaps/2)
-  #NOTE: I use the response variable that corresponds to the LCA paper.
-  #This differs from the GPois algorithm in ProDenICA
-  ys <- as.vector(table(cut(xData, xcuts)))/(gaps*n)
-  pois.fit <- suppressWarnings(gam(ys ~ s(xg, df)+offset(dnorm(xg,log=TRUE)), family = poisson, ...))
-  Gs <- stats::predict(pois.fit) #log tilt function predicted at grid locations (note: predict on gam object can not be used to obtain derivatives)
-  # the gam object with the predict function can not be used directly to obtain the derivatives
-  # of the smoothing spline.
-  # Here, we refit another iteration of the IRWLS algorithm used in gam:
-  # Note: working residuals = (y - mu0)/mu0
-  # weights = mu0
-  # fitted(pois.fit) = mu0
-  # predict(pois.fit) = eta0 = log(mu0)
-  sGs = Gs #+ log(sum(dnorm(xg))/sum(fitted(pois.fit)))
-  z0 <- sGs + residuals(pois.fit, type='working')
-  pois.refit <- smooth.spline(x=xg, y=z0, w=fitted(pois.fit),df=df) #obtain the log tilt function in an object that can be used to obtain derivatives
-  Gs <- stats::predict(pois.refit, xData, deriv = 0)$y
-  gs <- stats::predict(pois.refit, xData, deriv = 1)$y
-  gps <- stats::predict(pois.refit, xData, deriv = 2)$y
-  fGs <- function(x) stats::predict(pois.refit,x,deriv=0)$y
-  fgs <- function(x) stats::predict(pois.refit,x,deriv=1)$y
-  fgps <- function(x) stats::predict(pois.refit,x,deriv=2)$y
-  list(Gs = Gs, gs = gs, gps = gps, fGs = fGs, fgs=fgs, fgps=fgps)
-}
-#---------------------------------------------
 #---------------------------------------
 standardizeM <- function(M) {
   #M is d x p
@@ -266,8 +223,8 @@ standardizeM <- function(M) {
 
 
 rtwonorm <- function(n, mean=c(0,5), sd=c(2/3,1), prob=0.5) {
-  k <- rbinom(n,1,prob=prob)
-  k*rnorm(n,mean[1],sd[1])+(1-k)*rnorm(n,mean[2],sd[2])
+  k <- stats::rbinom(n,1,prob=prob)
+  k*stats::rnorm(n,mean[1],sd[1])+(1-k)*stats::rnorm(n,mean[2],sd[2])
 }
 
 rmixnorm <- function(n, pars = list(mean=c(0,5), sd = c(2/3,1), prob=c(0.25,0.75))) {
@@ -275,10 +232,10 @@ rmixnorm <- function(n, pars = list(mean=c(0,5), sd = c(2/3,1), prob=c(0.25,0.75
   means = pars[['mean']]
   sigmas = pars[['sd']]
   if(sum(probs)!=1) stop('Probabilities must sum to one')
-  z = rmultinom(n=n, size=1, prob = probs)
+  z = stats::rmultinom(n=n, size=1, prob = probs)
   k = length(probs)
   #use rnorm recycling:
-  x = rnorm(k*n,means,sigmas)
+  x = stats::rnorm(k*n,means,sigmas)
   dim(x) = c(k,n)
   apply(x*z,2,sum)
 }
@@ -296,9 +253,9 @@ SimTwoNorms <- function(n.samples, distribution=c('mix-sub','mix-super'),snr,noi
   sim.M = myMixmat(5)
   sim.W = solve(sim.M)
   if(noisyICA) {
-    sim.N <- matrix(rnorm(n=5*n.samples,mean=0,sd=1),nrow=n.samples,ncol=5)
+    sim.N <- matrix(stats::rnorm(n=5*n.samples,mean=0,sd=1),nrow=n.samples,ncol=5)
   } else {
-    sim.N <- matrix(rnorm(n=3*n.samples,mean=0,sd=1),nrow=n.samples,ncol=3)
+    sim.N <- matrix(stats::rnorm(n=3*n.samples,mean=0,sd=1),nrow=n.samples,ncol=3)
   }
 
   sim.Ms = sim.M[1:2,]
@@ -351,7 +308,7 @@ SimTwoNorms <- function(n.samples, distribution=c('mix-sub','mix-super'),snr,noi
 standard <- function(data,dif.tol=1e-03,max.iter=10){
   row_mean_max = max(abs(apply(data,1,mean)))
   col_mean_max = max(abs(apply(data,2,mean)))
-  col_sd_max= max(abs(apply(data,2,sd)-1))
+  col_sd_max= max(abs(apply(data,2,stats::sd)-1))
   n=0
   while(n<=max.iter && max(row_mean_max,col_mean_max,col_sd_max)>= dif.tol) {
     data=scale(data) # centering and scaling for each column
@@ -359,7 +316,7 @@ standard <- function(data,dif.tol=1e-03,max.iter=10){
     n=n+1
     row_mean_max = max(abs(apply(data,1,mean)))
     col_mean_max = max(abs(apply(data,2,mean)))
-    col_sd_max= max(abs(apply(data,2,sd)-1))
+    col_sd_max= max(abs(apply(data,2,stats::sd)-1))
   }
   return(data)
 }

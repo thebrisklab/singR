@@ -257,7 +257,7 @@ covwhitener <- function(X,n.comp=ncol(X),center.row=FALSE) {
   x.center=scale(X,center=TRUE,scale=FALSE)
   if(center.row==TRUE) x.center = x.center - rowMeans(x.center)
   n.rep=dim(x.center)[1]
-  covmat = cov(x.center)
+  covmat = stats::cov(x.center)
   evdcov = eigen(covmat,symmetric = TRUE)
   whitener = evdcov$vectors%*%diag(1/sqrt(evdcov$values))%*%t(evdcov$vectors)
   #RETURNS PARAMETERIZATION AS IN fastICA (i.e., X is n x d)
@@ -275,7 +275,7 @@ covwhitener <- function(X,n.comp=ncol(X),center.row=FALSE) {
 
 
 whitener.evd = function(xData) {
-  est.sigma = cov(xData)  ## Use eigenvalue decomposition rather than SVD.
+  est.sigma = stats::cov(xData)  ## Use eigenvalue decomposition rather than SVD.
   evd.sigma = svd(est.sigma)
   whitener = evd.sigma$u%*%diag(evd.sigma$d^(-1/2))%*%t(evd.sigma$u)
   list(whitener=whitener,zData = xData%*%whitener)
