@@ -38,8 +38,8 @@ singR(
 \value{
 Function outputs a list including the following:
 \describe{
-      \item{\code{Sx}}{variable loadings for dataset X with matrix r x px.}
-      \item{\code{Sy}}{variable loadings for dataset Y with matrix r x py.}
+      \item{\code{Sjx}}{variable loadings for dataset X with matrix r x px.}
+      \item{\code{Sjy}}{variable loadings for dataset Y with matrix r x py.}
       \item{\code{Mxjoint}}{Mj of X data.}
       \item{\code{Myjoint}}{Mj of Y data.}
       \item{\code{est.Mj}}{estimated Mj for both datasets.}

@@ -14,8 +14,8 @@ test_that("standardization",{
 #test singR
 test_that("test for singR",{
   output <- singR(dX = data$dX,dY = data$dY,n.comp = 12,df = 0,rho_extent = "small",Cplus = TRUE,stand=FALSE)
-  expect_equal(dim(Sx),c(2,1089))
-  expect_equal(dim(Sy),c(2,4950))
+  expect_equal(dim(output$Sjx),c(2,1089))
+  expect_equal(dim(output$Sjy),c(2,4950))
 })
 
 

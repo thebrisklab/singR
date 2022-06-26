@@ -11,8 +11,8 @@
 #' @param distribution "JB" or "tiltedgaussian"
 #' @return Function outputs a list including the following:
 #' \describe{
-#'       \item{\code{Sx}}{variable loadings for dataset X with matrix r x px.}
-#'       \item{\code{Sy}}{variable loadings for dataset Y with matrix r x py.}
+#'       \item{\code{Sjx}}{variable loadings for dataset X with matrix r x px.}
+#'       \item{\code{Sjy}}{variable loadings for dataset Y with matrix r x py.}
 #'       \item{\code{Mxjoint}}{Mj of X data.}
 #'       \item{\code{Myjoint}}{Mj of Y data.}
 #'       \item{\code{est.Mj}}{estimated Mj for both datasets.}
@@ -100,14 +100,14 @@ singR <- function(dX,dY,n.comp=12,df=0,rho_extent=c('small','medium','large'),Cp
     out_indiv <- curvilinear(invLx = invLx, invLy = invLy, xData = xDataA, yData = yDataA, Ux = matchMxMy$Ux, Uy = matchMxMy$Uy, rho = rho, tol = tol, maxiter = 1500, r0 = joint_rank)
   }
 
-  Sx = t(out_indiv$Ux[1:joint_rank, ] %*% xDataA)
-  Sy = t(out_indiv$Uy[1:joint_rank, ] %*% yDataA)
+  Sjx = t(out_indiv$Ux[1:joint_rank, ] %*% xDataA)
+  Sjy = t(out_indiv$Uy[1:joint_rank, ] %*% yDataA)
 
   Mxjoint = tcrossprod(invLx, out_indiv$Ux[1:joint_rank, ])
   Myjoint = tcrossprod(invLy, out_indiv$Uy[1:joint_rank, ])
 
   est.Mj = aveM(Mxjoint,Myjoint)
 
-  return(list(Sx=Sx,Sy=Sy,Mxjoint=Mxjoint,Myjoint=Myjoint,est.Mj=est.Mj,Cplus=Cplus,rho_extent=rho_extent,df=df))
+  return(list(Sjx=Sjx,Sjy=Sjy,Mxjoint=Mxjoint,Myjoint=Myjoint,est.Mj=est.Mj,Cplus=Cplus,rho_extent=rho_extent,df=df))
 
 }
