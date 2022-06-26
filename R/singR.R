@@ -22,6 +22,7 @@
 #' }
 #' @export
 #' @examples
+#' \dontrun{
 #' #get simulation data
 #' data(exampledata)
 #' data=exampledata
@@ -34,6 +35,8 @@
 #' frobICA_JB=frobICA(M1 = t(output_JB$est.Mj),M2 = t(data$mj),standardize = T) #0.0071682
 #' frobICA_tilted=frobICA(M1 = t(output_tilted$est.Mj),M2 = t(data$mj),standardize = T) #0.0071295
 #'
+#' }
+
 singR <- function(dX,dY,n.comp=12,df=0,rho_extent=c('small','medium','large'),Cplus=T,tol = 1e-10,stand=F,distribution="JB") {
   # Center X and Y
   if (stand) {

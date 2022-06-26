@@ -237,7 +237,7 @@ tiltedgaussian = function (xData, df = 8, B = 100, ...) {
   #This differs from the GPois algorithm in ProDenICA
   ys <- as.vector(table(cut(xData, xcuts)))/(gaps*n)
   pois.fit <- suppressWarnings(gam(ys ~ s(xg, df)+offset(dnorm(xg,log=TRUE)), family = poisson, ...))
-  Gs <- predict(pois.fit) #log tilt function predicted at grid locations (note: predict on gam object can not be used to obtain derivatives)
+  Gs <- stats::predict(pois.fit) #log tilt function predicted at grid locations (note: predict on gam object can not be used to obtain derivatives)
   # the gam object with the predict function can not be used directly to obtain the derivatives
   # of the smoothing spline.
   # Here, we refit another iteration of the IRWLS algorithm used in gam:
@@ -248,12 +248,12 @@ tiltedgaussian = function (xData, df = 8, B = 100, ...) {
   sGs = Gs #+ log(sum(dnorm(xg))/sum(fitted(pois.fit)))
   z0 <- sGs + residuals(pois.fit, type='working')
   pois.refit <- smooth.spline(x=xg, y=z0, w=fitted(pois.fit),df=df) #obtain the log tilt function in an object that can be used to obtain derivatives
-  Gs <- predict(pois.refit, xData, deriv = 0)$y
-  gs <- predict(pois.refit, xData, deriv = 1)$y
-  gps <- predict(pois.refit, xData, deriv = 2)$y
-  fGs <- function(x) predict(pois.refit,x,deriv=0)$y
-  fgs <- function(x) predict(pois.refit,x,deriv=1)$y
-  fgps <- function(x) predict(pois.refit,x,deriv=2)$y
+  Gs <- stats::predict(pois.refit, xData, deriv = 0)$y
+  gs <- stats::predict(pois.refit, xData, deriv = 1)$y
+  gps <- stats::predict(pois.refit, xData, deriv = 2)$y
+  fGs <- function(x) stats::predict(pois.refit,x,deriv=0)$y
+  fgs <- function(x) stats::predict(pois.refit,x,deriv=1)$y
+  fgps <- function(x) stats::predict(pois.refit,x,deriv=2)$y
   list(Gs = Gs, gs = gs, gps = gps, fGs = fGs, fgs=fgs, fgps=fgps)
 }
 #---------------------------------------------

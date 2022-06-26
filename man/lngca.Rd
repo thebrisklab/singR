@@ -79,6 +79,7 @@ Function outputs a list including the following:
 Decomposite the original data through LNGCA method
 }
 \examples{
+\dontrun{
 #get simulation data
 data(exampledata)
 data=exampledata
@@ -97,5 +98,6 @@ frobICA(S1 = t(trueSx),S2=t(estX_JB$S),standardize = TRUE) #0.2341096
 frobICA(S1 = t(trueSx),S2=t(estX_tilt$S),standardize = TRUE) #0.1824922
 
 # the lngca using tiltedgaussian is more accurate with smaller frobICA value. But it will cost more time.
+}
 
 }

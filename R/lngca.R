@@ -41,6 +41,7 @@
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' #get simulation data
 #' data(exampledata)
 #' data=exampledata
@@ -59,6 +60,7 @@
 #' frobICA(S1 = t(trueSx),S2=t(estX_tilt$S),standardize = TRUE) #0.1824922
 #'
 #' # the lngca using tiltedgaussian is more accurate with smaller frobICA value. But it will cost more time.
+#'}
 #'
 lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenvec','sqrtprec','none'), maxit = 1000, eps = 1e-06, verbose = FALSE, restarts.pbyd = 0, restarts.dbyd = 0, distribution=c('tiltedgaussian','logistic','JB'), density=FALSE, out.all=FALSE, orth.method=c('svd','givens'), reinit.max.comp = FALSE, max.comp = FALSE, df=0,stand=FALSE,...) {
 

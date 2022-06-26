@@ -52,6 +52,7 @@ Function outputs a list including the following:
 sing method for data integration
 }
 \examples{
+\dontrun{
 #get simulation data
 data(exampledata)
 data=exampledata
@@ -64,4 +65,5 @@ output_tilted=singR(dX=data$dX,dY=data$dY,n.comp=12,df=3,rho_extent="small",dist
 frobICA_JB=frobICA(M1 = t(output_JB$est.Mj),M2 = t(data$mj),standardize = T) #0.0071682
 frobICA_tilted=frobICA(M1 = t(output_tilted$est.Mj),M2 = t(data$mj),standardize = T) #0.0071295
 
+}
 }
