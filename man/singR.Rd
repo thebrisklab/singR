@@ -13,7 +13,8 @@ singR(
   Cplus = T,
   tol = 1e-10,
   stand = F,
-  distribution = "JB"
+  distribution = "JB",
+  maxiter = 1500
 )
 }
 \arguments{
