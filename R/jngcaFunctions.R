@@ -107,7 +107,7 @@ order.likelihood <- function(S,positive.skew=TRUE,distribution=c('logistic','til
   d = ncol(S)
   if(distribution=='tiltedgaussian') Gfunc = tiltedgaussian
   if(distribution=='logistic') Gfunc = logistic
-  if(distribution=='logcosh') Gfunc = ProDenICA::G1
+  #if(distribution=='logcosh') Gfunc = ProDenICA::G1
   if(distribution=='JB') Gfunc = jb.stat
   if(positive.skew) {
     skewness <- function(x, n = nObs) (sum((x - mean(x))^3)/n)/(sum((x - mean(x))^2)/n)^(3/2)

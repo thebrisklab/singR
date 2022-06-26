@@ -220,7 +220,7 @@ jb.stat <- function(x, df=0) {
 #' @param xData input data
 #' @param df degree freedom
 #' @param B default value=100
-#' @param ...
+#' @param ... ellipsis
 #'
 #' @import gam
 tiltedgaussian = function (xData, df = 8, B = 100, ...) {

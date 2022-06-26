@@ -13,7 +13,7 @@ tiltedgaussian(xData, df = 8, B = 100, ...)
 
 \item{B}{default value=100}
 
-\item{...}{}
+\item{...}{ellipsis}
 }
 \description{
 tiltedgaussian
