@@ -145,8 +145,8 @@ marginal.likelihoods <- function(S,distribution=c('logistic','tiltedgaussian','l
 # This function does not require M to be square:
 #' Match mixing matrices
 #'
-#' @param M1 Subject score 1
-#' @param M2 Subject score 2
+#' @param M1 Subject score 1 matrix r x n.
+#' @param M2 Subject score 2 matrix r x n.
 #' @param S1 Loading 1 with matrix p x r.
 #' @param S2 Loading 2 with matrix p x r.
 #' @param standardize whether to standardize

@@ -7,9 +7,9 @@
 frobICA(M1 = NULL, M2 = NULL, S1 = NULL, S2 = NULL, standardize = FALSE)
 }
 \arguments{
-\item{M1}{Subject score 1}
+\item{M1}{Subject score 1 matrix r x n.}
 
-\item{M2}{Subject score 2}
+\item{M2}{Subject score 2 matrix r x n.}
 
 \item{S1}{Loading 1 with matrix p x r.}
 

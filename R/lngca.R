@@ -40,8 +40,25 @@
 #' }
 #'
 #' @export
+#' @examples
+#' #get simulation data
+#' data(exampledata)
+#' data=exampledata
 #'
+#' # use JB statistic as the measure of nongaussianity to run lngca with df=0
+#' estX_JB = lngca(xData = t(data$dX), n.comp = 4, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F,df=0)
 #'
+#' # use the tiltedgaussian distribution to run lngca with df=3
+#' estX_tilt = lngca(xData = t(data$dX), n.comp = 4, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='tiltedgaussian',stand = F,df=3)
+#'
+#' # true non-gaussian component of Sx, includ individual and joint components
+#' trueSx = rbind(data$sjX,data$siX)
+#'
+#' # use frobICA to compare the difference of the two methods
+#' frobICA(S1 = t(trueSjx),S2=t(estX_JB$S),standardize = T) #0.2341096
+#' frobICA(S1 = t(trueSjx),S2=t(estX_tilt$S),standardize = T) #0.1824922
+#'
+#' # the lngca using tiltedgaussian is more accurate with smaller frobICA value. But it will cost more time.
 #'
 lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenvec','sqrtprec','none'), maxit = 1000, eps = 1e-06, verbose = FALSE, restarts.pbyd = 0, restarts.dbyd = 0, distribution=c('tiltedgaussian','logistic','JB'), density=FALSE, out.all=FALSE, orth.method=c('svd','givens'), reinit.max.comp = FALSE, max.comp = FALSE, df=0,stand=TRUE,...) {
 

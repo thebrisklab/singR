@@ -19,7 +19,6 @@ test_that("test for singR",{
 })
 
 
-
 # JB on X
 estX_JB = lngca(xData = t(data$dX), n.comp = 12, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F,df=0) # what is the df at here.
 Uxfull <- estX_JB$U  ## Ax = Ux %*% Lx, where Lx is the whitened matrix from covariance matrix of dX.
