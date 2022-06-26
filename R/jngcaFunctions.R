@@ -89,9 +89,9 @@ lca.par <- function(xData,W0,Gfunc,maxit,verbose,density,eps,n.comp,df,...) {
 
 #--------------------------------------
 myMixmat <-  function (p = 2) {
-  a <- matrix(rnorm(p * p), p, p)
+  a <- matrix(stats::rnorm(p * p), p, p)
   sa <- svd(a)
-  d <- sort(runif(p,min=1,max=10))
+  d <- sort(stats::runif(p,min=1,max=10))
   mat <- sa$u %*% (sa$v * d)
   attr(mat, "condition") <- d[p]/d[1]
   mat

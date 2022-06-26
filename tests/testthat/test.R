@@ -33,7 +33,7 @@ My_JB = est.M.ols(sData = t(estY_JB$S), xData = t(data$dY))
 test_that("linear non-Gaussian component analysis", {
 
   expect_equal(dim(estX_JB$U),c(12,48))
-
+  expect_equal(dim(estX_JB$M),c(48,12))
   expect_equal(dim(Mx_JB),c(12,48))
 
 })

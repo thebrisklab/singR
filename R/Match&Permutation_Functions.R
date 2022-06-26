@@ -304,7 +304,7 @@ permmatRank_sequential_JB = function(xdata,maxcompdata=ncol(xdata),ncomplist,npe
   for (i in 1:length(ncomplist)) {
     # Estimate residuals from the first r-1 components
     if (ncomplist[i] > 1){
-      newxdata = lm(xdata~estX$S[,1:(ncomplist[i]-1)])$residuals
+      newxdata = stats::lm(xdata~estX$S[,1:(ncomplist[i]-1)])$residuals
     }else{
       newxdata = xdata
     }
@@ -343,7 +343,7 @@ permmatRank_joint = function(matchedResults, nperms = 100){
     # Resample the subjects in the 2nd mixing matrix
     new.My= My[,sample(1:n), drop = F]
     # Calculate maximal correlation
-    corrperm[b] = max(abs(atanh(cor(t(Mx),t(new.My)))))
+    corrperm[b] = max(abs(atanh(stats::cor(t(Mx),t(new.My)))))
   }
 
   # Calculate p-values from permutations

@@ -127,7 +127,7 @@ lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenv
     whitener = temp$whitener
     rm(temp)
   }  else if (whiten=='sqrtprec') {
-    est.sigma = cov(xData)  ## Use eigenvalue decomposition rather than SVD.
+    est.sigma = stats::cov(xData)  ## Use eigenvalue decomposition rather than SVD.
     evd.sigma = svd(est.sigma)
     whitener = evd.sigma$u%*%diag(evd.sigma$d^(-1/2))%*%t(evd.sigma$u)
     zData = xData%*%whitener
