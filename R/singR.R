@@ -15,7 +15,7 @@
 #'       \item{\code{Sjy}}{variable loadings for dataset Y with matrix rj x py.}
 #'       \item{\code{Mxjoint}}{Mj of X data with matrix n x rj.}
 #'       \item{\code{Myjoint}}{Mj of Y data with matrix n x rj.}
-#'       \item{\code{est.Mj}}{estimated Mj for both datasets.}
+#'       \item{\code{est.Mj}}{estimated Mj for both datasets with matrix n x rj.}
 #'       \item{\code{C_plus}}{whether to use C version of curvilinear search.}
 #'       \item{\code{rho_extent}}{the weight of rho in search}
 #'       \item{\code{df}}{degree of freedom, = 0 when use JB,>0 when use tiltedgaussian.}
