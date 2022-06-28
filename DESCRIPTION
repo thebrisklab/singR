@@ -8,7 +8,7 @@ Description: singR is a package to extract joint and individual non-gaussian com
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 LinkingTo: 
     Rcpp,
     RcppArmadillo

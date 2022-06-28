@@ -35,6 +35,8 @@ singR(
 \item{stand}{whether to use standardization, if it was true, it will make the column and row means to 0 and columns sd to 1. If false, it will only make the row means to 0.}
 
 \item{distribution}{"JB" or "tiltedgaussian"}
+
+\item{maxiter}{the max iteration number for the curvilinear search.}
 }
 \value{
 Function outputs a list including the following:

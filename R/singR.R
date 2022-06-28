@@ -9,6 +9,7 @@
 #' @param tol difference tolerance in curvilinear search.
 #' @param stand whether to use standardization, if it was true, it will make the column and row means to 0 and columns sd to 1. If false, it will only make the row means to 0.
 #' @param distribution "JB" or "tiltedgaussian"
+#' @param maxiter the max iteration number for the curvilinear search.
 #' @return Function outputs a list including the following:
 #' \describe{
 #'       \item{\code{Sjx}}{variable loadings for dataset X with matrix rj x px.}
