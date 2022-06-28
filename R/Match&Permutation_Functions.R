@@ -1,6 +1,4 @@
 ### Functions for Match and permutation
-
-
 # Use greedy algorithm:
 
 #' Greedy Match
@@ -362,3 +360,29 @@ permmatRank_joint = function(matchedResults, nperms = 100){
 
 
 ###############
+#' find the number of non-Gaussian components in the data.
+#'
+#' @param data original matrix with n x p.
+#'
+#' @return the number of non-Gaussian components in the data.
+#' @import ICtest
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' library(singR)
+#' data("exampledata")
+#' data=exampledata
+#' NG_number(data$dX)
+#' }
+NG_number <- function(data){ #data nxp
+  k_max=nrow(data)
+  data=t(data)
+  k=0
+  FOBI=FOBIasymp(data,k=k)
+  while (FOBI$p.value < 0.05) {
+    k=k+1
+    FOBI=FOBIasymp(data,k=k)
+  }
+  return(k)
+}

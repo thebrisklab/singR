@@ -7,14 +7,16 @@
 singR(
   dX,
   dY,
-  n.comp = 12,
+  n.comp.X = NULL,
+  n.comp.Y = NULL,
   df = 0,
   rho_extent = c("small", "medium", "large"),
   Cplus = T,
   tol = 1e-10,
   stand = F,
   distribution = "JB",
-  maxiter = 1500
+  maxiter = 1500,
+  individual = F
 )
 }
 \arguments{
@@ -22,7 +24,9 @@ singR(
 
 \item{dY}{original dataset for decomposition, matrix of n x py.}
 
-\item{n.comp}{the component number used in separate lngca process.}
+\item{n.comp.X}{the component number used in separate lngca process for X data.}
+
+\item{n.comp.Y}{the component number used in separate lngca process for Y data.}
 
 \item{df}{default value=0 when use JB, df>0 when use tileted gaussian.}
 
@@ -37,14 +41,18 @@ singR(
 \item{distribution}{"JB" or "tiltedgaussian"}
 
 \item{maxiter}{the max iteration number for the curvilinear search.}
+
+\item{individual}{whether to return the individual non-Gaussian components, default value = F.}
 }
 \value{
 Function outputs a list including the following:
 \describe{
-      \item{\code{Sjx}}{variable loadings for dataset X with matrix rj x px.}
-      \item{\code{Sjy}}{variable loadings for dataset Y with matrix rj x py.}
-      \item{\code{Mxjoint}}{Mj of X data with matrix n x rj.}
-      \item{\code{Myjoint}}{Mj of Y data with matrix n x rj.}
+      \item{\code{Sjx}}{variable loadings for joint NG components in dataset X with matrix rj x px.}
+      \item{\code{Sjy}}{variable loadings for joint NG components in dataset Y with matrix rj x py.}
+      \item{\code{Six}}{variable loadings for individual NG components in dataset X with matrix riX x px.}
+      \item{\code{Siy}}{variable loadings for individual NG components in dataset Y with matrix riX x py.}
+      \item{\code{Mix}}{M of indivudiaul NG components in X with matrix n x riX.}
+      \item{\code{Miy}}{M of indivudiaul NG components in Y with matrix n x riY.}
       \item{\code{est.Mj}}{estimated Mj for both datasets with matrix n x rj.}
       \item{\code{C_plus}}{whether to use C version of curvilinear search.}
       \item{\code{rho_extent}}{the weight of rho in search}

@@ -84,6 +84,8 @@ Decomposite the original data through LNGCA method
 data(exampledata)
 data=exampledata
 
+# To get n.comp value, we can use NG_number function.
+
 # use JB statistic as the measure of nongaussianity to run lngca with df=0
 estX_JB = lngca(xData = t(data$dX), n.comp = 4, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',df=0)
 

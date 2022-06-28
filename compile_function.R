@@ -9,7 +9,7 @@ install_github("thebrisklab/singR")
 install.packages("testthat")
 library(testthat)
 testthat::skip_on_cran()
-use_package("gam")
+use_package("ICtest")
 
 
 usethis::use_data(simdata, overwrite = TRUE,compress = TRUE)

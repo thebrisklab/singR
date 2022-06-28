@@ -16,7 +16,8 @@ Imports:
     MASS,
     Rcpp,
     clue,
-    gam
+    gam,
+    ICtest
 Suggests: 
     knitr,
     covr,
