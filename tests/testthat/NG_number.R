@@ -42,16 +42,9 @@ dYcentered <- dY - matrix(rowMeans(dY), n, pY, byrow = F)
 
 NG_number(dXcentered)
 
+
+
+
 data=standard(data$dX)
 FOBIasymp(t(data),k=9)
-
-
-
-
-
-
-
-
-
-
 
