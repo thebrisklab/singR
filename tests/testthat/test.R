@@ -13,10 +13,10 @@ test_that("standardization",{
 
 #test singR
 test_that("test for singR",{
-  output <- singR(dX = data$dX,dY = data$dY,df = 0,rho_extent = "small",Cplus = TRUE,stand=FALSE)
+  output <- singR(dX = data$dX,dY = data$dY,df = 0,rho_extent = "small",Cplus = TRUE,stand=FALSE,n.comp.X = 4,n.comp.Y = 4,individual = T)
   expect_equal(dim(output$Sjx),c(2,1089))
   expect_equal(dim(output$Sjy),c(2,4950))
-  expect_equal(dim(output$Mxjoint),c(48,2))
+  expect_equal(dim(output$est.Mj),c(48,2))
 })
 
 

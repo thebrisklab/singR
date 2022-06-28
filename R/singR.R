@@ -62,16 +62,16 @@ singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','m
     n.comp.X=NG_number(dXcentered)
   }
   if(is.null(n.comp.Y)) {
-    n.comp.X=NG_number(dYcentered)
+    n.comp.Y=NG_number(dYcentered)
   }
 # JB on X
   estX_JB = lngca(xData = t(dXcentered), n.comp = n.comp.X, whiten = 'sqrtprec', restarts.pbyd = 20, distribution=distribution,stand = F,df=df) # what is the df at here.
-  Uxfull <- estX_JB$U  ## Ax = Ux %*% Lx, where Lx is the whitened matrix from covariance matrix of dX.
+  Uxfull = estX_JB$U  ## Ax = Ux %*% Lx, where Lx is the whitened matrix from covariance matrix of dX.
   Mx_JB = est.M.ols(sData = t(estX_JB$S), xData = t(dXcentered)) ## NOTE: for centered X, equivalent to xData %*% sData/(px-1)
 
   # JB on Y
   estY_JB = lngca(xData = t(dYcentered), n.comp = n.comp.Y, whiten = 'sqrtprec', restarts.pbyd = 20, distribution=distribution,stand = F,df=df)
-  Uyfull <- estY_JB$U
+  Uyfull = estY_JB$U
   My_JB = est.M.ols(sData = t(estY_JB$S), xData = t(dYcentered))
 
   matchMxMy = suppressWarnings(greedymatch(t(Mx_JB), t(My_JB), Ux = Uxfull, Uy = Uyfull)) # ignore the warnings of greedymatch, that the column is not scaled.
