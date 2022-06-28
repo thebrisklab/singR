@@ -13,7 +13,7 @@ test_that("standardization",{
 
 #test singR
 test_that("test for singR",{
-  output <- singR(dX = data$dX,dY = data$dY,n.comp = 12,df = 0,rho_extent = "small",Cplus = TRUE,stand=FALSE)
+  output <- singR(dX = data$dX,dY = data$dY,df = 0,rho_extent = "small",Cplus = TRUE,stand=FALSE)
   expect_equal(dim(output$Sjx),c(2,1089))
   expect_equal(dim(output$Sjy),c(2,4950))
   expect_equal(dim(output$Mxjoint),c(48,2))
@@ -97,25 +97,4 @@ test_that("Curvilinear search", {
 
 
 
-
-
-
-#' spmwm = 3*matrix(rnorm(100000),nrow=100)+1
-#' dim(spmwm)
-#' apply(spmwm,1,mean) # we want these to be 0
-#' apply(spmwm,2,mean) # we want these to be 0
-#' apply(spmwm,2,sd) # we want each of these variances to be 1
-#'
-#' spmwm_cp=standard(spmwm)
-#' max(abs(apply(spmwm_cp,1,mean)))
-#' max(abs(apply(spmwm_cp,2,mean)))
-#' max(abs(apply(spmwm_cp,2,sd)-1))
-stand=standard(data$dX,max.iter = 100)
-mean(abs(apply(stand,2,sd)-1))
-
-max(abs(apply(stand,2,mean)))
-
-true_Sx=rbind(data$sjX,data$siX)
-est_Sx=estX_JB$S
-frobICA(S1 = t(true_Sx),S2 = t(est_Sx),standardize = T)
 
