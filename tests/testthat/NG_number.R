@@ -19,14 +19,14 @@ NG_number(standard(data$dX))
 dX=data$dX
 n = nrow(dX)
 pX = ncol(dX)
-pY = ncol(dY)
+
 dXcentered <- dX - matrix(rowMeans(dX), n, pX, byrow = F)
-dYcentered <- dY - matrix(rowMeans(dY), n, pY, byrow = F)
+
 
 NG_number(dXcentered)
 
-
-
+NG_number(data$dX)
+NG_number(standard(data$dX))
 
 data=standard(data$dX)
 FOBIasymp(t(data),k=9)
