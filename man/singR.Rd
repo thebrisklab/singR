@@ -74,8 +74,8 @@ output_JB=singR(dX=exampledata$dX,dY=exampledata$dY,df=0,rho_extent="small",dist
 output_tilted=singR(dX=exampledata$dX,dY=exampledata$dY,df=5,rho_extent="small",distribution="tiltedgaussian")
 
 # use frobICA to show the difference of JB and tiltedgaussian
-frobICA_JB=frobICA(M1 = t(output_JB$est.Mj),M2 = t(data$mj),standardize = T) #0.0071682
-frobICA_tilted=frobICA(M1 = t(output_tilted$est.Mj),M2 = t(data$mj),standardize = T) #0.0071295
+frobICA_JB=frobICA(M1 = t(output_JB$est.Mj),M2 = t(exampledata$mj),standardize = T) #0.0071682
+frobICA_tilted=frobICA(M1 = t(output_tilted$est.Mj),M2 = t(exampledata$mj),standardize = T) #0.0071295
 
 }
 }
