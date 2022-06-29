@@ -69,6 +69,8 @@ data(exampledata)
 
 # use JB stat to compute with singR
 output_JB=singR(dX=exampledata$dX,dY=exampledata$dY,df=0,rho_extent="small",distribution="JB",individual=TRUE)
+
+# use tiltedgaussian distribution to compute with singR. The tiltedgaussian is more accurate and slower.
 output_tilted=singR(dX=exampledata$dX,dY=exampledata$dY,df=5,rho_extent="small",distribution="tiltedgaussian")
 
 # use frobICA to show the difference of JB and tiltedgaussian
