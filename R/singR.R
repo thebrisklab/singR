@@ -33,7 +33,7 @@
 #'
 #' # use JB stat to compute with singR
 #' output_JB=singR(dX=exampledata$dX,dY=exampledata$dY,df=0,rho_extent="small",distribution="JB",individual=TRUE)
-#' output_tilted=singR(dX=exampledata$dX,dY=exampledata$dY,df=3,rho_extent="small",distribution="tiltedgaussian")
+#' output_tilted=singR(dX=exampledata$dX,dY=exampledata$dY,df=5,rho_extent="small",distribution="tiltedgaussian")
 #'
 #' # use frobICA to show the difference of JB and tiltedgaussian
 #' frobICA_JB=frobICA(M1 = t(output_JB$est.Mj),M2 = t(data$mj),standardize = T) #0.0071682
