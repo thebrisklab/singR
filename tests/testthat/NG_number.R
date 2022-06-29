@@ -14,23 +14,6 @@ library(singR)
 data("exampledata")
 data=exampledata
 
-FOBIasymp(t(data$dX),k=2)
-a=FOBIasymp(t(data$dX),k=3)
-a=FOBIasymp(t(data$dX),k=4)
-FOBIasymp(t(data$dX),k=5)
-
-NG_number <- function(data){ #data nxp
-  k_max=nrow(data)
-  data=t(data)
-  k=0
-  FOBI=FOBIasymp(data,k=k)
-  while (FOBI$p.value < 0.05) {
-    k=k+1
-    FOBI=FOBIasymp(data,k=k)
-  }
-  return(k)
-}
-
 
 NG_number(standard(data$dX))
 dX=data$dX
