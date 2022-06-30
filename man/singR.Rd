@@ -38,7 +38,7 @@ singR(
 
 \item{stand}{whether to use standardization, if true, it will make the column and row means to 0 and columns sd to 1. If false, it will only make the row means to 0.}
 
-\item{distribution}{"JB" or "tiltedgaussian"}
+\item{distribution}{"JB" or "tiltedgaussian"; "JB" is much faster. In SING, this refers to the "density" formed from the vector of loadings. "tiltedgaussian" with large df can potentially model more complicated patterns.}
 
 \item{maxiter}{the max iteration number for the curvilinear search.}
 
@@ -51,12 +51,12 @@ Function outputs a list including the following:
       \item{\code{Sjy}}{variable loadings for joint NG components in dataset Y with matrix rj x py.}
       \item{\code{Six}}{variable loadings for individual NG components in dataset X with matrix riX x px.}
       \item{\code{Siy}}{variable loadings for individual NG components in dataset Y with matrix riX x py.}
-      \item{\code{Mix}}{M of indivudiaul NG components in X with matrix n x riX.}
-      \item{\code{Miy}}{M of indivudiaul NG components in Y with matrix n x riY.}
-      \item{\code{est.Mj}}{estimated Mj for both datasets with matrix n x rj.}
+      \item{\code{Mix}}{scores of individual NG components in X with matrix n x riX.}
+      \item{\code{Miy}}{scores of individual NG components in Y with matrix n x riY.}
+      \item{\code{est.Mj}}{joint scores Mj for both datasets with matrix n x rj.}
       \item{\code{C_plus}}{whether to use C version of curvilinear search.}
       \item{\code{rho_extent}}{the weight of rho in search}
-      \item{\code{df}}{degree of freedom, = 0 when use JB,>0 when use tiltedgaussian.}
+      \item{\code{df}}{degree of freedom, = 0 when use JB, >0 when use tiltedgaussian.}
 }
 }
 \description{
