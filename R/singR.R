@@ -1,6 +1,6 @@
 #' SImultaneous Non-Gaussian Component analysis for data integration.
 #'
-#' This function combines all steps from the [SING paper]<https://projecteuclid.org/journals/annals-of-applied-statistics/volume-15/issue-3/Simultaneous-non-Gaussian-component-analysis-SING-for-data-integration-in/10.1214/21-AOAS1466.full>
+#' This function combines all steps from the [SING paper](https://projecteuclid.org/journals/annals-of-applied-statistics/volume-15/issue-3/Simultaneous-non-Gaussian-component-analysis-SING-for-data-integration-in/10.1214/21-AOAS1466.full) in Annals of Applied Statistics
 #'
 #' @param dX original dataset for decomposition, matrix of n x px.
 #' @param dY original dataset for decomposition, matrix of n x py.
