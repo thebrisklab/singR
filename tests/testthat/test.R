@@ -95,6 +95,3 @@ test_that("Curvilinear search", {
   expect_equal(dim(out_indiv_small$Uy),c(12,48))
 })
 
-
-
-
