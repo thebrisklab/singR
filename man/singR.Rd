@@ -24,19 +24,19 @@ singR(
 
 \item{dY}{original dataset for decomposition, matrix of n x py.}
 
-\item{n.comp.X}{the component number used in separate lngca process for X data.}
+\item{n.comp.X}{the number of non-Gaussian components in dataset X. If null, will estimate the number using ICtest::FOBIasymp.}
 
-\item{n.comp.Y}{the component number used in separate lngca process for Y data.}
+\item{n.comp.Y}{the number of non-Gaussian components in dataset Y. If null, will estimate the number using ICtest::FOBIasymp.}
 
-\item{df}{default value=0 when use JB, df>0 when use tileted gaussian.}
+\item{df}{default value=0 when use JB, if df>0, estimates a density for the loadings using a tilted Gaussian (non-parametric density estimate).}
 
-\item{rho_extent}{small,medium or large.}
+\item{rho_extent}{Controls similarity of the scores in the two datasets. small, medium or large is defined from the JB statistic. Try "small" and see if the loadings are equal, then try others if needed.}
 
-\item{Cplus}{whether to use C code in curvilinear search.}
+\item{Cplus}{whether to use C code (faster) in curvilinear search.}
 
 \item{tol}{difference tolerance in curvilinear search.}
 
-\item{stand}{whether to use standardization, if it was true, it will make the column and row means to 0 and columns sd to 1. If false, it will only make the row means to 0.}
+\item{stand}{whether to use standardization, if true, it will make the column and row means to 0 and columns sd to 1. If false, it will only make the row means to 0.}
 
 \item{distribution}{"JB" or "tiltedgaussian"}
 

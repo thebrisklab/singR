@@ -2,13 +2,13 @@
 #'
 #' @param dX original dataset for decomposition, matrix of n x px.
 #' @param dY original dataset for decomposition, matrix of n x py.
-#' @param n.comp.X the component number used in separate lngca process for X data.
-#' @param n.comp.Y the component number used in separate lngca process for Y data.
-#' @param df default value=0 when use JB, df>0 when use tileted gaussian.
-#' @param rho_extent small,medium or large.
-#' @param Cplus whether to use C code in curvilinear search.
+#' @param n.comp.X the number of non-Gaussian components in dataset X. If null, will estimate the number using ICtest::FOBIasymp.
+#' @param n.comp.Y the number of non-Gaussian components in dataset Y. If null, will estimate the number using ICtest::FOBIasymp.
+#' @param df default value=0 when use JB, if df>0, estimates a density for the loadings using a tilted Gaussian (non-parametric density estimate).
+#' @param rho_extent Controls similarity of the scores in the two datasets. small, medium or large is defined from the JB statistic. Try "small" and see if the loadings are equal, then try others if needed.
+#' @param Cplus whether to use C code (faster) in curvilinear search.
 #' @param tol difference tolerance in curvilinear search.
-#' @param stand whether to use standardization, if it was true, it will make the column and row means to 0 and columns sd to 1. If false, it will only make the row means to 0.
+#' @param stand whether to use standardization, if true, it will make the column and row means to 0 and columns sd to 1. If false, it will only make the row means to 0.
 #' @param distribution "JB" or "tiltedgaussian"
 #' @param maxiter the max iteration number for the curvilinear search.
 #' @param individual whether to return the individual non-Gaussian components, default value = F.
