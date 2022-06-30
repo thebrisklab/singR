@@ -48,12 +48,25 @@ lngca(
 
 \item{out.all}{default = FALSE}
 
+<<<<<<< HEAD
 \item{orth.method}{default = 'svd'. Method to generate random initial matrices. See [gen.inits()]}
 
+\item{df}{default = 0, df of the spline used in fitting the non-parametric density. use df=8 or so for tilted gaussian. set df=0 for JB and logistic.}
+=======
+\item{orth.method}{default = 'svd'. Method to generate random initial matrices.  See [gen.inits()]}
+
+\item{reinit.max.comp}{default = FALSE. Estimates a model with all non-Gaussian components and then initialized}
+>>>>>>> main
+
+\item{stand}{whether to standardize the data to have row and column means equal to 0 and the row standard deviation equal to 1 (i.e., all variables on same scale). Often used when combined with singR for data integration.}
+
+<<<<<<< HEAD
+=======
 \item{df}{default = 0, df of the spline used in fitting the non-parametric density. use df=8 or so for tilted gaussian. set df=0 for JB and logistic.}
 
 \item{stand}{whether to standardize the data to have row and column means equal to 0 and the row standard deviation equal to 1 (i.e., all variables on same scale). Often used when combined with singR for data integration.}
 
+>>>>>>> main
 \item{...}{other arguments to tiltedgaussian estimation}
 }
 \value{
@@ -70,7 +83,11 @@ Function outputs a list including the following:
 }
 }
 \description{
+<<<<<<< HEAD
 Implements the methods of linear non-Gaussian component analysis (LNGCA) and likelihood component analysis (when using a density, e.g., tilted Gaussian) from the [LNGCA PAPER](https://www.tandfonline.com/doi/full/10.1080/01621459.2017.1407772)
+=======
+Implements the methods of linear non-Gaussian component analysis (LNGCA) and likelihood component analysis (when using a density, e.g., tilted Gaussian) from the JASA [LNGCA paper](https://www.tandfonline.com/doi/epub/10.1080/01621459.2017.1407772).
+>>>>>>> main
 }
 \examples{
 \dontrun{
@@ -83,7 +100,11 @@ data=exampledata
 # use JB statistic as the measure of nongaussianity to run lngca with df=0
 estX_JB = lngca(xData = t(data$dX), n.comp = 4, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',df=0)
 
+<<<<<<< HEAD
 # use the tiltedgaussian distribution to run lngca with df=8. This takes a long time:
+=======
+# use the tiltedgaussian distribution to run lngca with df=3
+>>>>>>> main
 estX_tilt = lngca(xData = t(data$dX), n.comp = 4, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='tiltedgaussian',df=8)
 
 # true non-gaussian component of Sx, include individual and joint components
