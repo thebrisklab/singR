@@ -2,7 +2,7 @@
 % Please edit documentation in R/lngca.R
 \name{lngca}
 \alias{lngca}
-\title{Decomposite the original data through LNGCA method}
+\title{Decompose the original data through LNGCA method.}
 \usage{
 lngca(
   xData,
@@ -28,11 +28,11 @@ lngca(
 \arguments{
 \item{xData}{the original dataset for decomposition, matrix of px x n}
 
-\item{n.comp}{the number of components need to be estimated.}
+\item{n.comp}{the number of components to be estimated.}
 
-\item{W.list}{list}
+\item{W.list}{list of user specified initial values for W. If null, will generate random orthogonal matrices. See restarts.pbyd and restarts.dbyd}
 
-\item{whiten}{whiten method with default}
+\item{whiten}{whitening method. Defaults to "svd" which uses the n left eigenvectors divided by sqrt(px-1). Optionally uses the square root of the n x n "precision" matrix.}
 
 \item{maxit}{max iteration, defalut = 1000}
 
@@ -40,27 +40,27 @@ lngca(
 
 \item{verbose}{default = FALSE}
 
-\item{restarts.pbyd}{default = 0}
+\item{restarts.pbyd}{default = 0. Generates p x d random orthogonal matrices. Use a large number for large datasets. Note: it is recommended that you run lngca twice with different seeds and compare the results, which should be similar when a sufficient number of restarts is used. In practice, stability with large datasets and a large number of components can be challenging.}
 
-\item{restarts.dbyd}{default = 0}
+\item{restarts.dbyd}{default = 0. These are d x d initial matrices padded with zeros, which results in initializations from the principal subspace. Can speed up convergence but may miss low variance non-Gaussian components.}
 
-\item{distribution}{distribution methods with default}
+\item{distribution}{distribution methods with default to tilted Gaussian. "logistic" is similar to infomax ICA, JB is capable of capture super and sub Gaussian distribution while being faster than tilted Gaussian. (tilted Gaussian tends to be most accurate, but computationally much slower.)}
 
-\item{density}{default = FALSE}
+\item{density}{return the estimated tilted Gaussian density? default = FALSE}
 
 \item{out.all}{default = FALSE}
 
-\item{orth.method}{default = 'svd'}
+\item{orth.method}{default = 'svd'. Method to generate random initial matrices.  See [gen.inits()]}
 
-\item{reinit.max.comp}{default = FALSE}
+\item{reinit.max.comp}{default = FALSE. Estimates a model with all non-Gaussian components and then initialized}
 
 \item{max.comp}{logical variable that estiamtes the max number of non-gaussian components.}
 
-\item{df}{default = 0}
+\item{df}{default = 0, df of the spline used in fitting the non-parametric density. use df=8 or so for tilted gaussian. set df=0 for JB and logistic.}
 
-\item{stand}{whether to standard the data}
+\item{stand}{whether to standardize the data to have row and column means equal to 0 and the row standard deviation equal to 1 (i.e., all variables on same scale). Often used when combined with singR for data integration.}
 
-\item{...}{ellipsis}
+\item{...}{other arguments to tiltedgaussian estimation}
 }
 \value{
 Function outputs a list including the following:
@@ -76,7 +76,7 @@ Function outputs a list including the following:
 }
 }
 \description{
-Decomposite the original data through LNGCA method
+Implements the methods of linear non-Gaussian component analysis (LNGCA) and likelihood component analysis (when using a density, e.g., tilted Gaussian) from the JASA [LNGCA paper](https://www.tandfonline.com/doi/epub/10.1080/01621459.2017.1407772).
 }
 \examples{
 \dontrun{
@@ -90,7 +90,7 @@ data=exampledata
 estX_JB = lngca(xData = t(data$dX), n.comp = 4, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',df=0)
 
 # use the tiltedgaussian distribution to run lngca with df=3
-estX_tilt = lngca(xData = t(data$dX), n.comp = 4, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='tiltedgaussian',df=3)
+estX_tilt = lngca(xData = t(data$dX), n.comp = 4, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='tiltedgaussian',df=8)
 
 # true non-gaussian component of Sx, includ individual and joint components
 trueSx = rbind(data$sjX,data$siX)
@@ -99,7 +99,7 @@ trueSx = rbind(data$sjX,data$siX)
 frobICA(S1 = t(trueSx),S2=t(estX_JB$S),standardize = TRUE) #0.2341096
 frobICA(S1 = t(trueSx),S2=t(estX_tilt$S),standardize = TRUE) #0.1824922
 
-# the lngca using tiltedgaussian is more accurate with smaller frobICA value. But it will cost more time.
+# the lngca using tiltedgaussian tends to be more accurate with smaller frobICA value, but takes longer to run.
 }
 
 }

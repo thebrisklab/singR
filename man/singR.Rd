@@ -60,9 +60,7 @@ Function outputs a list including the following:
 }
 }
 \description{
-This function combines all steps from the \link{<https://projecteuclid.org/journals/annals-of-applied-statistics/volume-15/issue-3/Simultaneous-non-Gaussian-component-analysis-SING-for-data-integration-in/10.1214/21-AOAS1466.full>}
-[Commonmark web site](http://commonmark.org/help)
-\link{<http://commonmark.org/help>}
+This function combines all steps from the [SING paper](https://projecteuclid.org/journals/annals-of-applied-statistics/volume-15/issue-3/Simultaneous-non-Gaussian-component-analysis-SING-for-data-integration-in/10.1214/21-AOAS1466.full) in Annals of Applied Statistics
 }
 \examples{
 \dontrun{

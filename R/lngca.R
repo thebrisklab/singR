@@ -5,7 +5,8 @@
 #------------------------------
 
 #' Decompose the original data through LNGCA method.
-#' Implements the methods of linear non-Gaussian component analysis (LNGCA) and likelihood component analysis (when using a density, e.g., tilted Gaussian) from the [LNGCA PAPER](https://www.tandfonline.com/doi/full/10.1080/01621459.2017.1407772?casa_token=H6yMnjtFT2cAAAAA%3ArE7jUyDTOAPmDeRoeA_qDtv6e4640szzI75Ft7vDMjkSdaIa5_hNhGMUNy0Wpia2J1eGZVPpjOxMRw)
+#'
+#' Implements the methods of linear non-Gaussian component analysis (LNGCA) and likelihood component analysis (when using a density, e.g., tilted Gaussian) from the JASA [LNGCA paper](https://www.tandfonline.com/doi/epub/10.1080/01621459.2017.1407772).
 #'
 #' @param xData the original dataset for decomposition, matrix of px x n
 #' @param n.comp the number of components to be estimated.
@@ -19,7 +20,7 @@
 #' @param distribution distribution methods with default to tilted Gaussian. "logistic" is similar to infomax ICA, JB is capable of capture super and sub Gaussian distribution while being faster than tilted Gaussian. (tilted Gaussian tends to be most accurate, but computationally much slower.)
 #' @param density return the estimated tilted Gaussian density? default = FALSE
 #' @param out.all default = FALSE
-#' @param orth.method default = 'svd'. Method to generate random initial matrices. See [gen.inits()]
+#' @param orth.method default = 'svd'. Method to generate random initial matrices.  See [gen.inits()]
 #' @param reinit.max.comp default = FALSE. Estimates a model with all non-Gaussian components and then initialized
 #' @param max.comp logical variable that estiamtes the max number of non-gaussian components.
 #' @param df default = 0, df of the spline used in fitting the non-parametric density. use df=8 or so for tilted gaussian. set df=0 for JB and logistic.
