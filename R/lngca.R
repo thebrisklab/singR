@@ -5,7 +5,8 @@
 #------------------------------
 
 #' Decompose the original data through LNGCA method.
-#' Implements the methods of linear non-Gaussian component analysis (LNGCA) and likelihood component analysis (when using a density, e.g., tilted Gaussian) from the [LNGCA PAPER](https://www.tandfonline.com/doi/full/10.1080/01621459.2017.1407772?casa_token=H6yMnjtFT2cAAAAA%3ArE7jUyDTOAPmDeRoeA_qDtv6e4640szzI75Ft7vDMjkSdaIa5_hNhGMUNy0Wpia2J1eGZVPpjOxMRw)
+#'
+#' Implements the methods of linear non-Gaussian component analysis (LNGCA) and likelihood component analysis (when using a density, e.g., tilted Gaussian) from the [LNGCA PAPER](https://www.tandfonline.com/doi/full/10.1080/01621459.2017.1407772)
 #'
 #' @param xData the original dataset for decomposition, matrix of px x n
 #' @param n.comp the number of components to be estimated.
@@ -20,8 +21,6 @@
 #' @param density return the estimated tilted Gaussian density? default = FALSE
 #' @param out.all default = FALSE
 #' @param orth.method default = 'svd'. Method to generate random initial matrices. See [gen.inits()]
-#' @param reinit.max.comp default = FALSE. Estimates a model with all non-Gaussian components and then initialized
-#' @param max.comp logical variable that estiamtes the max number of non-gaussian components.
 #' @param df default = 0, df of the spline used in fitting the non-parametric density. use df=8 or so for tilted gaussian. set df=0 for JB and logistic.
 #' @param stand whether to standardize the data to have row and column means equal to 0 and the row standard deviation equal to 1 (i.e., all variables on same scale). Often used when combined with singR for data integration.
 #' @param ... other arguments to tiltedgaussian estimation
@@ -50,20 +49,20 @@
 #' # use JB statistic as the measure of nongaussianity to run lngca with df=0
 #' estX_JB = lngca(xData = t(data$dX), n.comp = 4, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',df=0)
 #'
-#' # use the tiltedgaussian distribution to run lngca with df=3
+#' # use the tiltedgaussian distribution to run lngca with df=8. This takes a long time:
 #' estX_tilt = lngca(xData = t(data$dX), n.comp = 4, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='tiltedgaussian',df=8)
 #'
-#' # true non-gaussian component of Sx, includ individual and joint components
+#' # true non-gaussian component of Sx, include individual and joint components
 #' trueSx = rbind(data$sjX,data$siX)
 #'
 #' # use frobICA to compare the difference of the two methods
-#' frobICA(S1 = t(trueSx),S2=t(estX_JB$S),standardize = TRUE) #0.2341096
-#' frobICA(S1 = t(trueSx),S2=t(estX_tilt$S),standardize = TRUE) #0.1824922
+#' frobICA(S1 = t(trueSx),S2=t(estX_JB$S),standardize = TRUE)
+#' frobICA(S1 = t(trueSx),S2=t(estX_tilt$S),standardize = TRUE)
 #'
 #' # the lngca using tiltedgaussian tends to be more accurate with smaller frobICA value, but takes longer to run.
 #'}
 #'
-lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenvec','sqrtprec','none'), maxit = 1000, eps = 1e-06, verbose = FALSE, restarts.pbyd = 0, restarts.dbyd = 0, distribution=c('tiltedgaussian','logistic','JB'), density=FALSE, out.all=FALSE, orth.method=c('svd','givens'), reinit.max.comp = FALSE, max.comp = FALSE, df=0,stand=FALSE,...) {
+lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenvec','sqrtprec','none'), maxit = 1000, eps = 1e-06, verbose = FALSE, restarts.pbyd = 0, restarts.dbyd = 0, distribution=c('tiltedgaussian','logistic','JB'), density=FALSE, out.all=FALSE, orth.method=c('svd','givens'),df=0,stand=FALSE,...) {
 
   #note: small changes from mlcaFP from the JASA paper:
   # 1) output Mhat.
@@ -80,14 +79,6 @@ lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenv
 
   if(restarts.dbyd>0 && whiten!='eigenvec') stop('Use whiten=eigenvec with restarts.dbyd')
   ## whiten:
-
-  if(max.comp) { #if statement evaluates to true for all max.comp!=0
-    s.comp = n.comp
-    n.comp = max.comp
-  }
-  if(max.comp=='TRUE') stop('max.comp should be an integer or FALSE')
-  if(reinit.max.comp && max.comp==FALSE) stop('Can not reinitialize from max.comp solution if max.comp==FALSE')
-  if(reinit.max.comp && alg.typ=='deflation') stop('reinit.max.comp not yet written for deflation algorithm')
 
   #require(multidcov)
   if(distribution=='tiltedgaussian') {
@@ -160,22 +151,7 @@ lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenv
       out.list[[k]] = lca.par(xData=zData,W0=W0,Gfunc=Gfunc,maxit=maxit,verbose=verbose,density=density,eps=eps,n.comp=n.comp,df=df, ...)
       out.list[[k]]$df = df
     }
-    #if(alg.typ == 'deflation') {
-     # out.list[[k]] = lca.def(xData=zData,W0=W0,Gfunc=Gfunc,maxit=maxit,verbose=verbose,density=density,eps=eps,n.comp=n.comp,df=df,...)
-     #out.list[[k]]$df = df
-    #}
-    if(max.comp) {
-      flist0 = list()
-      for (j in 1:d) flist0[[j]] <- Gfunc(out.list[[k]]$S[, j], ...)
-      loglik.S <- apply(sapply(flist0, "[[", "Gs"),2,sum)
-      orderedLL = order(loglik.S,decreasing=TRUE)
-      out.list[[k]]$S = out.list[[k]]$S[,orderedLL[1:s.comp]]
-      out.list[[k]]$Ws = out.list[[k]]$Ws[,orderedLL[1:s.comp]]
-      out.list[[k]]$loglik = sum(loglik.S[orderedLL[1:s.comp]])
       loglik.v[k] = out.list[[k]]$loglik
-    } else {
-      loglik.v[k] = out.list[[k]]$loglik
-    }
   }
   for(i in 1:runs){
     out.list[[i]]$distribution=distribution
@@ -211,7 +187,7 @@ lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenv
   # IGAY: this is where out is reassigned for S and M, but not Ws with right ordering
   out$S = Shat
   out$M = Mhat
-  # IGAY: fix the ordering of Ws based on loglik as well, fix on June 5th, 2019
+  # IGAY: re-order Ws based on loglik as well
   out$Ws = out$Ws[, order(loglik.maxS,decreasing=TRUE)]
   # Liangkang: change the out subset name from Ws to U, and transpose to r x n dimension
   out$U=t(out$Ws)
