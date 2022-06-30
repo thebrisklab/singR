@@ -2,7 +2,7 @@
 % Please edit documentation in R/singR.R
 \name{singR}
 \alias{singR}
-\title{sing method for data integration}
+\title{SImultaneous Non-Gaussian Component analysis for data integration.}
 \usage{
 singR(
   dX,
@@ -60,7 +60,7 @@ Function outputs a list including the following:
 }
 }
 \description{
-sing method for data integration
+This function combines all steps from the [SING paper]<https://projecteuclid.org/journals/annals-of-applied-statistics/volume-15/issue-3/Simultaneous-non-Gaussian-component-analysis-SING-for-data-integration-in/10.1214/21-AOAS1466.full>
 }
 \examples{
 \dontrun{
@@ -71,12 +71,15 @@ data(exampledata)
 # use JB stat to compute with singR
 output_JB=singR(dX=exampledata$dX,dY=exampledata$dY,df=0,rho_extent="small",distribution="JB",individual=TRUE)
 
-# use tiltedgaussian distribution to compute with singR. The tiltedgaussian is more accurate and slower.
+# use tiltedgaussian distribution to compute with singR.
+# tiltedgaussian may be more accurate but is considerably slower,
+# and is not recommended for large datasets.
 output_tilted=singR(dX=exampledata$dX,dY=exampledata$dY,df=5,rho_extent="small",distribution="tiltedgaussian",individual=TRUE)
 
-# use frobICA to show the difference of JB and tiltedgaussian
-frobICA_JB=frobICA(M1 = t(output_JB$est.Mj),M2 = t(exampledata$mj),standardize = T) #0.00715176
-frobICA_tilted=frobICA(M1 = t(output_tilted$est.Mj),M2 = t(exampledata$mj),standardize = T) #0.00715178
+# use frobICA to measure difference from the truth
+frobICA(M1 = t(output_JB$est.Mj),M2 = t(exampledata$mj),standardize = T)
+
+frobICA(M1 = t(output_tilted$est.Mj),M2 = t(exampledata$mj),standardize = T)
 
 }
 }
