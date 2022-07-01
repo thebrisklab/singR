@@ -123,14 +123,14 @@ whitener <- function(X,n.comp=ncol(X),center.row=FALSE) {
 # Objective functions - to monitor the convergence
 ####################################################
 # Function that calculates JB
-#' JB score calculate
-#' the data has to be standardized and mean 0 and sd to 1.
+#' Calculates the sum of the JB scores across all components, useful for determining rho.
+#' The data has to be standardized and mean 0 and sd to 1.
 #' @param U U matrix for matched columns rj x n
 #' @param X whitened data matrix n x px, data = whitenerXA \%*\% dXcentered
 #' @param S the variable loadings r x px.
-#' @param alpha default = 0.8
+#' @param alpha JB weighting of skewness and kurtosis. default = 0.8
 #'
-#' @return the sum of JB score for each component, the row of Sj.
+#' @return the sum of JB score across all components.
 #' @export
 #'
 calculateJB <- function(S=NULL,U=NULL, X=NULL,  alpha = 0.8){

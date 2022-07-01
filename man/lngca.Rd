@@ -70,7 +70,7 @@ Function outputs a list including the following:
 }
 }
 \description{
-Implements the methods of linear non-Gaussian component analysis (LNGCA) and likelihood component analysis (when using a density, e.g., tilted Gaussian) from the [LNGCA PAPER](https://www.tandfonline.com/doi/full/10.1080/01621459.2017.1407772)
+Implements the methods of linear non-Gaussian component analysis (LNGCA) and likelihood component analysis (when using a density, e.g., tilted Gaussian) from the \href{https://www.tandfonline.com/doi/full/10.1080/01621459.2017.1407772}{LNGCA paper}
 }
 \examples{
 \dontrun{
