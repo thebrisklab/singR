@@ -2,8 +2,8 @@
 % Please edit documentation in R/Basic_functions.r
 \name{calculateJB}
 \alias{calculateJB}
-\title{JB score calculate
-the data has to be standardized and mean 0 and sd to 1.}
+\title{Calculates the sum of the JB scores across all components, useful for determining rho.
+The data has to be standardized and mean 0 and sd to 1.}
 \usage{
 calculateJB(S = NULL, U = NULL, X = NULL, alpha = 0.8)
 }
@@ -14,12 +14,12 @@ calculateJB(S = NULL, U = NULL, X = NULL, alpha = 0.8)
 
 \item{X}{whitened data matrix n x px, data = whitenerXA \%*\% dXcentered}
 
-\item{alpha}{default = 0.8}
+\item{alpha}{JB weighting of skewness and kurtosis. default = 0.8}
 }
 \value{
-the sum of JB score for each component, the row of Sj.
+the sum of JB score across all components.
 }
 \description{
-JB score calculate
-the data has to be standardized and mean 0 and sd to 1.
+Calculates the sum of the JB scores across all components, useful for determining rho.
+The data has to be standardized and mean 0 and sd to 1.
 }
