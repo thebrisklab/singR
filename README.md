@@ -124,8 +124,8 @@ plotNetwork_change = function(component,title='',qmin=0.005, qmax=0.995, path = 
 ``` r
 library(cowplot)
 # plot for the true component of Y
-out_true1 = plotNetwork_change(Sytrue[,1], title='Truth',qmin=0.005, qmax=0.995, path = 'extdata/new_mmp.csv') 
-out_true2 = plotNetwork_change(Sytrue[,2], title='Truth',qmin=0.005, qmax=0.995, path = 'extdata/new_mmp.csv') 
+out_true1 = plotNetwork_change(Sytrue[,1], title=expression("True S"["Jx"]*", 1"),qmin=0.005, qmax=0.995, path = 'extdata/new_mmp.csv') 
+out_true2 = plotNetwork_change(Sytrue[,2], title=expression("True S"["Jx"]*", 2"),qmin=0.005, qmax=0.995, path = 'extdata/new_mmp.csv') 
 
 # function plotNetwork_change is tailored for this compressed version data.
 # The original function is called plotNetwork, which is set for the standard version of correlation matrix.
@@ -137,7 +137,7 @@ p4=out_true2$loadingsfig
 plot_grid(p1,p2,p3,p4,nrow = 2)
 ```
 
-<img src="fig/Truth_plot.png" width="1181" /> ##\# singR function
+<img src="fig/ex2true.png" width="864" /> ##\# singR function
 
 ``` r
 output = singR(dX =simdata$dX ,dY =simdata$dY ,individual = T)
