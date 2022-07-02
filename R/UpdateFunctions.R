@@ -72,7 +72,7 @@ calculateG <- function(U, DataW, invL, A, rho, alpha = 0.8, r0 = nrow(U)){
 #' @export
 #'
 curvilinear <- function(Ux, Uy, xData, yData, invLx, invLy, rho, tau = 0.01, alpha = 0.8, maxiter = 1000, tol = 1e-6, rj){
-
+  r0=rj
   tau1 = tau
   # Form standardized UX
   normLX = tcrossprod(invLx, Ux[1:r0, , drop = F])
@@ -294,6 +294,6 @@ updateUboth <- function(Ux, Uy, xData, yData, invLx, invLy, rho, tau = 0.001, al
 # Here U1, U2 are both r times n with orthonormal rows
 subspace_dist <- function(U1, U2){
   # Use frobICA
-  frobICA(U1, U2)
+  pmse(U1, U2)
 }
 
