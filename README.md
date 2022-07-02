@@ -137,7 +137,11 @@ p4=out_true2$loadingsfig
 plot_grid(p1,p2,p3,p4,nrow = 2)
 ```
 
-<img src="fig/Truth_plot.png" width="1181" />
+<img src="fig/Truth_plot.png" width="1181" /> ##\# singR function
+
+``` r
+output = singR(dX =simdata$dX ,dY =simdata$dY ,individual = T)
+```
 
 ### Pipeline of SING method
 

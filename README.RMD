@@ -148,8 +148,8 @@ knitr::include_graphics("fig/Truth_plot.png")
 
 ```
 ### singR function
-```{r}
-output = singR(dX =simdata$dX ,dY =simdata$dY ,individual = F)
+```{r,eval=FALSE}
+output = singR(dX =simdata$dX ,dY =simdata$dY ,individual = T)
 ```
 
 ### Pipeline of SING method
