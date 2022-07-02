@@ -48,7 +48,7 @@ lngca(
 
 \item{out.all}{default = FALSE}
 
-\item{orth.method}{default = 'svd'. Method to generate random initial matrices. See \link{gen.inits()}}
+\item{orth.method}{default = 'svd'. Method to generate random initial matrices. See [gen.inits()]}
 
 \item{df}{default = 0, df of the spline used in fitting the non-parametric density. use df=8 or so for tilted gaussian. set df=0 for JB and logistic.}
 

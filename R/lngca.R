@@ -20,7 +20,7 @@
 #' @param distribution distribution methods with default to tilted Gaussian. "logistic" is similar to infomax ICA, JB is capable of capture super and sub Gaussian distribution while being faster than tilted Gaussian. (tilted Gaussian tends to be most accurate, but computationally much slower.)
 #' @param density return the estimated tilted Gaussian density? default = FALSE
 #' @param out.all default = FALSE
-#' @param orth.method default = 'svd'. Method to generate random initial matrices. See \link{gen.inits()}
+#' @param orth.method default = 'svd'. Method to generate random initial matrices. See [gen.inits()]
 #' @param df default = 0, df of the spline used in fitting the non-parametric density. use df=8 or so for tilted gaussian. set df=0 for JB and logistic.
 #' @param stand whether to standardize the data to have row and column means equal to 0 and the row standard deviation equal to 1 (i.e., all variables on same scale). Often used when combined with singR for data integration.
 #' @param ... other arguments to tiltedgaussian estimation
