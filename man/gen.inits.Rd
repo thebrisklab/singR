@@ -16,7 +16,7 @@ gen.inits(p, d, runs, orth.method = c("svd", "givens"))
 \item{orth.method}{orthodox method}
 }
 \value{
-w.list
+a list of initialization of mixing matrices.
 }
 \description{
 Generate initialization from specific space

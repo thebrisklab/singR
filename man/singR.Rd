@@ -78,10 +78,10 @@ output_JB=singR(dX=exampledata$dX,dY=exampledata$dY,df=0,rho_extent="small",dist
 # and is not recommended for large datasets.
 output_tilted=singR(dX=exampledata$dX,dY=exampledata$dY,df=5,rho_extent="small",distribution="tiltedgaussian",individual=TRUE)
 
-# use frobICA to measure difference from the truth
-frobICA(M1 = t(output_JB$est.Mj),M2 = t(exampledata$mj),standardize = T)
+# use pmse to measure difference from the truth
+pmse(M1 = t(output_JB$est.Mj),M2 = t(exampledata$mj),standardize = T)
 
-frobICA(M1 = t(output_tilted$est.Mj),M2 = t(exampledata$mj),standardize = T)
+pmse(M1 = t(output_tilted$est.Mj),M2 = t(exampledata$mj),standardize = T)
 
 }
 }

@@ -8,9 +8,9 @@
 #'
 #' Implements the methods of linear non-Gaussian component analysis (LNGCA) and likelihood component analysis (when using a density, e.g., tilted Gaussian) from the \href{https://www.tandfonline.com/doi/full/10.1080/01621459.2017.1407772}{LNGCA paper}
 #'
-#' @param xData the original dataset for decomposition, matrix of px x n
+#' @param xData the original dataset for decomposition, matrix of n x px.
 #' @param n.comp the number of components to be estimated.
-#' @param W.list list of user specified initial values for W. If null, will generate random orthogonal matrices. See restarts.pbyd and restarts.dbyd
+#' @param Ux.list list of user specified initial values for W. If null, will generate random orthogonal matrices. See restarts.pbyd and restarts.dbyd
 #' @param whiten whitening method. Defaults to "svd" which uses the n left eigenvectors divided by sqrt(px-1). Optionally uses the square root of the n x n "precision" matrix.
 #' @param maxit max iteration, defalut = 1000
 #' @param eps default = 1e-06
@@ -27,7 +27,7 @@
 #'
 #' @return Function outputs a list including the following:
 #' \describe{
-#'       \item{\code{U}}{ matrix rx x n, part of the expression that Ax = Ux x Lx and Ax x Xc = Sx, where Lx is the whitener matrix.}
+#'       \item{\code{U}}{matrix rx x n, part of the expression that Ax = Ux x Lx and Ax x Xc = Sx, where Lx is the whitener matrix.}
 #'       \item{\code{loglik}}{the value of log-likelihood in the lngca method.}
 #'       \item{\code{S}}{the variable loading matrix r x px, each row is a component, which can be used to measure nongaussianity}
 #'       \item{\code{df}}{egree of freedom.}
@@ -55,14 +55,14 @@
 #' # true non-gaussian component of Sx, include individual and joint components
 #' trueSx = rbind(data$sjX,data$siX)
 #'
-#' # use frobICA to compare the difference of the two methods
-#' frobICA(S1 = t(trueSx),S2=t(estX_JB$S),standardize = TRUE)
-#' frobICA(S1 = t(trueSx),S2=t(estX_tilt$S),standardize = TRUE)
+#' # use pmse to compare the difference of the two methods
+#' pmse(S1 = t(trueSx),S2=t(estX_JB$S),standardize = TRUE)
+#' pmse(S1 = t(trueSx),S2=t(estX_tilt$S),standardize = TRUE)
 #'
-#' # the lngca using tiltedgaussian tends to be more accurate with smaller frobICA value, but takes longer to run.
+#' # the lngca using tiltedgaussian tends to be more accurate with smaller pmse value, but takes longer to run.
 #'}
 #'
-lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenvec','sqrtprec','none'), maxit = 1000, eps = 1e-06, verbose = FALSE, restarts.pbyd = 0, restarts.dbyd = 0, distribution=c('tiltedgaussian','logistic','JB'), density=FALSE, out.all=FALSE, orth.method=c('svd','givens'),df=0,stand=FALSE,...) {
+lngca <- function(xData, n.comp = NULL, Ux.list = NULL, whiten = c('eigenvec','sqrtprec','none'), maxit = 1000, eps = 1e-06, verbose = FALSE, restarts.pbyd = 0, restarts.dbyd = 0, distribution=c('tiltedgaussian','logistic','JB'), density=FALSE, out.all=FALSE, orth.method=c('svd','givens'),df=0,stand=FALSE,...) {
 
   #note: small changes from mlcaFP from the JASA paper:
   # 1) output Mhat.
@@ -71,6 +71,12 @@ lngca <- function(xData, n.comp = ncol(xData), W.list = NULL, whiten = c('eigenv
   #former option: deflation optimization, not currently implemented
   #alg.typ = c('symmetric','deflation'),
   #alg.typ = match.arg(alg.typ)
+  if(is.null(n.comp)) {n.comp=nrow(xData)}
+
+  W.list=Ux.list
+
+  xData=t(xData) # transform the input dimension from n x px to px x n.
+
   alg.typ = 'symmetric'
 
 

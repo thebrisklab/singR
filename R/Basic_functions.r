@@ -6,22 +6,25 @@
 #' @param runs the number of orthodox matrix
 #' @param orth.method orthodox method
 #'
-#' @return w.list
+#' @return a list of initialization of mixing matrices.
 #' @export
 #'
 #' @examples gen.inits(2,3,3,'svd')
 gen.inits <- function(p,d,runs,orth.method=c('svd','givens')) {
   orth.method=match.arg(orth.method) # the first value in orth.metod #
-  W.list = list()
+  # W.list = list()
+  Ux.list = list()
   for(i in 1:runs) {
     if(orth.method=='givens') {
-      W.list[[i]] <- as.matrix(theta2W(stats::runif(n=choose(p,2),min=0,max=2*pi)))[,1:d]  # convert vector into orthodox matirx and get p*d #
+      Ux.list[[i]] <- as.matrix(theta2W(stats::runif(n=choose(p,2),min=0,max=2*pi)))[,1:d] # convert vector into orthodox matirx and get p*d
+      # W.list[[i]] <- as.matrix(theta2W(stats::runif(n=choose(p,2),min=0,max=2*pi)))[,1:d]
     } else {
       temp = matrix(stats::rnorm(p*d),p,d)
-      W.list[[i]] <- svd(temp)$u     # svd left matrix p*d #
+      Ux.list[[i]] <- svd(temp)$u  # svd left matrix p*d
+      # W.list[[i]] <- svd(temp)$u
     }
   }
-  W.list
+  Ux.list
 }
 
 #' Convert angle vector into  orthodox matrix

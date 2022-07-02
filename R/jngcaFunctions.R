@@ -70,7 +70,7 @@ lca.par <- function(xData,W0,Gfunc,maxit,verbose,density,eps,n.comp,df,...) {
     t2 <- apply(gpS, 2, mean)
     if(d>1) W1 <- t1 - W0%*%diag(t2) else W1 <- t1 - W0*t2
     W1 <- orthogonalize(W1)
-    if(d>1) nw <- frobICA(t(W0), t(W1))^2 else nw <- mean((W0-W1)^2) #Uses a measure that works for non-square matrices -- MSE. The measure is defined for M so here we use transpose of W.
+    if(d>1) nw <- pmse(t(W0), t(W1))^2 else nw <- mean((W0-W1)^2) #Uses a measure that works for non-square matrices -- MSE. The measure is defined for M so here we use transpose of W.
     W0 <- W1
     s <- xData %*% W0
     for (j in 1:d) flist0[[j]] <- Gfunc(s[, j], df=df, ...)
@@ -113,7 +113,7 @@ myMixmat <-  function (p = 2) {
 #'
 #' @export
 #' @import clue
-frobICA<-function(M1=NULL,M2=NULL,S1=NULL,S2=NULL,standardize=FALSE) {
+pmse<-function(M1=NULL,M2=NULL,S1=NULL,S2=NULL,standardize=FALSE) {
   #MODEL: X = S M + E, so M is d x p
   #standardize: if standardize==TRUE, then standardizes rows of M1 and M2
   #to have unit norm; if using S1 and S2, standardizes columns to have unit variance.
@@ -130,7 +130,7 @@ frobICA<-function(M1=NULL,M2=NULL,S1=NULL,S2=NULL,standardize=FALSE) {
   if(is.null(M1)) {
     nS = nrow(S1)
     if(nS!=nrow(S2)) stop('S1 and S2 must have the same number of rows')
-    if(sum(apply(S1,2,tfun)) + sum(apply(S2,2,tfun))) stop('frobICA not defined when S1 or S2 has a column of all zeros')
+    if(sum(apply(S1,2,tfun)) + sum(apply(S2,2,tfun))) stop('pmse not defined when S1 or S2 has a column of all zeros')
     if(standardize) {
       S1 = scale(S1)
       S2 = scale(S2)
@@ -150,7 +150,7 @@ frobICA<-function(M1=NULL,M2=NULL,S1=NULL,S2=NULL,standardize=FALSE) {
   }
 
   else {
-    if(sum(apply(M1,1,tfun)) + sum(apply(M2,1,tfun))) stop('frobICA not defined when M1 or M2 has a row of all zeros')
+    if(sum(apply(M1,1,tfun)) + sum(apply(M2,1,tfun))) stop('pmse not defined when M1 or M2 has a row of all zeros')
     if(standardize) {
       temp = diag((diag(M1%*%t(M1)))^(-1/2))
       M1 = temp%*%M1

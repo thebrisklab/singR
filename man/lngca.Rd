@@ -6,8 +6,8 @@
 \usage{
 lngca(
   xData,
-  n.comp = ncol(xData),
-  W.list = NULL,
+  n.comp = NULL,
+  Ux.list = NULL,
   whiten = c("eigenvec", "sqrtprec", "none"),
   maxit = 1000,
   eps = 1e-06,
@@ -24,11 +24,11 @@ lngca(
 )
 }
 \arguments{
-\item{xData}{the original dataset for decomposition, matrix of px x n}
+\item{xData}{the original dataset for decomposition, matrix of n x px.}
 
 \item{n.comp}{the number of components to be estimated.}
 
-\item{W.list}{list of user specified initial values for W. If null, will generate random orthogonal matrices. See restarts.pbyd and restarts.dbyd}
+\item{Ux.list}{list of user specified initial values for W. If null, will generate random orthogonal matrices. See restarts.pbyd and restarts.dbyd}
 
 \item{whiten}{whitening method. Defaults to "svd" which uses the n left eigenvectors divided by sqrt(px-1). Optionally uses the square root of the n x n "precision" matrix.}
 
@@ -59,7 +59,7 @@ lngca(
 \value{
 Function outputs a list including the following:
 \describe{
-      \item{\code{U}}{ matrix rx x n, part of the expression that Ax = Ux x Lx and Ax x Xc = Sx, where Lx is the whitener matrix.}
+      \item{\code{U}}{matrix rx x n, part of the expression that Ax = Ux x Lx and Ax x Xc = Sx, where Lx is the whitener matrix.}
       \item{\code{loglik}}{the value of log-likelihood in the lngca method.}
       \item{\code{S}}{the variable loading matrix r x px, each row is a component, which can be used to measure nongaussianity}
       \item{\code{df}}{egree of freedom.}
@@ -89,11 +89,11 @@ estX_tilt = lngca(xData = t(data$dX), n.comp = 4, whiten = 'sqrtprec', restarts.
 # true non-gaussian component of Sx, include individual and joint components
 trueSx = rbind(data$sjX,data$siX)
 
-# use frobICA to compare the difference of the two methods
-frobICA(S1 = t(trueSx),S2=t(estX_JB$S),standardize = TRUE)
-frobICA(S1 = t(trueSx),S2=t(estX_tilt$S),standardize = TRUE)
+# use pmse to compare the difference of the two methods
+pmse(S1 = t(trueSx),S2=t(estX_JB$S),standardize = TRUE)
+pmse(S1 = t(trueSx),S2=t(estX_tilt$S),standardize = TRUE)
 
-# the lngca using tiltedgaussian tends to be more accurate with smaller frobICA value, but takes longer to run.
+# the lngca using tiltedgaussian tends to be more accurate with smaller pmse value, but takes longer to run.
 }
 
 }
