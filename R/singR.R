@@ -143,13 +143,12 @@ singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','m
 
   est.Mj = aveM(Mxjoint,Myjoint)
 
-  Six=NULL
-  Siy=NULL
-  Mx_I=NULL
-  My_I=NULL
-
   if(individual) {
-    if (joint_rank<max(n.comp.X,n.comp.Y)) {
+    Six=NULL
+    Siy=NULL
+    Mx_I=NULL
+    My_I=NULL
+
       if(n.comp.X>joint_rank){
         if(joint_rank+1==n.comp.X){
           Six = matrix(out_indiv$Ux[(joint_rank+1):n.comp.X, ],nrow = 1) %*% xDataA
@@ -168,11 +167,7 @@ singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','m
           Siy = out_indiv$Uy[(joint_rank+1):n.comp.Y, ] %*% yDataA
           My_I = tcrossprod(invLy, out_indiv$Uy[(joint_rank+1):n.comp.Y, ])
         }
-
       }
-
-    }
-
     return(list(Sjx=Sjx,Sjy=Sjy,Six=Six,Siy=Siy,Mix=Mx_I,Miy=My_I,est.Mj=est.Mj,est.Mjx=Mxjoint,est.Mjy=Myjoint,Cplus=Cplus,rho_extent=rho_extent,df=df))
   }
   return(list(Sjx=Sjx,Sjy=Sjy,est.Mj=est.Mj,est.Mjx=Mxjoint,est.Mjy=Myjoint,Cplus=Cplus,rho_extent=rho_extent,df=df))
