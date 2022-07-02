@@ -19,22 +19,23 @@ test_that("test for singR",{
   expect_equal(dim(output$est.Mj),c(48,2))
 })
 
+n.comp=4
 
 # JB on X
-estX_JB = lngca(xData = data$dX, n.comp = 4, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F,df=0) # what is the df at here.
+estX_JB = lngca(xData = data$dX, n.comp = n.comp, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F,df=0) # what is the df at here.
 Uxfull <- estX_JB$U  ## Ax = Ux %*% Lx, where Lx is the whitened matrix from covariance matrix of dX.
 Mx_JB = est.M.ols(sData = estX_JB$S, xData = data$dX) ## NOTE: for centered X, equivalent to xData %*% sData/(px-1)
 
 # JB on Y
-estY_JB = lngca(xData = data$dY, n.comp = 12, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F)
+estY_JB = lngca(xData = data$dY, n.comp = n.comp, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F)
 Uyfull <- estY_JB$U
 My_JB = est.M.ols(sData = estY_JB$S, xData = data$dY)
 
 test_that("linear non-Gaussian component analysis", {
 
-  expect_equal(dim(estX_JB$U),c(12,48))
-  expect_equal(dim(estX_JB$M),c(48,12))
-  expect_equal(dim(Mx_JB),c(12,48))
+  expect_equal(dim(estX_JB$U),c(n.comp,48))
+  expect_equal(dim(estX_JB$M),c(48,n.comp))
+  expect_equal(dim(Mx_JB),c(n.comp,48))
 
 })
 
@@ -46,10 +47,10 @@ joint_rank = permJoint$rj
 
 test_that("greedy match and permTest", {
 
-  expect_equal(dim(matchMxMy$Mx),c(48,12))
-  expect_equal(dim(matchMxMy$Ux),c(12,48))
+  expect_equal(dim(matchMxMy$Mx),c(48,n.comp))
+  expect_equal(dim(matchMxMy$Ux),c(n.comp,48))
   pval_joint = permJoint$pvalues
-  expect_equal(length(pval_joint),12)
+  expect_equal(length(pval_joint),n.comp)
   expect_equal(permJoint$rj,2)
 
 })
@@ -87,11 +88,11 @@ tol = 1e-10
 
 # curvilinear with small rho
 rho = JBall/10
-out_indiv_small <- curvilinear_c(invLx = invLx, invLy = invLy, xData = xDataA, yData = yDataA, Ux = matchMxMy$Ux, Uy = matchMxMy$Uy, rho = rho, tol = tol, maxiter = 1500, r0 = joint_rank)
+out_indiv_small <- curvilinear_c(invLx = invLx, invLy = invLy, xData = xDataA, yData = yDataA, Ux = matchMxMy$Ux, Uy = matchMxMy$Uy, rho = rho, tol = tol, maxiter = 1500, rj = joint_rank)
 
 test_that("Curvilinear search", {
 
-  expect_equal(dim(out_indiv_small$Ux),c(12,48))
-  expect_equal(dim(out_indiv_small$Uy),c(12,48))
+  expect_equal(dim(out_indiv_small$Ux),c(n.comp,48))
+  expect_equal(dim(out_indiv_small$Uy),c(n.comp,48))
 })
 

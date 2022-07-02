@@ -28,7 +28,7 @@ lngca(
 
 \item{n.comp}{the number of components to be estimated.}
 
-\item{Ux.list}{list of user specified initial values for W. If null, will generate random orthogonal matrices. See restarts.pbyd and restarts.dbyd}
+\item{Ux.list}{list of user specified initial values for Ux. If null, will generate random orthogonal matrices. See restarts.pbyd and restarts.dbyd}
 
 \item{whiten}{whitening method. Defaults to "svd" which uses the n left eigenvectors divided by sqrt(px-1). Optionally uses the square root of the n x n "precision" matrix.}
 
@@ -48,7 +48,7 @@ lngca(
 
 \item{out.all}{default = FALSE}
 
-\item{orth.method}{default = 'svd'. Method to generate random initial matrices. See [gen.inits()]}
+\item{orth.method}{default = 'svd'. Method to generate random initial matrices. See \link{gen.inits()}}
 
 \item{df}{default = 0, df of the spline used in fitting the non-parametric density. use df=8 or so for tilted gaussian. set df=0 for JB and logistic.}
 

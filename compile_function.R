@@ -4,7 +4,7 @@ document()
 library(RcppArmadillo)
 use_rcpp_armadillo()
 
-install_github("thebrisklab/singR")
+install_github("thebrisklab/singR",force=TRUE)
 
 install.packages("testthat")
 library(testthat)

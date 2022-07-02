@@ -56,7 +56,7 @@ calculateG <- function(U, DataW, invL, A, rho, alpha = 0.8, r0 = nrow(U)){
 #' @param alpha default value is 0.8
 #' @param maxiter default value is 1000
 #' @param tol the threshold of change in Ux and Uy to stop the curvlinear function
-#' @param r0 the joint rank, comes from greedyMatch.
+#' @param rj the joint rank, comes from greedyMatch.
 #'
 #' @return a list of matrices:
 #' \describe{
@@ -71,7 +71,7 @@ calculateG <- function(U, DataW, invL, A, rho, alpha = 0.8, r0 = nrow(U)){
 #'
 #' @export
 #'
-curvilinear <- function(Ux, Uy, xData, yData, invLx, invLy, rho, tau = 0.01, alpha = 0.8, maxiter = 1000, tol = 1e-6, r0){
+curvilinear <- function(Ux, Uy, xData, yData, invLx, invLy, rho, tau = 0.01, alpha = 0.8, maxiter = 1000, tol = 1e-6, rj){
 
   tau1 = tau
   # Form standardized UX
@@ -170,7 +170,7 @@ curvilinear <- function(Ux, Uy, xData, yData, invLx, invLy, rho, tau = 0.01, alp
 #' @param alpha default value is 0.8
 #' @param maxiter default value is 1000
 #' @param tol the threshold of change in Ux and Uy to stop the curvlinear function
-#' @param r0 the joint rank, comes from greedyMatch.
+#' @param rj the joint rank, comes from greedyMatch.
 #' @return a list of matrices:
 #' \describe{
 #'       \item{\code{Ux}}{Optimized Ux with matrix n.comp x n.}
@@ -183,9 +183,9 @@ curvilinear <- function(Ux, Uy, xData, yData, invLx, invLy, rho, tau = 0.01, alp
 #' @export
 #' @import Rcpp
 #' @useDynLib singR
-curvilinear_c <- function(Ux, Uy, xData, yData, invLx, invLy, rho, tau = 0.01, alpha = 0.8, maxiter = 1000, tol = 1e-6, r0) {
+curvilinear_c <- function(Ux, Uy, xData, yData, invLx, invLy, rho, tau = 0.01, alpha = 0.8, maxiter = 1000, tol = 1e-6, rj) {
 
-   return(updateUboth_c(Ux=Ux, Uy=Uy, xData=xData, yData=yData, invLx=invLx, invLy=invLy, rho=rho, r0=r0, alpha = alpha, tau = tau, maxiter = maxiter, tol = tol))
+   return(updateUboth_c(Ux=Ux, Uy=Uy, xData=xData, yData=yData, invLx=invLx, invLy=invLy, rho=rho, r0=rj, alpha = alpha, tau = tau, maxiter = maxiter, tol = tol))
 
 
 }

@@ -16,7 +16,7 @@ curvilinear(
   alpha = 0.8,
   maxiter = 1000,
   tol = 1e-06,
-  r0
+  rj
 )
 }
 \arguments{
@@ -42,7 +42,7 @@ curvilinear(
 
 \item{tol}{the threshold of change in Ux and Uy to stop the curvlinear function}
 
-\item{r0}{the joint rank, comes from greedyMatch.}
+\item{rj}{the joint rank, comes from greedyMatch.}
 }
 \value{
 a list of matrices:
