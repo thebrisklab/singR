@@ -35,7 +35,7 @@ test_that("linear non-Gaussian component analysis", {
 
   expect_equal(dim(estX_JB$U),c(n.comp,48))
   expect_equal(dim(estX_JB$M),c(48,n.comp))
-  expect_equal(dim(Mx_JB),c(n.comp,48))
+  expect_equal(dim(Mx_JB),c(48,n.comp))
 
 })
 
