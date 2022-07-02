@@ -7,14 +7,14 @@
 est.M.ols(sData, xData, intercept = TRUE)
 }
 \arguments{
-\item{sData}{t(S) px x rx}
+\item{sData}{S rx x px}
 
-\item{xData}{t(dX) px x n}
+\item{xData}{dX n x px}
 
 \item{intercept}{default = TRUE}
 }
 \value{
-a matrix t(Mx) n.comp x n
+a matrix Mx, dimension n x rx.
 }
 \description{
 Estimate mixing matrix from estimates of components

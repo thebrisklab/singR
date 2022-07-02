@@ -76,14 +76,14 @@ singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','m
 # JB on X
   estX_JB = lngca(xData = dXcentered, n.comp = n.comp.X, whiten = 'sqrtprec', restarts.pbyd = 20, distribution=distribution,stand = F,df=df) # what is the df at here.
   Uxfull = estX_JB$U  ## Ax = Ux %*% Lx, where Lx is the whitened matrix from covariance matrix of dX.
-  Mx_JB = est.M.ols(sData = t(estX_JB$S), xData = t(dXcentered)) ## NOTE: for centered X, equivalent to xData %*% sData/(px-1)
+  Mx_JB = est.M.ols(sData = estX_JB$S, xData = dXcentered) ## NOTE: for centered X, equivalent to xData %*% sData/(px-1)
 
   # JB on Y
   estY_JB = lngca(xData = dYcentered, n.comp = n.comp.Y, whiten = 'sqrtprec', restarts.pbyd = 20, distribution=distribution,stand = F,df=df)
   Uyfull = estY_JB$U
-  My_JB = est.M.ols(sData = t(estY_JB$S), xData = t(dYcentered))
+  My_JB = est.M.ols(sData = estY_JB$S, xData = dYcentered)
 
-  matchMxMy = suppressWarnings(greedymatch(t(Mx_JB), t(My_JB), Ux = Uxfull, Uy = Uyfull)) # ignore the warnings of greedymatch, that the column is not scaled.
+  matchMxMy = suppressWarnings(greedymatch(Mx_JB, My_JB, Ux = Uxfull, Uy = Uyfull)) # ignore the warnings of greedymatch, that the column is not scaled.
   permJoint <- permTestJointRank(matchMxMy$Mx,matchMxMy$My) # alpha = 0.01, nperm=1000
   # pval_joint = permJoint$pvalues
   joint_rank = permJoint$rj

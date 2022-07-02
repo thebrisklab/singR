@@ -21,14 +21,14 @@ test_that("test for singR",{
 
 
 # JB on X
-estX_JB = lngca(xData = t(data$dX), n.comp = 12, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F,df=0) # what is the df at here.
+estX_JB = lngca(xData = data$dX, n.comp = 4, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F,df=0) # what is the df at here.
 Uxfull <- estX_JB$U  ## Ax = Ux %*% Lx, where Lx is the whitened matrix from covariance matrix of dX.
-Mx_JB = est.M.ols(sData = t(estX_JB$S), xData = t(data$dX)) ## NOTE: for centered X, equivalent to xData %*% sData/(px-1)
+Mx_JB = est.M.ols(sData = estX_JB$S, xData = data$dX) ## NOTE: for centered X, equivalent to xData %*% sData/(px-1)
 
 # JB on Y
-estY_JB = lngca(xData = t(data$dY), n.comp = 12, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F)
+estY_JB = lngca(xData = data$dY, n.comp = 12, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',stand = F)
 Uyfull <- estY_JB$U
-My_JB = est.M.ols(sData = t(estY_JB$S), xData = t(data$dY))
+My_JB = est.M.ols(sData = estY_JB$S, xData = data$dY)
 
 test_that("linear non-Gaussian component analysis", {
 
@@ -39,9 +39,9 @@ test_that("linear non-Gaussian component analysis", {
 })
 
 
-matchMxMy = suppressWarnings(greedymatch(t(Mx_JB), t(My_JB), Ux = Uxfull, Uy = Uyfull))
+matchMxMy = suppressWarnings(greedymatch(Mx_JB, My_JB, Ux = Uxfull, Uy = Uyfull))
 permJoint <- permTestJointRank(matchMxMy$Mx,matchMxMy$My) # alpha = 0.01, nperm=1000
-pval_joint = permJoint$pvalues
+#pval_joint = permJoint$pvalues
 joint_rank = permJoint$rj
 
 test_that("greedy match and permTest", {

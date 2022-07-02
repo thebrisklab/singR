@@ -217,15 +217,17 @@ lngca <- function(xData, n.comp = NULL, Ux.list = NULL, whiten = c('eigenvec','s
 #
 #' Estimate mixing matrix from estimates of components
 #'
-#' @param sData t(S) px x rx
-#' @param xData t(dX) px x n
+#' @param sData S rx x px
+#' @param xData dX n x px
 #' @param intercept default = TRUE
 #'
-#' @return a matrix t(Mx) n.comp x n
+#' @return a matrix Mx, dimension n x rx.
 #' @export
 #'
 est.M.ols <- function(sData,xData,intercept=TRUE) {
-  if(intercept) stats::coef(stats::lm(xData~sData))[-1,] else stats::coef(stats::lm(xData~sData-1))
+  sData=t(sData)
+  xData=t(xData)
+  if(intercept) t(stats::coef(stats::lm(xData~sData))[-1,]) else t(stats::coef(stats::lm(xData~sData-1)))
 }
 # NOTE: for centered X, equivalent to xData %*% sData/(px-1)
 # Correced by Liankang
