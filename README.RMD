@@ -69,7 +69,7 @@ knitr::include_graphics("fig/Truth_CompX.png")
 
 ```
 
-```{r}
+```{r,eval=FALSE}
 #define plotNetwork_change
 plotNetwork_change = function(component,title='',qmin=0.005, qmax=0.995, path = '~/Dropbox/JINGCA/Data/community_affiliation_mmpplus.csv',make.diag=NA) {
   # component:
@@ -146,6 +146,10 @@ plot_grid(p1,p2,p3,p4,nrow = 2)
 ```{r echo=FALSE}
 knitr::include_graphics("fig/Truth_plot.png")
 
+```
+### singR function
+```{r}
+output = singR(dX =simdata$dX ,dY =simdata$dY ,individual = F)
 ```
 
 ### Pipeline of SING method
@@ -260,8 +264,9 @@ knitr::include_graphics("fig/Esti_CompX.png")
 ```{r eval=FALSE}
 library(cowplot)
 
-out_rhoSmall1 = plotNetwork_change(Sy_rhoSmall[,1], title='small~rho',qmin=0.005, qmax=0.995, path = 'new_mmp.csv') 
-out_rhoSmall2 = plotNetwork_change(Sy_rhoSmall[,2], title='small~rho',qmin=0.005, qmax=0.995, path = 'new_mmp.csv')
+out_rhoSmall1 = plotNetwork_change(Sy_rhoSmall[,1], title='small~rho',qmin=0.005, qmax=0.995, path = 'extdata/new_mmp.csv') 
+
+out_rhoSmall2 = plotNetwork_change(Sy_rhoSmall[,2], title='small~rho',qmin=0.005, qmax=0.995, path = 'extdata/new_mmp.csv')
 
 p5=out_rhoSmall1$netmatfig
 p6=out_rhoSmall1$loadingsfig
