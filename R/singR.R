@@ -6,7 +6,7 @@
 #' @param n.comp.X the number of non-Gaussian components in dataset X. If null, will estimate the number using ICtest::FOBIasymp.
 #' @param n.comp.Y the number of non-Gaussian components in dataset Y. If null, will estimate the number using ICtest::FOBIasymp.
 #' @param df default value=0 when use JB, if df>0, estimates a density for the loadings using a tilted Gaussian (non-parametric density estimate).
-#' @param rho_extent Controls similarity of the scores in the two datasets. Numerical value and three options in character are acceptable. small, medium or large is defined from the JB statistic. Try "small" and see if the loadings are equal, then try others if needed.
+#' @param rho_extent Controls similarity of the scores in the two datasets. Numerical value and three options in character are acceptable. small, medium or large is defined from the JB statistic. Try "small" and see if the loadings are equal, then try others if needed. If numeric input, it will multiply the input by JBall to get the rho.
 #' @param Cplus whether to use C code (faster) in curvilinear search.
 #' @param tol difference tolerance in curvilinear search.
 #' @param stand whether to use standardization, if true, it will make the column and row means to 0 and columns sd to 1. If false, it will only make the row means to 0.
@@ -22,7 +22,7 @@
 #'       \item{\code{Mix}}{scores of individual NG components in X with matrix n x riX.}
 #'       \item{\code{Miy}}{scores of individual NG components in Y with matrix n x riY.}
 #'       \item{\code{est.Mjx}}{Estimated subject scores for joint components in dataset X with matrix n x rj.}
-#'       \item{\code{est.Mjy}}{Estimated subject scores for joint components in dataset X with matrix n x rj.}
+#'       \item{\code{est.Mjy}}{Estimated subject scores for joint components in dataset Y with matrix n x rj.}
 #'       \item{\code{est.Mj}}{Average of est.Mjx and est.Mjy as the subject scores for joint components in both datasets with matrix n x rj.}
 #'       \item{\code{C_plus}}{whether to use C version of curvilinear search.}
 #'       \item{\code{rho_extent}}{the weight of rho in search}
@@ -51,6 +51,10 @@
 #' }
 
 singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','medium','large'),Cplus=T,tol = 1e-10,stand=F,distribution="JB",maxiter=1500,individual=F) {
+
+  #match.arg(c('small','medium','large'))
+  #match.arg(rho_extent)
+
   # Center X and Y
   if (stand) {
     n = nrow(dX)
@@ -98,7 +102,8 @@ singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','m
   whitenerXA = est.sigmaXA%^%(-0.5)
   xDataA = whitenerXA %*% dXcentered
   invLx = est.sigmaXA%^%(0.5)
-  Sx=matchMxMy$Ux[1:joint_rank,] %*% xDataA
+
+
 
   # For Y
   # Scale rowwise
@@ -106,7 +111,15 @@ singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','m
   whitenerYA = est.sigmaYA%^%(-0.5)
   yDataA = whitenerYA %*% dYcentered
   invLy = est.sigmaYA%^%(0.5)
-  Sy=matchMxMy$Uy[1:joint_rank,] %*% yDataA
+
+  if(joint_rank==1){
+    Sx=matrix(matchMxMy$Ux[1:joint_rank,],nrow=1) %*% xDataA
+    Sy=matrix(matchMxMy$Uy[1:joint_rank,],nrow=1) %*% yDataA
+  }
+  if(joint_rank>1){
+    Sx=matchMxMy$Ux[1:joint_rank,] %*% xDataA
+    Sy=matchMxMy$Uy[1:joint_rank,] %*% yDataA
+  }
 
   JBall = calculateJB(Sx) + calculateJB(Sy)
 
@@ -132,17 +145,26 @@ singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','m
     out_indiv <- curvilinear(invLx = invLx, invLy = invLy, xData = xDataA, yData = yDataA, Ux = matchMxMy$Ux, Uy = matchMxMy$Uy, rho = rho, tol = tol, maxiter = maxiter, rj = joint_rank)
   }
 
+ # calculate the joint components and the Mjoint
+  if(joint_rank==1) {
+    Sjx = matrix(out_indiv$Ux[1:joint_rank, ],nrow=1) %*% xDataA
+    Sjy = matrix(out_indiv$Uy[1:joint_rank, ],nrow=1) %*% yDataA
+    Mxjoint = tcrossprod(invLx, matrix(out_indiv$Ux[1:joint_rank, ],nrow=1))
+    Myjoint = tcrossprod(invLy, matrix(out_indiv$Uy[1:joint_rank, ],nrow=1))
+  }
 
-  # calculate the joint components
-  Sjx = out_indiv$Ux[1:joint_rank, ] %*% xDataA
-  Sjy = out_indiv$Uy[1:joint_rank, ] %*% yDataA
-
-  # calculate the Mjoint
-  Mxjoint = tcrossprod(invLx, out_indiv$Ux[1:joint_rank, ])
-  Myjoint = tcrossprod(invLy, out_indiv$Uy[1:joint_rank, ])
+  if(joint_rank>1) {
+    Sjx = out_indiv$Ux[1:joint_rank, ] %*% xDataA
+    Sjy = out_indiv$Uy[1:joint_rank, ] %*% yDataA
+    Mxjoint = tcrossprod(invLx, out_indiv$Ux[1:joint_rank, ])
+    Myjoint = tcrossprod(invLy, out_indiv$Uy[1:joint_rank, ])
+  }
+  Sjx = signchange(Sjx)
+  Sjy = signchange(Sjy)
 
   est.Mj = aveM(Mxjoint,Myjoint)
 
+# get the individual NG components
   if(individual) {
     Six=NULL
     Siy=NULL
@@ -157,7 +179,7 @@ singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','m
           Six = out_indiv$Ux[(joint_rank+1):n.comp.X, ] %*% xDataA
           Mx_I = tcrossprod(invLx, out_indiv$Ux[(joint_rank+1):n.comp.X, ])
         }
-
+        Six = signchange(Six)
       }
       if(n.comp.Y>joint_rank){
         if(joint_rank+1==n.comp.Y){
@@ -167,6 +189,7 @@ singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','m
           Siy = out_indiv$Uy[(joint_rank+1):n.comp.Y, ] %*% yDataA
           My_I = tcrossprod(invLy, out_indiv$Uy[(joint_rank+1):n.comp.Y, ])
         }
+        Siy = signchange(Siy)
       }
     return(list(Sjx=Sjx,Sjy=Sjy,Six=Six,Siy=Siy,Mix=Mx_I,Miy=My_I,est.Mj=est.Mj,est.Mjx=Mxjoint,est.Mjy=Myjoint,Cplus=Cplus,rho_extent=rho_extent,df=df))
   }

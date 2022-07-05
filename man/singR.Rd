@@ -30,7 +30,7 @@ singR(
 
 \item{df}{default value=0 when use JB, if df>0, estimates a density for the loadings using a tilted Gaussian (non-parametric density estimate).}
 
-\item{rho_extent}{Controls similarity of the scores in the two datasets. Numerical value and three options in character are acceptable. small, medium or large is defined from the JB statistic. Try "small" and see if the loadings are equal, then try others if needed.}
+\item{rho_extent}{Controls similarity of the scores in the two datasets. Numerical value and three options in character are acceptable. small, medium or large is defined from the JB statistic. Try "small" and see if the loadings are equal, then try others if needed. If numeric input, it will multiply the input by JBall to get the rho.}
 
 \item{Cplus}{whether to use C code (faster) in curvilinear search.}
 
@@ -54,7 +54,7 @@ Function outputs a list including the following:
       \item{\code{Mix}}{scores of individual NG components in X with matrix n x riX.}
       \item{\code{Miy}}{scores of individual NG components in Y with matrix n x riY.}
       \item{\code{est.Mjx}}{Estimated subject scores for joint components in dataset X with matrix n x rj.}
-      \item{\code{est.Mjy}}{Estimated subject scores for joint components in dataset X with matrix n x rj.}
+      \item{\code{est.Mjy}}{Estimated subject scores for joint components in dataset Y with matrix n x rj.}
       \item{\code{est.Mj}}{Average of est.Mjx and est.Mjy as the subject scores for joint components in both datasets with matrix n x rj.}
       \item{\code{C_plus}}{whether to use C version of curvilinear search.}
       \item{\code{rho_extent}}{the weight of rho in search}
