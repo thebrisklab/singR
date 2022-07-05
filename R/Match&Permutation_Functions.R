@@ -9,8 +9,8 @@
 #'This equivalent to maximizing absolute correlation for data in which each column has mean equal to zero.
 #'Returns permuted columns of Mx and My. This function does not do any scaling or sign flipping.
 #'For this matching to coincide with angle matching, the columns must have zero mean.
-#' @param Mx Subject Score for X with n x n.comp matrix
-#' @param My Subject Score for Y with n x n.comp matrix
+#' @param Mx Subject Score for X with n x n.comp.X matrix
+#' @param My Subject Score for Y with n x n.comp.Y matrix
 #' @param Ux Matrix with n.comp x n, Mx = Lx^-1 \%*\% t Ux, Lx is the whitener matrix of dX.
 #' @param Uy Matrix with n.comp x n, My = Ly^-1 \%*\% t Uy, Ly is the whitener matrix of dY.
 #'
@@ -75,8 +75,8 @@ greedymatch = function(Mx,My,Ux,Uy) {
 # BRisk: 30 March 2020
 #' Permutation test with Greedymatch
 #'
-#' @param MatchedMx matrix with nsubject x n.comp, comes from greedymatch
-#' @param MatchedMy matrix with nsubject2 x n.comp, comes from greedymatch
+#' @param MatchedMx matrix with nsubject x n.comp.X, comes from greedymatch
+#' @param MatchedMy matrix with nsubject2 x n.comp.Y, comes from greedymatch
 #' @param nperm default value = 1000
 #' @param alpha default value = 0.01
 #' @param multicore default value = 0

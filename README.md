@@ -34,7 +34,7 @@ install_github("thebrisklab/singR")
 library(singR)
 
 # Read and visualize data
-load("extdata/simdata.rda") # built-in dataset for real data simulation
+load("extdata/simdata.rda")
 
 # It contains dX, dY, mj, sIx,sIy,sjx,sjy
 
@@ -124,8 +124,8 @@ plotNetwork_change = function(component,title='',qmin=0.005, qmax=0.995, path = 
 ``` r
 library(cowplot)
 # plot for the true component of Y
-out_true1 = plotNetwork_change(Sytrue[,1], title=expression("True S"["Jx"]*", 1"),qmin=0.005, qmax=0.995, path = 'extdata/new_mmp.csv') 
-out_true2 = plotNetwork_change(Sytrue[,2], title=expression("True S"["Jx"]*", 2"),qmin=0.005, qmax=0.995, path = 'extdata/new_mmp.csv') 
+out_true1 = plotNetwork_change(Sytrue[,1], title=expression("True S"["Jy"]*", 1"),qmin=0.005, qmax=0.995, path = 'extdata/new_mmp.csv') 
+out_true2 = plotNetwork_change(Sytrue[,2], title=expression("True S"["Jy"]*", 2"),qmin=0.005, qmax=0.995, path = 'extdata/new_mmp.csv') 
 
 # function plotNetwork_change is tailored for this compressed version data.
 # The original function is called plotNetwork, which is set for the standard version of correlation matrix.
@@ -252,9 +252,9 @@ view_xifti_surface(select_xifti(xii_new,4),zlim = c(-2.43,2.82)) # component2 sm
 ``` r
 library(cowplot)
 
-out_rhoSmall1 = plotNetwork_change(Sy_rhoSmall[,1], title='small~rho',qmin=0.005, qmax=0.995, path = 'extdata/new_mmp.csv') 
+out_rhoSmall1 = plotNetwork_change(Sy_rhoSmall[,1], title=expression("Estimate S"["Jy"]*", 1"),qmin=0.005, qmax=0.995, path = 'extdata/new_mmp.csv') 
 
-out_rhoSmall2 = plotNetwork_change(Sy_rhoSmall[,2], title='small~rho',qmin=0.005, qmax=0.995, path = 'extdata/new_mmp.csv')
+out_rhoSmall2 = plotNetwork_change(Sy_rhoSmall[,2], title=expression("Estimate S"["Jy"]*", 2"),qmin=0.005, qmax=0.995, path = 'extdata/new_mmp.csv')
 
 p5=out_rhoSmall1$netmatfig
 p6=out_rhoSmall1$loadingsfig
@@ -264,4 +264,4 @@ p8=out_rhoSmall2$loadingsfig
 plot_grid(p5,p6,p7,p8,nrow = 2)
 ```
 
-<img src="fig/Estimation_plot.png" width="1094" />
+<img src="fig/Estexp2.png" width="864" />

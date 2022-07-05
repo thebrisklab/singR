@@ -13,9 +13,9 @@ permTestJointRank(
 )
 }
 \arguments{
-\item{MatchedMx}{matrix with nsubject x n.comp, comes from greedymatch}
+\item{MatchedMx}{matrix with nsubject x n.comp.X, comes from greedymatch}
 
-\item{MatchedMy}{matrix with nsubject2 x n.comp, comes from greedymatch}
+\item{MatchedMy}{matrix with nsubject2 x n.comp.Y, comes from greedymatch}
 
 \item{nperm}{default value = 1000}
 

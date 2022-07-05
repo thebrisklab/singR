@@ -7,9 +7,9 @@
 greedymatch(Mx, My, Ux, Uy)
 }
 \arguments{
-\item{Mx}{Subject Score for X with n x n.comp matrix}
+\item{Mx}{Subject Score for X with n x n.comp.X matrix}
 
-\item{My}{Subject Score for Y with n x n.comp matrix}
+\item{My}{Subject Score for Y with n x n.comp.Y matrix}
 
 \item{Ux}{Matrix with n.comp x n, Mx = Lx^-1 \%*\% t Ux, Lx is the whitener matrix of dX.}
 
