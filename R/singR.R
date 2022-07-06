@@ -159,8 +159,8 @@ singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','m
     Mxjoint = tcrossprod(invLx, out_indiv$Ux[1:joint_rank, ])
     Myjoint = tcrossprod(invLy, out_indiv$Uy[1:joint_rank, ])
   }
-  Sjx = signchange(Sjx)
-  Sjy = signchange(Sjy)
+  Sjx = t(signchange(t(Sjx))) # the input of signchange is px x r.
+  Sjy = t(signchange(t(Sjy)))
 
   est.Mj = aveM(Mxjoint,Myjoint)
 
@@ -179,7 +179,8 @@ singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','m
           Six = out_indiv$Ux[(joint_rank+1):n.comp.X, ] %*% xDataA
           Mx_I = tcrossprod(invLx, out_indiv$Ux[(joint_rank+1):n.comp.X, ])
         }
-        Six = signchange(Six)
+        Six = t(signchange(t(Six)))
+
       }
       if(n.comp.Y>joint_rank){
         if(joint_rank+1==n.comp.Y){
@@ -189,7 +190,7 @@ singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','m
           Siy = out_indiv$Uy[(joint_rank+1):n.comp.Y, ] %*% yDataA
           My_I = tcrossprod(invLy, out_indiv$Uy[(joint_rank+1):n.comp.Y, ])
         }
-        Siy = signchange(Siy)
+        Six = t(signchange(t(Six)))
       }
     return(list(Sjx=Sjx,Sjy=Sjy,Six=Six,Siy=Siy,Mix=Mx_I,Miy=My_I,est.Mj=est.Mj,est.Mjx=Mxjoint,est.Mjy=Myjoint,Cplus=Cplus,rho_extent=rho_extent,df=df))
   }
