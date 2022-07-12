@@ -178,7 +178,7 @@ calculateJBofS <- function(S, alpha = 0.8){
 #' @param S S, r x px.
 #' @param M Mx, n x r.
 #'
-#' @return  alist of positive S and positive Mx.
+#' @return  a list of positive S and positive Mx.
 #' @export
 #'
 signchange = function(S,M=NULL) {
@@ -186,7 +186,7 @@ signchange = function(S,M=NULL) {
   newS = t(signskew*t(S))          # t(signskew*t(S))
   if(!is.null(M)) {
      #newM = t(signskew*t(M))
-     newM = signskew*M
+    newM = signskew*M
   }
   ifelse(is.null(M),return(newS),return(list(S=newS,M=newM)))
 }

@@ -12,7 +12,7 @@ signchange(S, M = NULL)
 \item{M}{Mx, n x r.}
 }
 \value{
-alist of positive S and positive Mx.
+a list of positive S and positive Mx.
 }
 \description{
 Sign change for S matrix to image
