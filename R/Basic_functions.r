@@ -183,10 +183,10 @@ calculateJBofS <- function(S, alpha = 0.8){
 #'
 signchange = function(S,M=NULL) {
   signskew = sign(apply(S,1,function(x) mean(x^3)))
-  newS = t(signskew*t(S))          # t(signskew*t(S))
+  newS = t(signskew*S)          # t(signskew*t(S))
   if(!is.null(M)) {
      #newM = t(signskew*t(M))
-    newM = signskew*M
+    newM = t(signskew*t(M))
   }else {newM=M}
   return(list(S=newS,M=newM))
 }
