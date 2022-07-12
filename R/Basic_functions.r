@@ -175,17 +175,19 @@ calculateJBofS <- function(S, alpha = 0.8){
 
 #' Sign change for S matrix to image
 #'
-#' @param S t(S) px x r.
-#' @param M another matrix.
+#' @param S S, r x px.
+#' @param M Mx, n x r.
 #'
-#' @return newS the original S * signskew, which is mean(S.column^3)
+#' @return  alist of positive S and positive Mx.
 #' @export
 #'
 signchange = function(S,M=NULL) {
-  # S: 59,412 x r_J
-  signskew = sign(apply(S,2,function(x) mean(x^3)))
-  newS = signskew*S          # t(signskew*t(S))
-  if(!is.null(M)) newM = t(signskew*t(M))
+  signskew = sign(apply(S,1,function(x) mean(x^3)))
+  newS = t(signskew*t(S))          # t(signskew*t(S))
+  if(!is.null(M)) {
+     #newM = t(signskew*t(M))
+     newM = signskew*M
+  }
   ifelse(is.null(M),return(newS),return(list(S=newS,M=newM)))
 }
 

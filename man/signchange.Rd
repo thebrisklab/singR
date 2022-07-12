@@ -7,12 +7,12 @@
 signchange(S, M = NULL)
 }
 \arguments{
-\item{S}{t(S) px x r.}
+\item{S}{S, r x px.}
 
-\item{M}{another matrix.}
+\item{M}{Mx, n x r.}
 }
 \value{
-newS the original S * signskew, which is mean(S.column^3)
+alist of positive S and positive Mx.
 }
 \description{
 Sign change for S matrix to image
