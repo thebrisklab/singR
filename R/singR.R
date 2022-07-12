@@ -87,7 +87,7 @@ singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','m
   Uyfull = estY_JB$U
   My_JB = est.M.ols(sData = estY_JB$S, xData = dYcentered)
 
-  matchMxMy = greedymatch(scale(F), scale(My_JB,scale = F), Ux = Uxfull, Uy = Uyfull) # ignore the warnings of greedymatch, that the column is not scaled.
+  matchMxMy = greedymatch(scale(Mx_JB,scale=F), scale(My_JB,scale = F), Ux = Uxfull, Uy = Uyfull) # ignore the warnings of greedymatch, that the column is not scaled.
   permJoint <- permTestJointRank(matchMxMy$Mx,matchMxMy$My) # alpha = 0.01, nperm=1000
   # pval_joint = permJoint$pvalues
   joint_rank = permJoint$rj
