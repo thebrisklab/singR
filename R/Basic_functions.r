@@ -187,8 +187,8 @@ signchange = function(S,M=NULL) {
   if(!is.null(M)) {
      #newM = t(signskew*t(M))
     newM = signskew*M
-  }
-  ifelse(is.null(M),return(newS),return(list(S=newS,M=newM)))
+  }else {newM=M}
+  return(list(S=newS,M=newM))
 }
 
 ###############
