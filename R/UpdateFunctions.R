@@ -53,7 +53,7 @@ calculateG <- function(U, DataW, invL, A, rho, alpha = 0.8, r0 = nrow(U)){
 #' @param invLy Inverse matrix of Ly, matrix n x n.
 #' @param rho the weight parameter of matching relative to non-gaussianity.
 #' @param tau initial step size, default value is 0.01
-#' @param alpha default value is 0.8
+#' @param alpha controls weighting of skewness and kurtosis. Default value is 0.8, which corresponds to the Jarque-Bera test statistic with 0.8 weighting on squared skewness and 0.2 on squared kurtosis.
 #' @param maxiter default value is 1000
 #' @param tol the threshold of change in Ux and Uy to stop the curvlinear function
 #' @param rj the joint rank, comes from greedyMatch.
@@ -167,9 +167,9 @@ curvilinear <- function(Ux, Uy, xData, yData, invLx, invLy, rho, tau = 0.01, alp
 #' @param invLy Inverse matrix of Ly, matrix n x n.
 #' @param rho the weight parameter of matching relative to non-gaussianity.
 #' @param tau initial step size, default value is 0.01
-#' @param alpha default value is 0.8
+#' @param alpha controls weighting of skewness and kurtosis. Default value is 0.8, which corresponds to the Jarque-Bera test statistic with 0.8 weighting on squared skewness and 0.2 on squared kurtosis.
 #' @param maxiter default value is 1000
-#' @param tol the threshold of change in Ux and Uy to stop the curvlinear function
+#' @param tol the threshold of change in Ux and Uy to stop the curvilinear function
 #' @param rj the joint rank, comes from greedyMatch.
 #' @return a list of matrices:
 #' \describe{
