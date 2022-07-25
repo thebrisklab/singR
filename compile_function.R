@@ -49,3 +49,7 @@ usethis::use_vignette("my-vignette","singR")
 library(testthat)
 
 tools::checkRdaFiles()
+
+
+devtools::use_vignette("testR-tutorial")
+use_vignette("singR-tutorial")

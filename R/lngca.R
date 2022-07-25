@@ -47,10 +47,12 @@
 #' # To get n.comp value, we can use NG_number function.
 #'
 #' # use JB statistic as the measure of nongaussianity to run lngca with df=0
-#' estX_JB = lngca(xData = t(data$dX), n.comp = 4, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',df=0)
+#' estX_JB = lngca(xData = t(data$dX), n.comp = 4,
+#'  whiten = 'sqrtprec', restarts.pbyd = 20, distribution='JB',df=0)
 #'
 #' # use the tiltedgaussian distribution to run lngca with df=8. This takes a long time:
-#' estX_tilt = lngca(xData = t(data$dX), n.comp = 4, whiten = 'sqrtprec', restarts.pbyd = 20, distribution='tiltedgaussian',df=8)
+#' estX_tilt = lngca(xData = t(data$dX), n.comp = 4,
+#'  whiten = 'sqrtprec', restarts.pbyd = 20, distribution='tiltedgaussian',df=8)
 #'
 #' # true non-gaussian component of Sx, include individual and joint components
 #' trueSx = rbind(data$sjX,data$siX)

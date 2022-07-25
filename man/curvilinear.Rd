@@ -36,7 +36,7 @@ curvilinear(
 
 \item{tau}{initial step size, default value is 0.01}
 
-\item{alpha}{default value is 0.8}
+\item{alpha}{controls weighting of skewness and kurtosis. Default value is 0.8, which corresponds to the Jarque-Bera test statistic with 0.8 weighting on squared skewness and 0.2 on squared kurtosis.}
 
 \item{maxiter}{default value is 1000}
 
