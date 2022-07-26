@@ -53,3 +53,5 @@ tools::checkRdaFiles()
 
 devtools::use_vignette("testR-tutorial")
 use_vignette("singR-tutorial")
+
+devtools::build_rmd()
