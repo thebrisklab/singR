@@ -172,7 +172,7 @@ image(vec2net(data$siY[2,]), col = heat.colors(12), xaxt = "n", yaxt = "n",
 
 
 ```{r origin,echo=FALSE,out.width = "100%",fig.cap="True loadings in example 1."}
-knitr::include_graphics("figs/Original data figure.png",dpi = NA)
+knitr::include_graphics("figs/Original.png",dpi = NA)
 ```
 
 **Function singR performs all steps in the SING pipeline as a single function**
