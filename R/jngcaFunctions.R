@@ -199,11 +199,9 @@ pmse<-function(M1=NULL,M2=NULL,S1=NULL,S2=NULL,standardize=FALSE) {
 #----------------------------------------
 #Function to make most extreme values for the skewed tail positive, i.e., force all distributions to be right skewed, and order ICs by skewness.
 rightskew=function(S,M=NULL,order.skew=TRUE) {
-  #S: n x d matrix
-  #A: d x d` corresponding to X = S A
-  #If order = TRUE, then ICs are organized from HIGHEST to LOWEST skewness where skewness is forced to be positive for all ICs.
+ #If order = TRUE, then ICs are organized from HIGHEST to LOWEST skewness where skewness is forced to be positive for all ICs.
   nObs <- nrow(S)
-  if(ncol(S)>nObs) stop('S must be n x d')
+  #if(ncol(S)>nObs) stop('S must be n x d')
   skewness<-function(x,n = nObs) (sum((x - mean(x))^3)/n)/(sum((x - mean(x))^2)/n)^(3/2)
   skew=apply(S,2,skewness)
   sign=-1*(skew<0)+1*(skew>0)
