@@ -71,12 +71,14 @@ library(singR)
 data(exampledata)
 
 # use JB stat to compute with singR
-output_JB=singR(dX=exampledata$dX,dY=exampledata$dY,df=0,rho_extent="small",distribution="JB",individual=TRUE)
+output_JB=singR(dX=exampledata$dX,dY=exampledata$dY,
+df=0,rho_extent="small",distribution="JB",individual=TRUE)
 
 # use tiltedgaussian distribution to compute with singR.
 # tiltedgaussian may be more accurate but is considerably slower,
 # and is not recommended for large datasets.
-output_tilted=singR(dX=exampledata$dX,dY=exampledata$dY,df=5,rho_extent="small",distribution="tiltedgaussian",individual=TRUE)
+output_tilted=singR(dX=exampledata$dX,dY=exampledata$dY,
+df=5,rho_extent="small",distribution="tiltedgaussian",individual=TRUE)
 
 # use pmse to measure difference from the truth
 pmse(M1 = t(output_JB$est.Mj),M2 = t(exampledata$mj),standardize = T)
