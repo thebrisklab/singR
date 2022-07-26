@@ -65,7 +65,7 @@
 #'  with smaller pmse value, but takes longer to run.
 #'}
 #'
-lngca <- function(xData, n.comp = NULL, Ux.list = NULL, whiten = c('eigenvec','sqrtprec','none'), maxit = 1000, eps = 1e-06, verbose = FALSE, restarts.pbyd = 0, restarts.dbyd = 0, distribution=c('tiltedgaussian','logistic','JB'), density=FALSE, out.all=FALSE, orth.method=c('svd','givens'),df=0,stand=FALSE,...) {
+lngca <- function(xData, n.comp = NULL, Ux.list = NULL, whiten = c('eigenvec','sqrtprec','none'), maxit = 1000, eps = 1e-06, verbose = FALSE, restarts.pbyd = 0, restarts.dbyd = 0, distribution=c('JB','tiltedgaussian','logistic'), density=FALSE, out.all=FALSE, orth.method=c('svd','givens'),df=0,stand=FALSE,...) {
 
   #note: small changes from mlcaFP from the JASA paper:
   # 1) output Mhat.

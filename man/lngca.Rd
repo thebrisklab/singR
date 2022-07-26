@@ -14,7 +14,7 @@ lngca(
   verbose = FALSE,
   restarts.pbyd = 0,
   restarts.dbyd = 0,
-  distribution = c("tiltedgaussian", "logistic", "JB"),
+  distribution = c("JB", "tiltedgaussian", "logistic"),
   density = FALSE,
   out.all = FALSE,
   orth.method = c("svd", "givens"),
@@ -95,7 +95,8 @@ trueSx = rbind(data$sjX,data$siX)
 pmse(S1 = t(trueSx),S2=t(estX_JB$S),standardize = TRUE)
 pmse(S1 = t(trueSx),S2=t(estX_tilt$S),standardize = TRUE)
 
-# the lngca using tiltedgaussian tends to be more accurate with smaller pmse value, but takes longer to run.
+# the lngca using tiltedgaussian tends to be more accurate
+ with smaller pmse value, but takes longer to run.
 }
 
 }
