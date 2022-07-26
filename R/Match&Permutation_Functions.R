@@ -376,8 +376,8 @@ permmatRank_joint = function(matchedResults, nperms = 100){
 #' NG_number(data$dX)
 #' }
 NG_number <- function(data){ #data nxp
+  if(nrow(data)<ncol(data)){data=t(data)}
 
-  data=t(data)
   k=0
   FOBI=FOBIasymp(data,k=k)
   while (FOBI$p.value < 0.05) {

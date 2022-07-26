@@ -65,8 +65,9 @@
 #'  with smaller pmse value, but takes longer to run.
 #'}
 #'
-lngca <- function(xData, n.comp = NULL, Ux.list = NULL, whiten = c('eigenvec','sqrtprec','none'), maxit = 1000, eps = 1e-06, verbose = FALSE, restarts.pbyd = 0, restarts.dbyd = 0, distribution=c('JB','tiltedgaussian','logistic'), density=FALSE, out.all=FALSE, orth.method=c('svd','givens'),df=0,stand=FALSE,...) {
+lngca <- function(xData, n.comp = NULL, Ux.list = NULL, whiten = c('sqrtprec','eigenvec','none'), maxit = 1000, eps = 1e-06, verbose = FALSE, restarts.pbyd = 0, restarts.dbyd = 0, distribution=c('JB','tiltedgaussian','logistic'), density=FALSE, out.all=FALSE, orth.method=c('svd','givens'),df=0,stand=FALSE,...) {
 
+  if (nrow(xData)>ncol(xData)) stop("with n > p, use whiten = 'sqrtprec'")
   #note: small changes from mlcaFP from the JASA paper:
   # 1) output Mhat.
   # 2) order by skewness, with option for n.comp=1
@@ -85,6 +86,8 @@ lngca <- function(xData, n.comp = NULL, Ux.list = NULL, whiten = c('eigenvec','s
 
   distribution = match.arg(distribution)
   whiten=match.arg(whiten)
+
+  if(distribution=="tiltedgaussian") {df = 8}
 
   if(restarts.dbyd>0 && whiten!='eigenvec') stop('Use whiten=eigenvec with restarts.dbyd')
   ## whiten:
