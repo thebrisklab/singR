@@ -220,7 +220,7 @@ lngca <- function(xData, n.comp = NULL, Ux.list = NULL, whiten = c('sqrtprec','e
   out$Ws = out$Ws[, order(loglik.maxS,decreasing=TRUE)]
   # Liangkang: change the out subset name from Ws to U, and transpose to r x n dimension
   out$U=t(out$Ws)
-  out=within(out,rm(Ws))
+  if("Ws" %in% names(out)) out <- out[ - which(names(out) == "Ws")]
   # Liangkang: transpose the M to n x r dimension.
   out$M=t(out$M)
   # Liangkang: transpose the S to r x px dimension.
@@ -279,7 +279,7 @@ tiltedgaussian = function (xData, df = 8, B = 100, ...) {
   #NOTE: I use the response variable that corresponds to the LCA paper.
   #This differs from the GPois algorithm in ProDenICA
   ys <- as.vector(table(cut(xData, xcuts)))/(gaps*n)
-  pois.fit <- suppressWarnings(gam(ys ~ s(xg, df)+offset(dnorm(xg,log=TRUE)), family = poisson, ...))
+  pois.fit <- suppressWarnings(gam(ys ~ s(xg, df)+offset(dnorm(xg,log=TRUE)), family = stats::poisson, ...))
   Gs <- stats::predict(pois.fit) #log tilt function predicted at grid locations (note: predict on gam object can not be used to obtain derivatives)
   # the gam object with the predict function can not be used directly to obtain the derivatives
   # of the smoothing spline.
