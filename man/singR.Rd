@@ -16,7 +16,8 @@ singR(
   stand = F,
   distribution = "JB",
   maxiter = 1500,
-  individual = F
+  individual = F,
+  whiten = c("sqrtprec", "eigenvec", "none")
 )
 }
 \arguments{
@@ -43,6 +44,8 @@ singR(
 \item{maxiter}{the max iteration number for the curvilinear search.}
 
 \item{individual}{whether to return the individual non-Gaussian components, default value = F.}
+
+\item{whiten}{whitening method used in lngca. Defaults to "svd" which uses the n left eigenvectors divided by sqrt(px-1). Optionally uses the square root of the n x n "precision" matrix.}
 }
 \value{
 Function outputs a list including the following:

@@ -67,7 +67,8 @@
 #'
 lngca <- function(xData, n.comp = NULL, Ux.list = NULL, whiten = c('sqrtprec','eigenvec','none'), maxit = 1000, eps = 1e-06, verbose = FALSE, restarts.pbyd = 0, restarts.dbyd = 0, distribution=c('JB','tiltedgaussian','logistic'), density=FALSE, out.all=FALSE, orth.method=c('svd','givens'),df=0,stand=FALSE,...) {
 
-  if (nrow(xData)>ncol(xData)) stop("with n > p, use whiten = 'sqrtprec'")
+
+
   #note: small changes from mlcaFP from the JASA paper:
   # 1) output Mhat.
   # 2) order by skewness, with option for n.comp=1
@@ -75,6 +76,12 @@ lngca <- function(xData, n.comp = NULL, Ux.list = NULL, whiten = c('sqrtprec','e
   #former option: deflation optimization, not currently implemented
   #alg.typ = c('symmetric','deflation'),
   #alg.typ = match.arg(alg.typ)
+
+
+  whiten=match.arg(arg = NULL,choices = whiten)
+  if (nrow(xData)>ncol(xData) & whiten != "sqrtprec") stop("with n > p, use whiten = 'sqrtprec'")
+
+
   if(is.null(n.comp)) {n.comp=nrow(xData)}
 
   W.list=Ux.list
@@ -84,10 +91,15 @@ lngca <- function(xData, n.comp = NULL, Ux.list = NULL, whiten = c('sqrtprec','e
   alg.typ = 'symmetric'
 
 
-  distribution = match.arg(distribution)
-  whiten=match.arg(whiten)
+  distribution = match.arg(arg = NULL,choices = distribution)
 
-  if(distribution=="tiltedgaussian") {df = 8}
+
+
+  if(distribution=="JB" || distribution == "logistic"){
+    df=0
+    if(distribution=='logistic') Gfunc = logistic
+    if(distribution=='JB') Gfunc = jb.stat
+    }
 
   if(restarts.dbyd>0 && whiten!='eigenvec') stop('Use whiten=eigenvec with restarts.dbyd')
   ## whiten:
@@ -95,15 +107,16 @@ lngca <- function(xData, n.comp = NULL, Ux.list = NULL, whiten = c('sqrtprec','e
   #require(multidcov)
   if(distribution=='tiltedgaussian') {
     Gfunc = tiltedgaussian
+    if (df==0) {df = 8 }
     #require(ProDenICA)
   }
 
 
-  if(distribution=='tiltedgaussian' && df==0) stop('df must be greater than 0 for tiltedgaussian')
-  if(distribution=='logistic'  && df>0) stop('df should be set to zero when using logistic')
-  if(distribution=='logistic') Gfunc = logistic
-  if(distribution=='JB'  && df>0) stop('df should be set to zero when using JB')
-  if(distribution=='JB') Gfunc = jb.stat
+  #if(distribution=='tiltedgaussian' && df==0) stop('df must be greater than 0 for tiltedgaussian')
+  #if(distribution=='logistic'  && df>0) stop('df should be set to zero when using logistic')
+
+  #if(distribution=='JB'  && df>0) stop('df should be set to zero when using JB')
+
   if(!is.null(W.list) & class(W.list)!='list') stop('W.list must be a list')
   if(length(W.list) && (restarts.pbyd || restarts.dbyd)) stop('restarts.pbyd and restarts.dbyd must be equal to zero when supplying W.list')
 
