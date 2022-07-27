@@ -76,23 +76,16 @@ lngca <- function(xData, n.comp = NULL, Ux.list = NULL, whiten = c('sqrtprec','e
   #former option: deflation optimization, not currently implemented
   #alg.typ = c('symmetric','deflation'),
   #alg.typ = match.arg(alg.typ)
-  xData=t(xData) # transform the input dimension from n x px to px x n.
+
 
   whiten=match.arg(arg = NULL,choices = whiten)
   if (nrow(xData)>ncol(xData) & whiten != "sqrtprec") stop("with n > p, use whiten = 'sqrtprec'")
 
 
-  if(is.null(n.comp)) {n.comp=ncol(xData)}
-
   W.list=Ux.list
 
     # center xData such that ones%*%xData = 0
-  # Liangkang fix: use the standard function to double center the data.
-  if(stand){
-    xData = t(standard(t(xData))) #standard input N x px matrix.
-  } else {
-    xData = scale(xData, center=TRUE, scale=FALSE)# minus the mean to center the xData
-  }
+
 
 
 
@@ -128,13 +121,22 @@ lngca <- function(xData, n.comp = NULL, Ux.list = NULL, whiten = c('sqrtprec','e
   if(!is.null(W.list) & class(W.list)!='list') stop('W.list must be a list')
   if(length(W.list) && (restarts.pbyd || restarts.dbyd)) stop('restarts.pbyd and restarts.dbyd must be equal to zero when supplying W.list')
 
+  xData=t(xData) # transform the input dimension from n x px to px x n.
+
+  if(is.null(n.comp)) {n.comp=ncol(xData)}
+
   orth.method= match.arg(arg = NULL,choices = orth.method)
   p = ncol(xData)
   nRow = nrow(xData)
   d = n.comp
 
 
-
+  # Liangkang fix: use the standard function to double center the data.
+  if(stand){
+    xData = t(standard(t(xData))) #standard input N x px matrix.
+  } else {
+    xData = scale(xData, center=TRUE, scale=FALSE)# minus the mean to center the xData
+  }
 
 
   if (d > p) stop('d must be less than or equal to p')
