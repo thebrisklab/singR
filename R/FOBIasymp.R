@@ -115,7 +115,7 @@ FOBIasymp.2 <- function(X, k, type="S3", model="NGCA" , method="satterthwaite",w
     DFs <- c((p-k-1)*(p-k+2)/2,1)
     PARAMETER <- c(WEIGHTS[1], DFs[1], WEIGHTS[2], DFs[2])
     names(PARAMETER) <- c("w1", "df1", "w2", "df2")
-    PVAL <- 1 - stats::pchisqsum(Tk, DFs, WEIGHTS, method=method)
+    PVAL <- 1 - survey::pchisqsum(Tk, DFs, WEIGHTS, method=method)
     METHOD <- c("FOBI subgaussianty test using a weighted sum of chisquare test", MTEXT)
     ALTERNATIVE <- paste0("there are fewer than ",p-k, " gaussian components")
     list(statistic = Tk, p.value = PVAL, parameter = PARAMETER, method=METHOD, data.name=DNAME, alternative = ALTERNATIVE, k=k, W=W, S=Z, D=D, MU=MU, sigma1 =
