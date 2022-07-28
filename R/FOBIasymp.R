@@ -6,7 +6,7 @@
 #'
 #' @param X input data with p x n.
 #' @param k the non-Gaussian components number in Null hypothesis.
-#' @param type 'S2' or 'S3'.
+#' @param type 'S1', 'S2' or 'S3'.
 #' @param model 'NGCA' or 'ICA'
 #' @param method "satterthwaite","integration","saddlepoint"
 #' @param whiten 'sqrtprec','eigenvec'

@@ -364,6 +364,7 @@ permmatRank_joint = function(matchedResults, nperms = 100){
 #'
 #' @param data original matrix with n x p.
 #' @param whiten 'sqrtprec' or 'eigenvec'
+#' @param type 'S1', 'S2' or 'S3'
 #' @return the number of non-Gaussian components in the data.
 #' @export
 #'
