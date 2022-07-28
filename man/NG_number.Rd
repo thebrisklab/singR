@@ -8,6 +8,8 @@ NG_number(data, whiten = c("sqrtprec", "eigenvec"))
 }
 \arguments{
 \item{data}{original matrix with n x p.}
+
+\item{whiten}{'sqrtprec' or 'eigenvec'}
 }
 \value{
 the number of non-Gaussian components in the data.

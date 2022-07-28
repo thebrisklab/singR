@@ -4,11 +4,17 @@ data("exampledata")
 data=exampledata
 
 
-
+# test standard
 test_that("standardization",{
   dXcentered <- standard(data$dX)
   expect_equal(dim(dXcentered),c(48,1089))
 })
+
+# test NG_number
+test_that("NG_number",{
+  expect_equal(NG_number(data$dX),4)
+})
+
 
 
 #test singR

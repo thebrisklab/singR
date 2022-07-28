@@ -115,7 +115,7 @@ FOBIasymp.2 <- function(X, k, type="S3", model="NGCA" , method="satterthwaite",w
     DFs <- c((p-k-1)*(p-k+2)/2,1)
     PARAMETER <- c(WEIGHTS[1], DFs[1], WEIGHTS[2], DFs[2])
     names(PARAMETER) <- c("w1", "df1", "w2", "df2")
-    PVAL <- 1 - pchisqsum(Tk, DFs, WEIGHTS, method=method)
+    PVAL <- 1 - stats::pchisqsum(Tk, DFs, WEIGHTS, method=method)
     METHOD <- c("FOBI subgaussianty test using a weighted sum of chisquare test", MTEXT)
     ALTERNATIVE <- paste0("there are fewer than ",p-k, " gaussian components")
     list(statistic = Tk, p.value = PVAL, parameter = PARAMETER, method=METHOD, data.name=DNAME, alternative = ALTERNATIVE, k=k, W=W, S=Z, D=D, MU=MU, sigma1 =
@@ -131,7 +131,7 @@ FOBIasymp.2 <- function(X, k, type="S3", model="NGCA" , method="satterthwaite",w
     DF2 <- DF1 + 1
     Tk <- PART1 + PART2
     names(Tk) <- "T"
-    PVAL <- 1- pchisq(Tk, df=DF2)
+    PVAL <- 1- stats::pchisq(Tk, df=DF2)
     PARAMETER <-  DF2
     names(PARAMETER) <- "df"
     METHOD <- c("FOBI subgaussianty test using a chisquare test (Variant I)", MTEXT)
@@ -146,7 +146,7 @@ FOBIasymp.2 <- function(X, k, type="S3", model="NGCA" , method="satterthwaite",w
     Tk <- n*(p-k)/(2*Sigma1) *  s2R22
     names(Tk) <- "T"
     DF1 <- (p-k-1)*(p-k+2)/2
-    PVAL <- 1- pchisq(Tk, df=DF1)
+    PVAL <- 1- stats::pchisq(Tk, df=DF1)
     PARAMETER <-  DF1
     names(PARAMETER) <- "df"
     METHOD <- c("FOBI subgaussianty test using a chisquare test (Variant II)",MTEXT)

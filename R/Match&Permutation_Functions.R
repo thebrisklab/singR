@@ -363,7 +363,7 @@ permmatRank_joint = function(matchedResults, nperms = 100){
 #' find the number of non-Gaussian components in the data.
 #'
 #' @param data original matrix with n x p.
-#'
+#' @param whiten 'sqrtprec' or 'eigenvec'
 #' @return the number of non-Gaussian components in the data.
 #' @export
 #'
