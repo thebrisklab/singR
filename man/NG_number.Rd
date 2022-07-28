@@ -4,7 +4,7 @@
 \alias{NG_number}
 \title{find the number of non-Gaussian components in the data.}
 \usage{
-NG_number(data)
+NG_number(data, whiten = c("sqrtprec", "eigenvec"))
 }
 \arguments{
 \item{data}{original matrix with n x p.}

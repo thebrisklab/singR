@@ -75,7 +75,7 @@ orthogonalize = function (W) {
 
 #' Whitening Function
 #'
-#' @param X dataset
+#' @param X dataset p x n.
 #' @param n.comp the number of components
 #' @param center.row whether center the row of data
 #'

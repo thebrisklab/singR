@@ -7,7 +7,7 @@
 whitener(X, n.comp = ncol(X), center.row = FALSE)
 }
 \arguments{
-\item{X}{dataset}
+\item{X}{dataset p x n.}
 
 \item{n.comp}{the number of components}
 

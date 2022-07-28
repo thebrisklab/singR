@@ -81,13 +81,8 @@ lngca <- function(xData, n.comp = NULL, Ux.list = NULL, whiten = c('sqrtprec','e
   whiten=match.arg(arg = NULL,choices = whiten)
   if (nrow(xData)>ncol(xData) & whiten != "sqrtprec") stop("with n > p, use whiten = 'sqrtprec'")
 
-
+  # Liangkang: Change the input name Ux.list to W.list
   W.list=Ux.list
-
-    # center xData such that ones%*%xData = 0
-
-
-
 
   alg.typ = 'symmetric'
 
@@ -130,7 +125,7 @@ lngca <- function(xData, n.comp = NULL, Ux.list = NULL, whiten = c('sqrtprec','e
   nRow = nrow(xData)
   d = n.comp
 
-
+  # center xData such that ones%*%xData = 0
   # Liangkang fix: use the standard function to double center the data.
   if(stand){
     xData = t(standard(t(xData))) #standard input N x px matrix.
