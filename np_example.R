@@ -33,11 +33,16 @@ FOBIasymp(t(Y),k=1)
 data("exampledata")
 NG_number(exampledata$dX)
 FOBIasymp(t(exampledata$dX),k=5)
-FOBIasymp(Y,k=5,type = 'S2',model = 'ICA')
+FOBIasymp.2(Y,k=100,type = 'S2')
 FOBIasymp(Y,k=5)
 
 FOBIboot(Y,k=5)
 FOBI(t(Y))
 
 FOBIasymp.2(Y,k=60)
+NG_number(t(Y))
 
+FOBIasymp.2(Y,k=99,type='S1')
+NG_number.2(t(Y),type = 'S3')
+
+NG_number.2(exampledata$dX,type = 'S1')

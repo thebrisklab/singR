@@ -18,7 +18,7 @@ FOBIasymp.2(
 
 \item{k}{the non-Gaussian components number in Null hypothesis.}
 
-\item{type}{'S1' or 'S2' or 'S3'.}
+\item{type}{'S2' or 'S3'.}
 
 \item{model}{'NGCA' or 'ICA'}
 

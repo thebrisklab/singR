@@ -6,14 +6,14 @@
 #'
 #' @param X input data with p x n.
 #' @param k the non-Gaussian components number in Null hypothesis.
-#' @param type 'S1' or 'S2' or 'S3'.
+#' @param type 'S2' or 'S3'.
 #' @param model 'NGCA' or 'ICA'
 #' @param method "satterthwaite","integration","saddlepoint"
 #' @param whiten 'sqrtprec','eigenvec'
 #'
 #' @return p-value for the test
 #' @export
-#'
+#' @import survey
 #' @examples
 #' data(exampledata)
 #' FOBIasymp.2(t(exampledata$dX),k=4)
@@ -108,7 +108,7 @@ FOBIasymp.2 <- function(X, k, type="S3", model="NGCA" , method="satterthwaite",w
 
   colnames(Z) <- paste0("IC.",1:p)
 
-  RES <- switch(type, S1 = {
+  RES <- switch(type, S1 = { # don't use S1 method due to it has dependency on survey.
     Tk <- n*sum((D[(k+1):p]-(p+2))^2) / (p-k)
     names(Tk) <- "T"
     WEIGHTS <- c(2*Sigma1 / (p-k), 2*Sigma1/(p-k) + Sigma2)
