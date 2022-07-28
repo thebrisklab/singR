@@ -8,7 +8,7 @@ lngca(
   xData,
   n.comp = NULL,
   Ux.list = NULL,
-  whiten = c("sqrtprec", "eigenvec", "none"),
+  whiten = c("eigenvec", "sqrtprec", "none"),
   maxit = 1000,
   eps = 1e-06,
   verbose = FALSE,

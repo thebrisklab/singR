@@ -14,6 +14,8 @@
 #' @param maxiter the max iteration number for the curvilinear search.
 #' @param individual whether to return the individual non-Gaussian components, default value = F.
 #' @param whiten whitening method used in lngca. Defaults to "svd" which uses the n left eigenvectors divided by sqrt(px-1). Optionally uses the square root of the n x n "precision" matrix.
+#' @param restarts.pbyd default = 0. Generates p x d random orthogonal matrices. Use a large number for large datasets. Note: it is recommended that you run lngca twice with different seeds and compare the results, which should be similar when a sufficient number of restarts is used. In practice, stability with large datasets and a large number of components can be challenging.
+#' @param restarts.dbyd default = 0. These are d x d initial matrices padded with zeros, which results in initializations from the principal subspace. Can speed up convergence but may miss low variance non-Gaussian components.
 #' @return Function outputs a list including the following:
 #' \describe{
 #'       \item{\code{Sjx}}{variable loadings for joint NG components in dataset X with matrix rj x px.}
@@ -53,7 +55,7 @@
 #'
 #' }
 
-singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','medium','large'),Cplus=T,tol = 1e-10,stand=F,distribution="JB",maxiter=1500,individual=F,whiten = c('sqrtprec','eigenvec','none')) {
+singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','medium','large'),Cplus=T,tol = 1e-10,stand=F,distribution="JB",maxiter=1500,individual=F,whiten = c('eigenvec','sqrtprec','none'),restarts.dbyd=0,restarts.pbyd=0) {
 
 
   #match.arg(c('small','medium','large'))
@@ -85,12 +87,12 @@ singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','m
   }
 
 # JB on X
-  estX_JB = lngca(xData = dXcentered, n.comp = n.comp.X, whiten = whiten, restarts.pbyd = 20, distribution=distribution,stand = F,df=df) # what is the df at here.
+  estX_JB = lngca(xData = dXcentered, n.comp = n.comp.X, whiten = whiten, restarts.pbyd = restarts.pbyd, restarts.dbyd=restarts.dbyd, distribution=distribution,stand = F,df=df) # what is the df at here.
   Uxfull = estX_JB$U  ## Ax = Ux %*% Lx, where Lx is the whitened matrix from covariance matrix of dX.
   Mx_JB = est.M.ols(sData = estX_JB$S, xData = dXcentered) ## NOTE: for centered X, equivalent to xData %*% sData/(px-1)
 
   # JB on Y
-  estY_JB = lngca(xData = dYcentered, n.comp = n.comp.Y, whiten = whiten, restarts.pbyd = 20, distribution=distribution,stand = F,df=df)
+  estY_JB = lngca(xData = dYcentered, n.comp = n.comp.Y, whiten = whiten, restarts.pbyd = restarts.pbyd, restarts.dbyd=restarts.dbyd, distribution=distribution,stand = F,df=df)
   Uyfull = estY_JB$U
   My_JB = est.M.ols(sData = estY_JB$S, xData = dYcentered)
 

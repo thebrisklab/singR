@@ -1,4 +1,5 @@
 set.seed(123)
+library(singR)
 library(fastICA)
 
 # set simulation data
@@ -25,25 +26,12 @@ pmse(S1 = t(Y.ica$S),S2 = S[1:3,]) # the input of S need to be r x p, so transpo
 pmse(S1=t(Y.ica$S),S2 = Y.est$S)
 
 
+##### set another dataset X, with the same A and different S
+p.2=80
+S.2 <- rbind(rexp(p.2),runif(p.2),rexp(p.2))
+Snorm.2 <- matrix(rnorm(97*80),97,80)
+S.2 <- rbind(S.2,Snorm.2)
+A.2 <- A
+X <- A.2 %*% S.2
 
-
-library(ICtest)
-FOBIasymp(t(Y),k=1)
-
-data("exampledata")
-NG_number(exampledata$dX)
-FOBIasymp(t(exampledata$dX),k=5)
-FOBIasymp.2(Y,k=100,type = 'S2')
-FOBIasymp(Y,k=5)
-
-FOBIboot(Y,k=5)
-FOBI(t(Y))
-
-FOBIasymp.2(Y,k=60)
-NG_number(t(Y))
-FOBIasymp.2(Y,k=3,type='S1')
-FOBIasymp.2(Y,k=3,type='S2')
-FOBIasymp.2(Y,k=3,type='S3')
-NG_number.2(t(Y),type = 'S3')
-
-NG_number.2(exampledata$dX,type = 'S1')
+output.2 <- singR(dX = X,dY = Y,n.comp.X = 3,n.comp.Y = 3)

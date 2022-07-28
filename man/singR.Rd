@@ -17,7 +17,9 @@ singR(
   distribution = "JB",
   maxiter = 1500,
   individual = F,
-  whiten = c("sqrtprec", "eigenvec", "none")
+  whiten = c("eigenvec", "sqrtprec", "none"),
+  restarts.dbyd = 0,
+  restarts.pbyd = 0
 )
 }
 \arguments{
@@ -46,6 +48,10 @@ singR(
 \item{individual}{whether to return the individual non-Gaussian components, default value = F.}
 
 \item{whiten}{whitening method used in lngca. Defaults to "svd" which uses the n left eigenvectors divided by sqrt(px-1). Optionally uses the square root of the n x n "precision" matrix.}
+
+\item{restarts.dbyd}{default = 0. These are d x d initial matrices padded with zeros, which results in initializations from the principal subspace. Can speed up convergence but may miss low variance non-Gaussian components.}
+
+\item{restarts.pbyd}{default = 0. Generates p x d random orthogonal matrices. Use a large number for large datasets. Note: it is recommended that you run lngca twice with different seeds and compare the results, which should be similar when a sufficient number of restarts is used. In practice, stability with large datasets and a large number of components can be challenging.}
 }
 \value{
 Function outputs a list including the following:
