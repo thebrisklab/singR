@@ -78,10 +78,10 @@ singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','m
   }
 
   if(is.null(n.comp.X)) {
-    n.comp.X=NG_number(dXcentered,whiten = whiten)
+    n.comp.X=NG_number(dXcentered)
   }
   if(is.null(n.comp.Y)) {
-    n.comp.Y=NG_number(dYcentered,whiten = whiten)
+    n.comp.Y=NG_number(dYcentered)
   }
 
 # JB on X
