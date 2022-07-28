@@ -20,8 +20,7 @@ Imports:
     MASS,
     Rcpp,
     clue,
-    gam,
-    ICtest
+    gam
 Suggests: 
     knitr,
     covr,
