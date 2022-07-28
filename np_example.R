@@ -31,7 +31,7 @@ library(ICtest)
 FOBIasymp(t(Y),k=1)
 
 data("exampledata")
-NG_number()
+NG_number(exampledata$dX)
 FOBIasymp(t(exampledata$dX),k=5)
 FOBIasymp(Y,k=5,type = 'S2',model = 'ICA')
 FOBIasymp(Y,k=5)
@@ -40,3 +40,4 @@ FOBIboot(Y,k=5)
 FOBI(t(Y))
 
 FOBIasymp.2(Y,k=60)
+
