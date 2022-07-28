@@ -365,6 +365,7 @@ permmatRank_joint = function(matchedResults, nperms = 100){
 #' @param data original matrix with n x p.
 #' @param whiten 'sqrtprec' or 'eigenvec'
 #' @param type 'S1', 'S2' or 'S3'
+#' @import ICtest
 #' @return the number of non-Gaussian components in the data.
 #' @export
 #'
@@ -375,14 +376,14 @@ permmatRank_joint = function(matchedResults, nperms = 100){
 #' data=exampledata
 #' NG_number(data$dX)
 #' }
-NG_number <- function(data,whiten=c('sqrtprec','eigenvec'),type='S3'){ #data nxp
-  data=t(data) # transpose the dimension to p x n, which is the input requirement of FOBIasymp and FOBIasymp.2
-  whiten = match.arg(NULL,whiten)
+NG_number <- function(data,type='S3'){ #data nxp
+  data=t(data) # transpose the dimension to p x n, which is the input requirement of FOBIasymp
+
   k=0
-  FOBI=FOBIasymp.2(data,k=k,whiten = whiten,type=type)
+  FOBI=FOBIasymp(data,k=k,type=type)
   while (FOBI$p.value < 0.05) {
     k=k+1
-    FOBI=FOBIasymp.2(data,k=k,whiten = whiten,type=type)
+    FOBI=FOBIasymp(data,k=k,type=type)
   }
   return(k)
 }

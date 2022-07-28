@@ -24,7 +24,7 @@ Imports:
     Rcpp,
     clue,
     gam,
-    survey
+    ICtest
 Suggests: 
     knitr,
     covr,

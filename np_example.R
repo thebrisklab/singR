@@ -41,8 +41,9 @@ FOBI(t(Y))
 
 FOBIasymp.2(Y,k=60)
 NG_number(t(Y))
-
-FOBIasymp.2(Y,k=99,type='S1')
+FOBIasymp.2(Y,k=3,type='S1')
+FOBIasymp.2(Y,k=3,type='S2')
+FOBIasymp.2(Y,k=3,type='S3')
 NG_number.2(t(Y),type = 'S3')
 
 NG_number.2(exampledata$dX,type = 'S1')

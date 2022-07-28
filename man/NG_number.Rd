@@ -4,14 +4,14 @@
 \alias{NG_number}
 \title{find the number of non-Gaussian components in the data.}
 \usage{
-NG_number(data, whiten = c("sqrtprec", "eigenvec"), type = "S3")
+NG_number(data, type = "S3")
 }
 \arguments{
 \item{data}{original matrix with n x p.}
 
-\item{whiten}{'sqrtprec' or 'eigenvec'}
-
 \item{type}{'S1', 'S2' or 'S3'}
+
+\item{whiten}{'sqrtprec' or 'eigenvec'}
 }
 \value{
 the number of non-Gaussian components in the data.
