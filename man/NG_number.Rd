@@ -10,8 +10,6 @@ NG_number(data, type = "S3")
 \item{data}{original matrix with n x p.}
 
 \item{type}{'S1', 'S2' or 'S3'}
-
-\item{whiten}{'sqrtprec' or 'eigenvec'}
 }
 \value{
 the number of non-Gaussian components in the data.

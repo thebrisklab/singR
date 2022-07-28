@@ -363,7 +363,6 @@ permmatRank_joint = function(matchedResults, nperms = 100){
 #' find the number of non-Gaussian components in the data.
 #'
 #' @param data original matrix with n x p.
-#' @param whiten 'sqrtprec' or 'eigenvec'
 #' @param type 'S1', 'S2' or 'S3'
 #' @import ICtest
 #' @return the number of non-Gaussian components in the data.
@@ -377,6 +376,7 @@ permmatRank_joint = function(matchedResults, nperms = 100){
 #' NG_number(data$dX)
 #' }
 NG_number <- function(data,type='S3'){ #data nxp
+  if(nrow(data)>ncol(data)){stop("Number of non-Gaussian components need to be specificed when p_x < n; note: LNGCA maximizes non-Gaussianity across p_x.")}
   data=t(data) # transpose the dimension to p x n, which is the input requirement of FOBIasymp
 
   k=0
