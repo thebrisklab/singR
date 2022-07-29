@@ -79,7 +79,8 @@ lngca <- function(xData, n.comp = NULL, Ux.list = NULL, whiten = c('sqrtprec','e
 
 
   whiten=match.arg(arg = NULL,choices = whiten)
-  if (nrow(xData)>ncol(xData) & whiten != "sqrtprec") stop("with n > p, use whiten = 'sqrtprec'")
+  if (nrow(xData)>ncol(xData)) warning("LNGCA may produce unexpected results with n>p.")
+  if (nrow(xData)>ncol(xData) & whiten != "sqrtprec") stop("with n > p, use whiten = 'sqrtprec'. note: LNGCA maximizes non-Gaussianity across p_x.")
 
   # Liangkang: Change the input name Ux.list to W.list
   W.list=Ux.list

@@ -28,7 +28,7 @@ usethis::use_test("name")
 devtools::test()
 usethis::use_testthat()
 use_test("NameOfTest")
-
+use_mit_license(copyright_holder = NULL)
 
 devtools::check(env_vars = c(NOT_CRAN = "FALSE")) # cran check
 devtools::test() # test that
@@ -55,3 +55,6 @@ devtools::use_vignette("testR-tutorial")
 use_vignette("singR-tutorial")
 
 devtools::build_rmd()
+
+packinfo <- installed.packages(fields = c("Package","Version"))
+packinfo[packinfo[,1]=="ICtest",]
