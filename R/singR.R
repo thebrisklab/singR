@@ -14,7 +14,7 @@
 #' @param maxiter the max iteration number for the curvilinear search.
 #' @param individual whether to return the individual non-Gaussian components, default value = F.
 #' @param whiten whitening method used in lngca. Defaults to "svd" which uses the n left eigenvectors divided by sqrt(px-1). Optionally uses the square root of the n x n "precision" matrix.
-#' @param restarts.pbyd default = 0. Generates p x d random orthogonal matrices. Use a large number for large datasets. Note: it is recommended that you run lngca twice with different seeds and compare the results, which should be similar when a sufficient number of restarts is used. In practice, stability with large datasets and a large number of components can be challenging.
+#' @param restarts.pbyd default = 20. Generates p x d random orthogonal matrices. Use a large number for large datasets. Note: it is recommended that you run lngca twice with different seeds and compare the results, which should be similar when a sufficient number of restarts is used. In practice, stability with large datasets and a large number of components can be challenging.
 #' @param restarts.dbyd default = 0. These are d x d initial matrices padded with zeros, which results in initializations from the principal subspace. Can speed up convergence but may miss low variance non-Gaussian components.
 #' @return Function outputs a list including the following:
 #' \describe{
@@ -55,7 +55,7 @@
 #'
 #' }
 
-singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','medium','large'),Cplus=T,tol = 1e-10,stand=F,distribution="JB",maxiter=1500,individual=F,whiten = c('eigenvec','sqrtprec','none'),restarts.dbyd=0,restarts.pbyd=0) {
+singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','medium','large'),Cplus=T,tol = 1e-10,stand=F,distribution="JB",maxiter=1500,individual=F,whiten = c('eigenvec','sqrtprec','none'),restarts.dbyd=0,restarts.pbyd=20) {
 
 
   #match.arg(c('small','medium','large'))
