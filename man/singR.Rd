@@ -17,7 +17,7 @@ singR(
   distribution = "JB",
   maxiter = 1500,
   individual = F,
-  whiten = c("eigenvec", "sqrtprec", "none"),
+  whiten = c("sqrtprec", "eigenvec", "none"),
   restarts.dbyd = 0,
   restarts.pbyd = 20
 )
