@@ -61,6 +61,7 @@ singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','m
   #match.arg(c('small','medium','large'))
   #match.arg(rho_extent)
   whiten=match.arg(arg = NULL,choices = whiten)
+  if ((nrow(dX)>ncol(dX)|nrow(dY)>ncol(dY))) warning("singR may produce unexpected results with n>px or n>py.")
   if ((nrow(dX)>ncol(dX)|nrow(dY)>ncol(dY)) & whiten != "sqrtprec") stop("with n > p, use whiten = 'sqrtprec'")
   if(nrow(dX)>ncol(dX) & is.null(n.comp.X)){stop("Number of non-Gaussian components in dX need to be specificed when p_x < n; note: LNGCA maximizes non-Gaussianity across p_x.")}
   if(nrow(dY)>ncol(dY) & is.null(n.comp.Y)){stop("Number of non-Gaussian components in dY need to be specificed when p_x < n; note: LNGCA maximizes non-Gaussianity across p_x.")}

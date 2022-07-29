@@ -55,3 +55,6 @@ devtools::use_vignette("testR-tutorial")
 use_vignette("singR-tutorial")
 
 devtools::build_rmd()
+
+packinfo <- installed.packages(fields = c("Package","Version"))
+packinfo[packinfo[,1]=="ICtest",]
