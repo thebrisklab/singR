@@ -114,7 +114,8 @@ lngca <- function(xData, n.comp = NULL, Ux.list = NULL, whiten = c('sqrtprec','e
 
   #if(distribution=='JB'  && df>0) stop('df should be set to zero when using JB')
 
-  if(!is.null(W.list) && class(W.list)!='list') stop('W.list must be a list')
+  #if(!is.null(W.list) && class(W.list)!='list') stop('W.list must be a list')
+  if(!is.null(W.list) && !is.list(W.list)) stop('W.list must be a list')
   if(length(W.list) && (restarts.pbyd || restarts.dbyd)) stop('restarts.pbyd and restarts.dbyd must be equal to zero when supplying W.list')
 
   xData=t(xData) # transform the input dimension from n x px to px x n.
