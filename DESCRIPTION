@@ -11,7 +11,7 @@ Authors@R:
   person(given="Irina",family= "Gaynanova", role = "aut",email="irinag@stat.tamu.edu",comment = c(ORCID = "0000-0002-4116-0268")),
   person(given="Benjamin", family="Risk",role = "aut",email="benjamin.risk@emory.edu", comment = c(ORCID = "0000-0003-1090-0777")))
 Maintainer: Liangkang Wang <wangliangkang1130@gmail.com>
-Description: This package is to extract joint and individual non-gaussian components from two datasets.It estimates joint scores, which are equal or highly correlated across datasets, and their associated loadings (components), as well as individual scores, which are unique to each dataset. The method is motivated by neuroimaging, where combining information across different modalities, or types of imaging data, can lead to a more comprehensive picture of human brain activity. 'singR' uses an objective function that maximizes the skewness and kurtosis of latent components with a penalty to enhance the similarity between subject scores.Unlike other existing methods, SING does not use PCA for dimension reduction, but rather uses non-Gaussianity, which can improve feature extraction.  
+Description: To extract joint and individual non-gaussian components from two datasets, we provide functions to estimate joint scores, which are equal or highly correlated across datasets, and their associated loadings (components), as well as individual scores. It uses an objective function that maximizes the skewness and kurtosis of latent components with a penalty to enhance the similarity between subject scores. Unlike other existing methods, SING does not use PCA for dimension reduction, but rather uses non-Gaussianity, which can improve feature extraction.  
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
