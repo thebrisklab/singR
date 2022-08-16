@@ -23,10 +23,12 @@ library(devtools)
 install_github("thebrisklab/singR")
 ```
 
-If you want to install it on Mac OS, the installation tips is here: 1.
-Make sure all the R packages used in singR are updated to the
-recommended version. 2. Try to install singR, if there is an error
-saying:
+If you want to install it on Mac OS, the installation tips is here:
+
+1.  Make sure all the R packages used in singR are updated to the
+    recommended version.
+
+2.  Try to install singR, if there is an error saying:
 
 ``` r
 ld: warning: directory not found for option '-L/opt/R/arm64/gfortran/lib/gcc/aarch64-apple-darwin20.2.0/11.0.0'
@@ -52,6 +54,7 @@ FLIBS =  -L/usr/local/gfortran/lib/gcc/aarch64-apple-darwin20.2.0/11.0.0 -L/usr/
     <https://github.com/fxcoudert/gfortran-for-macOS/releases/tag/11-arm-alpha2>
     using the browser, unpack it under /usr/local so that the “gfortran”
     folder is there.
+
 2.  Install singR again, it should be installed successfully.
 
 ## Quick start guide
