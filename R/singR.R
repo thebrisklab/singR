@@ -55,7 +55,7 @@
 #'
 #' }
 
-singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','medium','large'),Cplus=T,tol = 1e-10,stand=F,distribution="JB",maxiter=1500,individual=F,whiten = c('sqrtprec','eigenvec','none'),restarts.dbyd=0,restarts.pbyd=20) {
+singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','medium','large'),Cplus=TRUE,tol = 1e-10,stand=FALSE,distribution="JB",maxiter=1500,individual=FALSE,whiten = c('sqrtprec','eigenvec','none'),restarts.dbyd=0,restarts.pbyd=20) {
 
 
   #match.arg(c('small','medium','large'))
