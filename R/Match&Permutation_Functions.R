@@ -369,12 +369,11 @@ permmatRank_joint = function(matchedResults, nperms = 100){
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' library(singR)
 #' data("exampledata")
 #' data=exampledata
 #' NG_number(data$dX)
-#' }
+#'
 NG_number <- function(data,type='S3'){ #data nxp
   if(nrow(data)>ncol(data)){stop("Number of non-Gaussian components need to be specificed when p_x < n; note: LNGCA maximizes non-Gaussianity across p_x.")}
   data=t(data) # transpose the dimension to p x n, which is the input requirement of FOBIasymp

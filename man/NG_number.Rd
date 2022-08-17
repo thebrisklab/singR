@@ -18,10 +18,9 @@ the number of non-Gaussian components in the data.
 find the number of non-Gaussian components in the data.
 }
 \examples{
-\dontrun{
 library(singR)
 data("exampledata")
 data=exampledata
 NG_number(data$dX)
-}
+
 }
