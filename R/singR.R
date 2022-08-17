@@ -49,9 +49,9 @@
 #' df=5,rho_extent="small",distribution="tiltedgaussian",individual=TRUE)
 #'
 #' # use pmse to measure difference from the truth
-#' pmse(M1 = t(output_JB$est.Mj),M2 = t(exampledata$mj),standardize = T)
+#' pmse(M1 = t(output_JB$est.Mj),M2 = t(exampledata$mj),standardize = TRUE)
 #'
-#' pmse(M1 = t(output_tilted$est.Mj),M2 = t(exampledata$mj),standardize = T)
+#' pmse(M1 = t(output_tilted$est.Mj),M2 = t(exampledata$mj),standardize = TRUE)
 #'
 #' }
 
