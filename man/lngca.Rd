@@ -96,7 +96,7 @@ pmse(S1 = t(trueSx),S2=t(estX_JB$S),standardize = TRUE)
 pmse(S1 = t(trueSx),S2=t(estX_tilt$S),standardize = TRUE)
 
 # the lngca using tiltedgaussian tends to be more accurate
- with smaller pmse value, but takes longer to run.
+# with smaller pmse value, but takes longer to run.
 }
 
 }
