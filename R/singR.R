@@ -33,7 +33,7 @@
 #' }
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #get simulation data
 #' library(singR)
 #' data(exampledata)

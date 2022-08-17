@@ -74,7 +74,7 @@ Function outputs a list including the following:
 This function combines all steps from the \href{https://projecteuclid.org/journals/annals-of-applied-statistics/volume-15/issue-3/Simultaneous-non-Gaussian-component-analysis-SING-for-data-integration-in/10.1214/21-AOAS1466.full}{SING paper}
 }
 \examples{
-\dontrun{
+\donttest{
 #get simulation data
 library(singR)
 data(exampledata)

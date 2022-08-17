@@ -39,7 +39,7 @@
 #'
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' #get simulation data
 #' data(exampledata)
 #' data=exampledata
