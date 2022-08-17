@@ -2,7 +2,7 @@
 % Please edit documentation in R/jngcaFunctions.R
 \name{pmse}
 \alias{pmse}
-\title{Match mixing matrices}
+\title{Permutation invariant mean squared error}
 \usage{
 pmse(M1 = NULL, M2 = NULL, S1 = NULL, S2 = NULL, standardize = FALSE)
 }
@@ -17,6 +17,9 @@ pmse(M1 = NULL, M2 = NULL, S1 = NULL, S2 = NULL, standardize = FALSE)
 
 \item{standardize}{whether to standardize}
 }
+\value{
+permutation invariant mean squared error
+}
 \description{
-Match mixing matrices
+Permutation invariant mean squared error
 }

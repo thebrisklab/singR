@@ -13,6 +13,9 @@ covwhitener(X, n.comp = ncol(X), center.row = FALSE)
 
 \item{center.row}{whether to center}
 }
+\value{
+square root of the precision matrix for whitening
+}
 \description{
 Returns square root of the precision matrix for whitening
 }

@@ -103,14 +103,14 @@ myMixmat <-  function (p = 2) {
 #-------------------------------------
 # Match mixing matrices:
 # This function does not require M to be square:
-#' Match mixing matrices
+#' Permutation invariant mean squared error
 #'
 #' @param M1 Subject score 1 matrix r x n.
 #' @param M2 Subject score 2 matrix r x n.
 #' @param S1 Loading 1 with matrix p x r.
 #' @param S2 Loading 2 with matrix p x r.
 #' @param standardize whether to standardize
-#'
+#' @return permutation invariant mean squared error
 #' @export
 #' @import clue
 pmse<-function(M1=NULL,M2=NULL,S1=NULL,S2=NULL,standardize=FALSE) {
@@ -247,6 +247,7 @@ givens.rotation <- function(theta=0, d=2, which=c(1,2))
 #' @param center.row whether to center
 #' @export
 #' @import MASS
+#' @return square root of the precision matrix for whitening
 covwhitener <- function(X,n.comp=ncol(X),center.row=FALSE) {
 
   #X must be n x d
