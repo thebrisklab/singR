@@ -47,7 +47,7 @@ singR(
 
 \item{individual}{whether to return the individual non-Gaussian components, default value = F.}
 
-\item{whiten}{whitening method used in lngca. Defaults to "svd" which uses the n left eigenvectors divided by sqrt(px-1). Optionally uses the square root of the n x n "precision" matrix.}
+\item{whiten}{whitening method used in lngca. Defaults to "svd" which uses the n left eigenvectors divided by sqrt(px-1) by 'eigenvec'. Optionally uses the square root of the n x n "precision" matrix by 'sqrtprec'.}
 
 \item{restarts.dbyd}{default = 0. These are d x d initial matrices padded with zeros, which results in initializations from the principal subspace. Can speed up convergence but may miss low variance non-Gaussian components.}
 
@@ -76,7 +76,6 @@ This function combines all steps from the \href{https://projecteuclid.org/journa
 \examples{
 \donttest{
 #get simulation data
-library(singR)
 data(exampledata)
 
 # use JB stat to compute with singR

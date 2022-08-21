@@ -30,7 +30,7 @@ lngca(
 
 \item{Ux.list}{list of user specified initial values for Ux. If null, will generate random orthogonal matrices. See restarts.pbyd and restarts.dbyd}
 
-\item{whiten}{whitening method. Defaults to "svd" which uses the n left eigenvectors divided by sqrt(px-1). Optionally uses the square root of the n x n "precision" matrix.}
+\item{whiten}{whitening method. Defaults to "svd" which uses the n left eigenvectors divided by sqrt(px-1) by 'eigenvec'. Optionally uses the square root of the n x n "precision" matrix by 'sqrtprec'.}
 
 \item{maxit}{max iteration, defalut = 1000}
 

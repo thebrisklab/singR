@@ -7,7 +7,6 @@
 #' @param orth.method orthodox method
 #'
 #' @return a list of initialization of mixing matrices.
-#' @export
 #'
 #' @examples gen.inits(2,3,3,'svd')
 gen.inits <- function(p,d,runs,orth.method=c('svd','givens')) {
@@ -27,12 +26,11 @@ gen.inits <- function(p,d,runs,orth.method=c('svd','givens')) {
   Ux.list
 }
 
-#' Convert angle vector into  orthodox matrix
+#' Convert angle vector into orthodox matrix
 #'
 #' @param theta vector of angles theta
 #'
 #' @return an orthodox matrix
-#' @export
 #'
 #'
 theta2W = function(theta)
@@ -62,7 +60,6 @@ theta2W = function(theta)
 #' @param W arbitrary matrix
 #'
 #' @return orthogonalized matrix
-#' @export
 #'
 orthogonalize = function (W) {
   ##For arbitrary W, this is equivalent to (WW^T)^{-1/2} W
@@ -113,7 +110,8 @@ whitener <- function(X,n.comp=ncol(X),center.row=FALSE) {
 #' @return a matrix after power calculation that eigenvector x diag(eigenvalue ^ power) x eigenvector'
 #' @export
 #'
-#' @examples a <- matrix(1:9,3,3)
+#' @examples
+#' a <- matrix(1:9,3,3)
 #' a %^% 2
 #'
 "%^%" <- function(S, power){
@@ -325,4 +323,45 @@ standard <- function(data,dif.tol=1e-03,max.iter=10){
   }
   return(data)
 }
+
+
+#
+#' Average Mj for Mx and My
+#' Here subjects are by rows, columns correspond to components
+#' @param mjX n x rj
+#' @param mjY n x rj
+#'
+#' @return a new Mj
+#' @export
+#' @examples
+#' \donttest{
+#' #get simulation data
+#' data(exampledata)
+#' data=exampledata
+#'
+#' # To get n.comp value, we can use NG_number function.
+#'
+#' # use JB statistic as the measure of nongaussianity to run lngca with df=0
+#' output_JB=singR(dX=exampledata$dX,dY=exampledata$dY,
+#' df=0,rho_extent="small",distribution="JB",individual=TRUE)
+#'
+#' est.Mj = aveM(outputJB$est.Mjx,outputJB$est.Mjy)
+#'
+#' }
+aveM = function(mjX,mjY) {
+
+  mjX = t(t(mjX) / sqrt(apply(mjX^2,2,sum))) # each column has eucledean norm 1
+  mjY = t(t(mjY) / sqrt(apply(mjY^2,2,sum)))
+  n = nrow(mjX) # number of subjects
+  rj = ncol(mjX) # number of components
+  aveMj = matrix(0,n,rj)
+  for (j in 1:rj) {
+    # Need to take sign into account
+    signXY = sign(sum(mjX[, j] * mjY[, j])) # sign
+    temp = (mjX[,j] + mjY[,j] * signXY)/2
+    aveMj[,j] = temp/sqrt(sum(temp^2))
+  }
+  aveMj
+}
+
 

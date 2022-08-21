@@ -13,7 +13,7 @@
 #' @param distribution "JB" or "tiltedgaussian"; "JB" is much faster. In SING, this refers to the "density" formed from the vector of loadings. "tiltedgaussian" with large df can potentially model more complicated patterns.
 #' @param maxiter the max iteration number for the curvilinear search.
 #' @param individual whether to return the individual non-Gaussian components, default value = F.
-#' @param whiten whitening method used in lngca. Defaults to "svd" which uses the n left eigenvectors divided by sqrt(px-1). Optionally uses the square root of the n x n "precision" matrix.
+#' @param whiten whitening method used in lngca. Defaults to "svd" which uses the n left eigenvectors divided by sqrt(px-1) by 'eigenvec'. Optionally uses the square root of the n x n "precision" matrix by 'sqrtprec'.
 #' @param restarts.pbyd default = 20. Generates p x d random orthogonal matrices. Use a large number for large datasets. Note: it is recommended that you run lngca twice with different seeds and compare the results, which should be similar when a sufficient number of restarts is used. In practice, stability with large datasets and a large number of components can be challenging.
 #' @param restarts.dbyd default = 0. These are d x d initial matrices padded with zeros, which results in initializations from the principal subspace. Can speed up convergence but may miss low variance non-Gaussian components.
 #' @return Function outputs a list including the following:
@@ -35,7 +35,6 @@
 #' @examples
 #' \donttest{
 #' #get simulation data
-#' library(singR)
 #' data(exampledata)
 #'
 #' # use JB stat to compute with singR

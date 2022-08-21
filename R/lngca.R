@@ -11,7 +11,7 @@
 #' @param xData the original dataset for decomposition, matrix of n x px.
 #' @param n.comp the number of components to be estimated.
 #' @param Ux.list list of user specified initial values for Ux. If null, will generate random orthogonal matrices. See restarts.pbyd and restarts.dbyd
-#' @param whiten whitening method. Defaults to "svd" which uses the n left eigenvectors divided by sqrt(px-1). Optionally uses the square root of the n x n "precision" matrix.
+#' @param whiten whitening method. Defaults to "svd" which uses the n left eigenvectors divided by sqrt(px-1) by 'eigenvec'. Optionally uses the square root of the n x n "precision" matrix by 'sqrtprec'.
 #' @param maxit max iteration, defalut = 1000
 #' @param eps default = 1e-06
 #' @param verbose default = FALSE
