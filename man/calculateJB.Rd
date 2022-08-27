@@ -2,8 +2,7 @@
 % Please edit documentation in R/Basic_functions.r
 \name{calculateJB}
 \alias{calculateJB}
-\title{Calculates the sum of the JB scores across all components, useful for determining rho.
-The data has to be standardized and mean 0 and sd to 1.}
+\title{Calculates the sum of the JB scores across all components, useful for determining rho.}
 \usage{
 calculateJB(S = NULL, U = NULL, X = NULL, alpha = 0.8)
 }
@@ -20,6 +19,6 @@ calculateJB(S = NULL, U = NULL, X = NULL, alpha = 0.8)
 the sum of JB score across all components.
 }
 \description{
-Calculates the sum of the JB scores across all components, useful for determining rho.
+We measure non-Gaussianity using Jarque-Bera (JB) statistic, which is a weighted combination of squared skewness and kurtosis, \href{https://www.jstor.org/stable/1403192?origin=crossref}{JB paper}.
 The data has to be standardized and mean 0 and sd to 1.
 }

@@ -56,5 +56,5 @@ a list of matrices:
 }
 }
 \description{
-Curvilinear algorithm based on C code with r0 joint components
+#' The curvilinear algorithm is modified from \href{https://www.semanticscholar.org/paper/A-feasible-method-for-optimization-with-constraints-Wen-Yin/d419879cdb80a87c3b7ab88e9f7478c1e70780ca}{Wen and Yin paper}.
 }

@@ -125,6 +125,8 @@ whitener <- function(X,n.comp=ncol(X),center.row=FALSE) {
 ####################################################
 # Function that calculates JB
 #' Calculates the sum of the JB scores across all components, useful for determining rho.
+#'
+#' We measure non-Gaussianity using Jarque-Bera (JB) statistic, which is a weighted combination of squared skewness and kurtosis, \href{https://www.jstor.org/stable/1403192?origin=crossref}{JB paper}.
 #' The data has to be standardized and mean 0 and sd to 1.
 #' @param U U matrix for matched columns rj x n
 #' @param X whitened data matrix n x px, data = whitenerXA \%*\% dXcentered
