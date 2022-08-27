@@ -31,7 +31,7 @@ data=exampledata
 output_JB=singR(dX=exampledata$dX,dY=exampledata$dY,
 df=0,rho_extent="small",distribution="JB",individual=TRUE)
 
-est.Mj = aveM(outputJB$est.Mjx,outputJB$est.Mjy)
+est.Mj = aveM(output_JB$est.Mjx,output_JB$est.Mjy)
 
 }
 }
