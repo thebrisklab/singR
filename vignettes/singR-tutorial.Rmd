@@ -1,7 +1,5 @@
 ---
 title: "singR: An R package for Simultaneous non-Gaussian Component Analysis for data integration"
-abstract: >
-  This paper introduces an R package that implements Simultaneous non-Gaussian Component Analysis for data integration. SING uses a non-Gaussian measure of information to extract feature loadings and scores (latent variables) that are shared across multiple datasets. We describe and implement functions through two examples. The first example is a toy example working with images. The second example is a simulated study integrating functional connectivity estimates from a resting-state functional magnetic resonance imaging dataset and task activation maps from a working memory functional magnetic resonance imaging dataset. The SING model can produce joint components that accurately reflect information shared by multiple datasets, particularly for datasets with non-Gaussian features such as neuroimaging. 
 output: rmarkdown::html_vignette
 bibliography: RJreferences.bib
 vignette: >
@@ -20,127 +18,49 @@ knitr::opts_chunk$set(
 
 ```
 
-# Introduction
+# singR 
 
-Combining information across different data sets collected on the same participants can improve our understanding of biology and diseases. In neuroimaging, combining information across different modalities, or types of imaging data, can lead to a more comprehensive picture of human brain activity. Commonly used modalities to investigate brain function include functional magnetic resonance imaging (fMRI), resting-state fMRI (rs-fMRI), diffusion MRI, structural images, electroencephalography, and positron emission tomography. Combining data from multiple modalities can result in a better understanding of the underlying biology than analyzing each modality separately [@RN176]. In previous studies, researchers use data fusion to define a set of joint components that are composed of subject scores (a vector in $\mathbb{R}^n$, where $n$ is the number of subjects) and loadings (a vector in $\mathbb{R}^{p_k}$, where $p_k$ is the number of variables in the $k$th dataset). For a particular component, the subject scores are equal or strongly correlated across datasets. The loadings represent the relative importance of a variable to each component. A higher subject score implies the vector of loadings is more important in that individual. 
+singR package is built on SING method <https://github.com/thebrisklab/SING>.
+SING is used to extract joint and individual non-gaussian components from different datasets. This is a tutorial example supporting the paper **Simultaneous Non-Gaussian Component Analysis (SING) for Data Integration in Neuroimaging Benjamin Risk, Irina Gaynanova** https://arxiv.org/abs/2005.00597v1
 
-Data integration approaches for neuroimaging should accommodate the distinct statistical properties of imaging data. Imaging features characterizing brain activation and intrinsic functional connectivity are substantially more non-Gaussian compared to noise. Methods employing principal component analysis (PCA) for dimension reduction and independent component analysis (ICA) have been widely used in neuroscience [@RN176;@RN179;@7373530]. ICA maximizes the non-Gaussianity of components, which is useful for extracting interesting features from imaging data. ICA is commonly used to estimate resting-state networks [@beckmann2005investigations], estimate task-activated components [@SUI2010123], and has been used to derive network structure in resting-state correlation matrices [@AMICO2017201].  @RN146 proposed simultaneous non-Gaussian component anaylsis (SING) for analyzing two datasets, which uses an objective function that maximizes the skewness and kurtosis of latent components with a penalty to enhance the similarity between subject scores. Unlike previous methods, SING does not use PCA for dimension reduction, but rather uses non-Gaussianity, which can improve feature extraction. 
+## Installation
 
-Some useful software have been developed in this area. In multimodal analysis and multitask fMRI data fusion, **FIT** is a Matlab toolbox that implements jointICA, parallel ICA [@RN184], and multimodal/multiset CCA [@RN183]. **GIFT** provides functions for conducting group ICA on fMRI data from multiple subjects from a single modality [@RN180;@RN181;@RN182]. On the Comprehensive R Archive Network (CRAN), there are several R packages for ICA functions, including **steadyICA** [@steadyICA], **ica** [@ica], **fastICA** [@fastICA], **JADE** [@JADE], and **templateICAr** [@templateICAr]. These R packages use different algorithms to extract non-Gaussian features but are designed for decomposing a single modality. For data integration, **r.jive** [@r.jive] and **ajive** [@ajivepackage;@feng2018angle] capture the joint variation, or variance shared between datasets, and individual variation, or variance unique to a dataset. JIVE methods use singular value decompositions, which are related to maximizing variance instead of non-Gaussianity. In this way, there exists a need for freely available software for extracting joint structure from multiple datasets using non-Gaussian measures of information. 
+You can install singR from github with:
+```{r,eval=FALSE}
+library(devtools)
+install_github("thebrisklab/singR")
 
-**singR** is an R package to implement @RN146. Similar to **r.jive**, the input data to SING are $n \times p_k$ data matrices, $k=1,2$, where each row is a vector of features from a subject. Unlike existing software, **singR** uses non-Gaussianity for both dimension reduction and feature extraction. 
+```
+If you want to install it on Mac OS, the installation tips is here:
 
-This paper is structured as follows. In Section [2], we review the Simultaneous non-Gaussian component analysis (SING) model. In Sections [3] and [4], we present the main functions in **singR** package and show how to utilize it for joint components estimation in two example datasets. Finally, Section [5] summarizes our conclusions.
+1.Make sure all the R packages used in singR are updated to the recommended version.
 
+2.Try to install singR, if there is an error saying:
+```{r, eval=FALSE}
+ld: warning: directory not found for option '-L/opt/R/arm64/gfortran/lib/gcc/aarch64-apple-darwin20.2.0/11.0.0'
+ld: warning: directory not found for option '-L/opt/R/arm64/gfortran/lib'
+ld: library not found for -lgfortran
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+```
+Then go to: /Library/Frameworks/R.framework/Resources/etc/Makeconf
+Change FLIBS from 
+```{r, eval=FALSE}
+FLIBS =  -L/opt/R/arm64/gfortran/lib/gcc/aarch64-apple-darwin20.2.0/11.0.0 -L/opt/R/arm64/gfortran/lib -lgfortran -lemutls_w -lm
+```
+to
+```{r,eval=FALSE}
+FLIBS =  -L/usr/local/gfortran/lib/gcc/aarch64-apple-darwin20.2.0/11.0.0 -L/usr/local/gfortran/lib -lgfortran -lm
+```
 
-# Methods
+3.Download the .tar.xz file from https://github.com/fxcoudert/gfortran-for-macOS/releases/tag/11-arm-alpha2 using the browser, unpack it under /usr/local so that the "gfortran" folder is there.
 
-## Linear non-Gaussian Component Analysis
- *Matrix decomposition for one dataset.* Based on linear non-Gaussian component analysis (LNGCA), we first summarize a matrix decomposition for a single dataset $X\in \mathbb{R} ^{n\times p_{x}}$ ($n$ subjects and $p_{x}$ features) into a non-Gaussian subspace and a Gaussian subspace.
-Each row of $X$ is a vector of features from the $i$th subject. Let $X_{c}$ denote the double-centered data matrix such that $1^{T}X_{c}=0^{T}$ and $X_{c}1=0$ where $\mathbf{1}$ denotes the vector of ones of appropriate dimension, which has rank $n-1$ when $p_{x}>n$. Let $I_{r_{x}}$ denote the $r_{x}\times r_{x}$ identity matrix. Then define the matrix decomposition
-
-\begin{equation}
-X_{c}=M_{x}S_{x}+M_{N_{x}}N_{x}
-(\#eq:decomp)
-\end{equation}
-
-where:  
-1. $M_{x}\in \mathbb{R}^{n\times r_{x}}$ and $M_{N_{x}}\in \mathbb{R}^{n\times (n-r_{x}-1)}$. The columns of $M_{x}$ are called subject scores, and the matrix [$M_{x}$,$M_{N_{x}}$] is called the mixing matrix and has rank $n-1$.  
-2. $S_{x} \in \mathbb{R}^{r \times p_{x}}$ and $N_{x} \in \mathbb{R}^{n-r_{x}-1 \times p_{x}}$. $S_{x}S_{x}^{T}=p_{x}I_{r_{x}}$,$N_{x}S_{x}^{T}=0_{(n-r_{x}-1)\times r_{x}}$. The rows of $S_{x}$ are the non-Gaussian components, and elements of $S_{x}$ are called variable loadings because $X_{c}S_{x}^{T}=M_{x}$. The rows of $N_{x}$ are the Gaussian components.  
-3. The rows of $S_{x}$ have the largest non-Gaussianity, as described below.  
-
-This decomposition may be meaningful in neuroimaging studies because: 1) vectorized components like brain activation maps and resting-state networks have highly non-Gaussian distributions, and 2) the decomposition is useful when $p_x \gg n$, e.g., the number subjects is smaller than the number of voxels or edges.
-
-To achieve the matrix decomposition in \@ref(eq:decomp), we need to find a separating matrix $A_{x}$ that maximizes non-Gaussianity and satisfies the constraint $A_{x}X_{c}X_{c}^{T}A_{x}^{T}=S_{x}S_{x}^{T}=p_{x}I_{r_{x}}$. We utilize a prewhitening matrix and then reparameterize the model with a semiorthogonal separating matrix to enforce this constraint. Let $\widehat{\Sigma}_{x}=X_{c} X_{c}^{\top} / p_{x}$. Then define the eigenvalue decomposition $\widehat{\Sigma}_{x}=V_{x} \Lambda_{x} V_{x}^{\top}$ and the prewhitening matrix $\widehat{L}_{x}=V_{x} \Lambda_{x}^{-1 / 2} V_{x}^{\top}$. (For double-centered $X_c$, this is understood to be the square root of the generalized inverse from the non-zero eigenvalues.) Note $A_{x}=U_{x} \widehat{L}_{x}$, and it follows that $\hat{M}_x = \widehat{L}_x^{-}U_x^\top$, with $\widehat{L}_x^-$ denoting the generalized inverse. Let $f()$ be a measure of non-Gaussianity. Then \@ref(eq:decomp) is estimated using
-
-\begin{equation}
-\begin{split}
-& \underset{U_{x}}{\text{minimize}}-\sum_{l=1}^{r_{x}} f\left(u_{x l}^{\top} \widehat{L}_{x} X_{c}\right),\\ 
-& \text{subject to}\quad   U_{x} U_{x}^{\top}=I_{r_{x}},
-\end{split}
-(\#eq:minU)
-\end{equation}
-
-where $u_{x l}^{\top}$ is the $l$th row of the $r_{x}\times n$ matrix $U_{x}$.
-
-We measure non-Gaussianity with the **Jarque-Bera (JB) statistic**, a combination of squared skewness and kurtosis. For a vector $s \in \mathbb{R} ^{p}$, the JB statistic is
-
-\begin{equation}
-f(s)=0.8\left(\frac{1}{p} \sum_{j} s_{j}^{3}\right)^{2}+0.2\left(\frac{1}{p} \sum_{j} s_{j}^{4}-3\right)^{2}.
-(\#eq:jbstatistics)
-\end{equation}
-
-## Simultaneous non-Gaussian component analysis model
-
-*Matrix decomposition for two datasets.* We now decompose $X \in \mathbb{R} ^{n \times p_{x}}$ and $Y \in \mathbb{R} ^{n \times p_{y}}$ into a joint non-Gaussian subspace defined by shared subject score directions, individual non-Gaussian subspaces, and Gaussian subspaces. Let $r_{j}$ denote the rank of the joint non-Gaussian subspace and $r_{x},\;r_{y}$ denote the rank of the non-Gaussian subspaces for $X$ and $Y$, respectively. Define the double-centered $X_{c}$ and $Y_{c}$, i.e., $\mathbf{1}^\top X_c = 0$ and $X_c \mathbf{1} = 0$. In data applications, we also recommend standardizing each feature to have unit variance, as common in PCA. The double centering with standardization requires an iterative algorithm that standardizes each feature (mean 0 variance 1 across subjects), then centers the features for a given subject (the mean of the features for a subject is 0), and repeats (typically $<10$ iterations on real data suffices). The function `standard` is described in Section [3].
-
-The SING matrix decomposition is
-
-\begin{equation}
-\begin{split}
-& X_{c}=M_{J}D_{x}S_{Jx}+M_{Ix}S_{Ix}+M_{Nx}N_{x},\\
-& Y_{c}=M_{J}D_{y}S_{Jy}+M_{Iy}S_{Iy}+M_{Ny}N_{y},
-\end{split}
-(\#eq:two)
-\end{equation}
-
-where:  
-1. $M_{J}\in \mathbb{R}^{n\times r_{J}}$, $M_{I_{x}}\in \mathbb{R}^{n\times (r_{x}-r_{J})}$, $M_{I_{y}}\in \mathbb{R}^{n\times (r_{y}-r_{J})}$, $M_{N_{x}}\in \mathbb{R}^{n\times (n-r_{x}-1)}$, and $M_{N_{y}}\in \mathbb{R}^{n\times (n-r_{y}-1)}$.   
-2. $D_{x}$ and $D_{y}$ are diagonal and allow the size of $M_J$ to vary between datasets.   
-3. $S_{Jx}$ are the joint non-Gaussian components, $S_{Ix}$ are the individual non-Gaussian components, and $N_{x}$ are the individual Gaussian components, respectively, for $X$, with constraints $S_{Jx}S_{Jx}^{T}=p_{x}I_{r_{J}}$, $S_{Ix}S_{Ix}^{T}=p_{x}I_{r_{x}-r_{J}}$, $S_{Jx}S_{Ix}^{T}=0_{r_J\times (r_{x}-r_J)}$, $N_{x}S_{Jx}^{T}=0_{(n-r_{x}-1)\times r_J}$, $N_{x}S_{Ix}^{T}=0_{(n-r_{x}-1)\times (r_{x}-r_J)}$, and similarly define the components of $Y$.
-
-*Simultaneous non-Gaussian Component Analysis fitting and algorithm.* Recall the whitening matrix for $X_{c}$ is $\widehat{L}_{x}$, and define its generalized inverse $\widehat{L}_{x}^{-}=(X_{c}X_{c}^{T}/p_{x})^{1/2}=V_{x} \Lambda_{x}^{1/ 2} V_{x}^{\top}$. We will estimate a semiorthogonal unmixing matrix $\widehat{U}_x$ such that $\widehat{M}_{x} = \widehat{L}_{x}^{-}\widehat{U}_{x}^{T}$. Similarly define the whitening matrix $\widehat{L}_{y}$ and $\widehat{M}_{y}$ for $Y_{c}$. Let $f$ be the JB statistic, as defined in \@ref(eq:jbstatistics). We consider
-
-\begin{equation}
-\begin{split}
-& \underset{U_{x}, U_{y}}{\text{minimize}}-\sum_{l=1}^{r_{x}} f(u_{x l}^{\top} \widehat{L}_{x}X_{c})-\sum_{l=1}^{r_{y}} f(u_{y l}^{\top} \widehat{L}_{y}Y_{c})+\rho \sum_{l=1}^{r_{J}} d(\widehat{L}_{x}^{-} u_{x l}, \widehat{L}_{y}^{-} u_{y l}) \\
-& \text{subject to } \quad  U_{x} U_{x}^{\top}=I_{r_{x}},\; U_{y} U_{y}^{\top}=I_{r_{y}},
-\end{split}
-(\#eq:curvilinear)
-\end{equation}
-
-where $d(x,y)$ is the chosen distance metric between vectors $x$ and $y$, calculated using the chordal distance: $d(x, y)=\left\|\frac{x x^{\top}}{\|x\|_{2}^{2}}-\frac{y y^{\top}}{\|y\|_{2}^{2}}\right\|_{F}^{2}$. When columns are mean zero, the chordal distance between joint scores in the SING objective function is equal to zero when their correlation is equal to one. Larger values of the tuning parameter $\rho$ result in common $M_J$, but smaller values result in highly correlated joint structure and could also be considered. In our examples, we match components from the separate LNGCA, determine candidate joint components from a permutation test, and then set $\rho$ equal to the sum of the JB statistics of all candidate joint loadings divided by 10, which results in $\widehat{L}_{x}^{-} u_{x l} \approx \widehat{L}_{y}^{-} u_{y l}$, i.e., a shared $M_J$.
-
-Let $\widehat{U}_{x}$ and $\widehat{U}_{y}$ be the estimated value of $U_{x}$ and $U_{y}$ in (5). The corresponding estimated non-Gaussian components are defined as $\widehat{S}_{x}=\widehat{U}_{x}X_{w}$ and $\widehat{S}_{y}=\widehat{U}_{x}Y_{w}$, where $X_{w}=\widehat{L}_{x}X_{c}$, and $Y_{w}=\widehat{L}_{y}Y_{c}$, respectively. Then the first $r_{J}$ columns of $\widehat{M}_{x}=\widehat{L}_{x}^{-}\widehat{U}_{x}^{\top}$, scaled to unit norm, define $\widehat{M}_{Jx}$. We can similarly define $\widehat{M}_{Jy}$. For sufficiently large $\rho$, $\widehat{M}_{Jx}=\widehat{M}_{Jy}=\widehat{M}_J$, and more generally, $\widehat{M}_J$ is defined from their average. Additionally, the first $r_{J}$ rows of $\widehat{S}_{x}$ correspond to $\widehat{S}_{Jx}$.
-
-# Overview of R package singR
-
-The R package **singR** implements simultaneous non-Gaussian component analysis for data integration in neuroimaging. Highlighted below are key functions:
-
-**lngca**: This function estimates non-Gaussian components for a single dataset. Non-Gaussian components can be estimated using the Jarque-Bera test statistic, which is the non-Gaussian measure used in SING, or using likelihood component analysis, which achieves dimension reduction while estimating the densities of non-Gaussian components [@risklngca]. It returns $\widehat{U}_{x}$ and $\widehat{S}_{x}$ from decomposing $X_{c}$ through (2). It also returns the non-gaussianity of each estimated component.
-
-**standard**: This function is an iterative algorithm that standardizes each feature (mean 0 variance 1 across subjects), then centers the features for a given subject (the mean of the features for a subject is 0) for the original datasets ($\mathbb{R}^{n\times p}$), and repeats until the variance is approximately equal to 1 (typically $<10$ iterations on real data suffices). 
-
-**est.M.ols**: This function returns $\widehat{M}_{x}$ with input $\widehat{S}_{x}$ and $X_{c}$ with the formula $\widehat{M}_{x}=X_{c}\widehat{S}_{x}^{\top}$.  
-
-**greedymatch**: This function reorders the columns in $\widehat{U}_{x}$ to match the columns (subject scores) in $\widehat{U}_{y}$ based on the chordal distances between corresponding $\widehat{M}_{x}$ and $\widehat{M}_{y}$. 
-
-**permTestJointRank**: This function tests whether the correlation between matched columns (subject scores) is significant and returns the family wise error rate corrected p-values.  
-
-**%^%**: Calculates the matrix exponential. For example, `A%^%0.5` returns a matrix square root. Used during prewhitening. 
-
-**calculateJB**: This function calculates the sum of the JB statistics across components and is useful for determining the size of the penalty parameter $\rho$ (sufficiently large $\rho$ results in the chordal distance between $M_{Jx}$ and $M_{Jy}$ equal to 0). Assumes the variance of each row of the input S is equal to 1 and mean of each row is equal to 0.
-
-**curvilinear**: This function gives the final estimates of $\widehat{U}_{x}$ and $\widehat{U}_{y}$ using the curvilinear algorithm derived from (5). This is a pure R implementation but is slow. 
-
-**curvilinear_c**: This implements the curvilinear algorithm in C++, which is faster.
-
-**NG_number**: This is a wrapper function for `FOBIasymp` from **ICtest** [@ICtest] that can be used to estimate the number of non-Gaussian components in a single dataset. 
-
-**signchange**: This function makes the skewness of each row of $\widehat{S}_{x}$ positive, which is useful for visualizing non-Gaussian component loadings.
-
-**singR**: This function integrates all the functions above. We can use this function to estimate joint scores and loadings from two datasets $X$ and $Y$ and optionally return the individual scores and loadings.
+4.Install singR again, it should be installed successfully.
 
 
-# Application
-To illustrate the use of \pkg{singR}, we provide two examples. 
-
-## Example 1. The toy datasets decomposition
+## Quick Start Guide
+To illustrate the use of \pkg{singR}, we provide an example . 
 
 The tutorial dataset ``exampledata`` are included in the \pkg{singR} package. We generate the SING model in \@ref(eq:two) as follows. We generate joint subject scores $M_{J}=[m_{J1},m_{J2}]\in \mathbb{R}^{n\times2}$ with $m_{J1}\sim N(\mu_{1},I_{n}),m_{J2}\sim N(\mu_{2},I_{n})$, $\mu_{1}=(1_{24}^{\top},-1_{24}^{\top})^{\top}$ and $\mu_{2}=(-1_{24}^{\top},1_{24}^{\top})^{\top}$. We set $D_{x}=I$ and $D_{y}=diag(-5,2)$ to have differences in both sign and scale between the two datasets. We generate $M_{Ix}$ and $M_{Iy}$ similar to $M_{J}$ using iid unit variance Gaussian entries with means equal to $\mu_{3y}=(-1_{6}^{\top},1_{6}^{\top},-1_{6}^{\top},1_{6}^{\top},-1_{6}^{\top},1_{6}^{\top}-1_{6}^{\top},-1_{6}^{\top})^{\top}$, $\mu_{4y}=(1_{24}^{\top},-1_{24}^{\top})^{\top}$, $\mu_{3x}=(-1_{12}^{\top},1_{12}^{\top},-1_{12}^{\top},1_{12}^{\top})^{\top}$, $\mu_{4x}=(1_{12}^{\top},-1_{12}^{\top},1_{12}^{\top},-1_{12}^{\top})^{\top}$. These means result in various degrees of correlation between the columns of the mixing matrices. For the Gaussian noise, we generate $M_{Nx}$, $M_{Ny}$, $N_{x}$ and $N_{y}$ using iid standard Gaussian mean zero entries. 
-
-Each row of $S_{Jx}$ and $S_{Ix}$ is a vectorized image. We can reshape the loadings back to their image dimensions for visualization. The loadings $S_{Jx}$ are inspired by activation patterns found in functional MRI, and similar simulations were considered in [@risklngca]. The rows of $S_{Jy}$ and $S_{Iy}$ are formed from the lower diagonal of a symmetric matrix, which are inspired by ICA of correlation matrices [@AMICO2017201], and we can visualize the loadings by reshaping the vectors back to the symmetric matrix. The true loadings of latent non-Gaussian components are plotted in figure \@ref(fig:origin).
-
 
 ```{r,eval=FALSE, tidy=TRUE}
 library(singR)
@@ -375,12 +295,6 @@ knitr::include_graphics("figs/MJ.png",dpi = NA)
 ```
 
 
-# Summary
-
-This paper introduces the **singR** package and demonstrates how simultaneous non-Gaussian component analysis can be used to extract shared features from two datasets using R. The main contribution of the R package **singR** is to provide easy code for data integration in neuroscience. We introduce the function `singR`, which combines the SING pipeline into one function that performs data standardization, estimates the number of non-Gaussian components and estimates the number of joint components. Previous analyses indicate the joint structure estimated by SING can improve upon other neuroimaging data integration methods. SING can reveal new insights by using non-Gaussianity for both dimension reduction and latent variable extraction, whereas ICA methods involve an initial PCA step that tends to aggregate features and can remove information.
-
-# Acknowledgments
+## Acknowledgments
 
 Research reported in this publication was supported by the National Institute of Mental Health of the National Institutes of Health under award number R01MH129855 to BBR. The research was also supported by the Division of Mathematical Sciences of the National Science Foundation under award number DMS-2044823 to IG. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health and National Science Foundation.
-
-Simulated data were based on a previous analysis of data from the Human Connectome Project. These data were provided [in part] by the Human Connectome Project, WU-Minn Consortium (Principal Investigators: David Van Essen and Kamil Ugurbil; 1U54MH091657) funded by the 16 NIH Institutes and Centers that support the NIH Blueprint for Neuroscience Research; and by the McDonnell Center for Systems Neuroscience at Washington University.
