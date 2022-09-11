@@ -12,7 +12,8 @@ singR package is built on SING method
 individual non-gaussian components from different datasets. This is a
 tutorial example supporting the paper **Simultaneous Non-Gaussian
 Component Analysis (SING) for Data Integration in Neuroimaging Benjamin
-Risk, Irina Gaynanova** <https://arxiv.org/abs/2005.00597v1>
+Risk, Irina Gaynanova**
+<https://projecteuclid.org/journals/annals-of-applied-statistics/volume-15/issue-3/Simultaneous-non-Gaussian-component-analysis-SING-for-data-integration-in/10.1214/21-AOAS1466.full>
 
 ## Installation
 
