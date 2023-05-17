@@ -172,13 +172,17 @@ p4=out_true2$loadingsfig
 plot_grid(p1,p2,p3,p4,nrow = 2)
 ```
 
-<img src="fig/ex2true.png" width="864" /> ##\# singR function
+<img src="fig/ex2true.png" width="864" /> 
 
+### singR function
+This is a wrapper function that performs the centering, standardization, initial estimation (apply separate JB), whitening, and curvilinear algorithm refinement in a single function. This is the easiest way to apply sing.
 ``` r
 output = singR(dX =simdata$dX ,dY =simdata$dY ,individual = T)
 ```
 
 ### Pipeline of SING method
+
+In this section of the vignett, we provide the detailed steps that are performed in the function *singR()*. This can be useful when customizing the analyses or when working with very large datasets.
 
 ``` r
 # Center X and Y
