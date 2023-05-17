@@ -175,7 +175,7 @@ plot_grid(p1,p2,p3,p4,nrow = 2)
 <img src="fig/ex2true.png" width="864" /> 
 
 ### singR function
-This is a wrapper function that performs the centering, standardization, initial estimation (apply separate JB), whitening, and curvilinear algorithm refinement in a single function. This is the easiest way to apply sing.
+This is a wrapper function that performs the centering, standardization, initial estimation (applying separate LNGCA, i.e., separate JB, and then matching scores), whitening, and final estimation (using the curvilinear algorithm) in a single function. This is the easiest way to apply sing.
 ``` r
 output = singR(dX =simdata$dX ,dY =simdata$dY ,individual = T)
 ```

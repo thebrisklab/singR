@@ -1,7 +1,7 @@
 ---
 title: "Readme.RMD"
 author: "Liangkang Wang"
-date: "3/15/2022"
+date: "05/23/2023"
 output: 
   md_document:
     variant: markdown_github
@@ -174,11 +174,17 @@ knitr::include_graphics("fig/ex2true.png")
 
 ```
 ### singR function
+
+This is a wrapper function that performs the centering, standardization, initial estimation (applying separate LNGCA, i.e., separate JB, and then matching scores), whitening, and final estimation (using the curvilinear algorithm) in a single function. This is the easiest way to apply sing.
+
 ```{r,eval=FALSE}
 output = singR(dX =simdata$dX ,dY =simdata$dY ,individual = T)
 ```
 
 ### Pipeline of SING method
+
+In this section of the vignett, we provide the detailed steps that are performed in the function *singR()*. This can be useful when customizing the analyses or when working with very large datasets.
+
 ```{r eval=FALSE}
 # Center X and Y
 dX=simdata$dX
