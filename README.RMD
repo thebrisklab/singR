@@ -75,7 +75,7 @@ Sytrue = signchange(Sytrue)
 
 ```
 #### Plot for true X component
-##### This step needs ciftiTools package and workbench, which can be found in <https://github.com/mandymejia/ciftiTools>
+##### This step needs ciftiTools package and connectome workbench, which can be found in <https://github.com/mandymejia/ciftiTools>
 ```{r eval=FALSE}
 library(ciftiTools)
 ciftiTools.setOption("wb_path", "C:/Software/workbench")
