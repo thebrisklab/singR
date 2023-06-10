@@ -56,7 +56,11 @@
 
 singR <- function(dX,dY,n.comp.X=NULL,n.comp.Y=NULL,df=0,rho_extent=c('small','medium','large'),Cplus=TRUE,tol = 1e-10,stand=FALSE,distribution="JB",maxiter=1500,individual=FALSE,whiten = c('sqrtprec','eigenvec','none'),restarts.dbyd=0,restarts.pbyd=20) {
 
-
+  if(is.data.frame(dX)|is.data.frame(dY)){
+    dX=as.matrix(dX)
+    dY=as.matrix(dY)
+    message("Input data frame converted to matrix.")
+  }
   #match.arg(c('small','medium','large'))
   #match.arg(rho_extent)
   whiten=match.arg(arg = NULL,choices = whiten)
