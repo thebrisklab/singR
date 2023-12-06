@@ -7,10 +7,10 @@ Author: Liangkang Wang [aut, cre] (<https://orcid.org/0000-0003-3393-243X>),
   Irina Gaynanova [aut] (<https://orcid.org/0000-0002-4116-0268>),
   Benjamin Risk [aut] (<https://orcid.org/0000-0003-1090-0777>)
 Authors@R: 
-  c(person(given="Liangkang",family= "Wang",role = c("aut","cre"),email="liangkang_wang@brown.com", comment = c(ORCID = "0000-0003-3393-243X")),
+  c(person(given="Liangkang",family= "Wang",role = c("aut","cre"),email="liangkang_wang@brown.edu", comment = c(ORCID = "0000-0003-3393-243X")),
   person(given="Irina",family= "Gaynanova", role = "aut",email="irinagn@umich.edu",comment = c(ORCID = "0000-0002-4116-0268")),
   person(given="Benjamin", family="Risk",role = "aut",email="benjamin.risk@emory.edu", comment = c(ORCID = "0000-0003-1090-0777")))
-Maintainer: Liangkang Wang <liangkang_wang@brown.com>
+Maintainer: Liangkang Wang <liangkang_wang@brown.edu>
 Description: Implementation of SING algorithm to extract joint and individual non-Gaussian components from two datasets. SING uses an objective function that maximizes the skewness and kurtosis of latent components with a penalty to enhance the similarity between subject scores. Unlike other existing methods, SING does not use PCA for dimension reduction, but rather uses non-Gaussianity, which can improve feature extraction. Benjamin B.Risk, Irina Gaynanova (2021) <doi:10.1214/21-AOAS1466>.  
 License: MIT + file LICENSE
 Encoding: UTF-8
